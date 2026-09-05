@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-fixed-variant":"#00504c","tertiary":"#a4000e","on-error":"#ffffff","on-secondary":"#ffffff","inverse-surface":"#213145","on-error-container":"#93000a","surface-container":"#e5eeff","tertiary-fixed":"#ffdad6","tertiary-fixed-dim":"#ffb4ab","surface-container-highest":"#d3e4fe","surface-variant":"#d3e4fe","outline":"#6e7978","surface-container-high":"#dce9ff","secondary":"#006b5f","surface-container-lowest":"#ffffff","on-background":"#0b1c30","outline-variant":"#bdc9c7","on-primary-fixed":"#00201e","primary":"#005a56","on-tertiary-container":"#ffe1dd","secondary-fixed-dim":"#4fdbc8","on-primary":"#ffffff","on-primary-container":"#a2f7f0","on-tertiary-fixed":"#410002","on-secondary-container":"#006f64","on-secondary-fixed":"#00201c","on-surface-variant":"#3e4948","inverse-on-surface":"#eaf1ff","error-container":"#ffdad6","primary-container":"#0d746f","on-tertiary":"#ffffff","surface-dim":"#cbdbf5","inverse-primary":"#80d5cf","on-tertiary-fixed-variant":"#93000b","surface-container-low":"#eff4ff","secondary-container":"#6df5e1","on-secondary-fixed-variant":"#005048","background":"#f8f9ff","surface-tint":"#006a65","primary-fixed":"#9df1eb","surface-bright":"#f8f9ff","on-surface":"#0b1c30","surface":"#f8f9ff","secondary-fixed":"#71f8e4","error":"#ba1a1a","primary-fixed-dim":"#80d5cf","tertiary-container":"#cd181d"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-2xl":"2rem","pane-gutter":"0.75rem","space-lg":"1rem","table-cell-y":"0.5rem","space-sm":"0.5rem","space-md":"0.75rem","table-cell-x":"0.75rem","space-xl":"1.5rem","space-xs":"0.25rem","space-2xs":"0.125rem"},fontFamily:{"body-lg":["Inter"],"body-md":["Inter"],"headline-md":["Inter"],"headline-sm":["Inter"],"code-xs":["JetBrains Mono"],"body-sm":["Inter"],"code-sm":["JetBrains Mono"],"label-sm":["Inter"],"data-metric":["Inter"],"display-lg":["Inter"],"headline-lg":["Inter"],"label-md":["Inter"]},fontSize:{"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["16px",{lineHeight:"24px",letterSpacing:"-0.005em",fontWeight:"600"}],"code-xs":["10px",{lineHeight:"14px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"code-sm":["11px",{lineHeight:"16px",fontWeight:"500"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.03em",fontWeight:"600"}],"data-metric":["18px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"700"}],"display-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-24 w-full px-pane-gutter flex flex-col justify-between border-b border-surface-container-high"><div class="flex items-center justify-between h-14"><div class="flex items-center gap-space-md"><img alt="AuraHealth ABDM Clinical Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XMzRY4NUBOBWKxpzNvge0-JRBhMmuls_vW54hLGpfcq48V8mZXq6kh4WsGTwbiWXPqX2eNL8j5tGMCQwsdw_SjJJXqUqTo7yIr3CDCP35GExANItk6gs0Xrg-164e7qcUTBc-PC3dZKrkwCoMcwC2dvgtC0-mptenZmdd3xuNmMxOO0Bci336ALkCGzTQHnPZcNBVTAMd-KuWeLOWrYLIeqP2Fyvu8kzzDgoC_GiHkxze7JLepbkdgoA"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">AuraHealth Workstation</span><span class="font-code-xs text-code-xs bg-secondary-container text-on-secondary-container px-space-xs py-space-2xs rounded">ABDM M3 Certified Gateway</span></div><div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm"><span class="material-symbols-outlined text-sm text-secondary">location_on</span><span>Apollo Spectra OPD - Cardiology &amp; Medicine (Room 204)</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-space-2xs rounded-xl" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="opd-queue-and-triage" href="#">OPD Queue &amp; Triage</a><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="pre-consult-summary" href="#">Pre-Consult Summary</a><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg" data-path="active-consultation" href="#">Active Consultation</a><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="fhir-closure-and-dispatch" href="#">FHIR Closure &amp; Dispatch</a></nav><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-xl"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span><span class="font-label-sm text-label-sm text-on-surface">AI Scribe: Active</span></div><button class="p-space-xs rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface" title="Emergency Alerts" type="button"><span class="material-symbols-outlined text-xl text-tertiary">notifications_active</span></button><button class="bg-tertiary hover:bg-tertiary-container text-on-tertiary font-label-sm text-label-sm px-space-sm py-space-xs rounded-lg transition-colors flex items-center gap-space-2xs shadow-sm" type="button"><span class="material-symbols-outlined text-sm">e911_emergency</span><span>Emergency Triage Call</span></button><div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-container-high"><div class="text-right hidden 2xl:block"><div class="font-label-md text-label-md text-on-surface">Dr. Rajiv Sharma, MD, DM</div><div class="font-code-xs text-code-xs text-on-surface-variant">Cardiology • Reg #MH-28491</div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8T2A8SyL9SEusHfJOIdQy00_lwVeRntRm65P391qbwtM-olmw1PNTf4EgaOOiE4AeImWDyw1a-pDm_qm5cc-v0k54NZtlzxbdbgN8YQOLrbIOqV5ZwbjrUmKjW55oycrYOfE5GKzTuUUypOtmg014NICVDtC9OaWeJZhipGEcxUc-8Y0cIdH-PF3WtaB1rO41YA597ArGsop9WutkqsSeizO1W8iZ6ULRlICi2quAEQqZ-5OxixfA"/></div></div></div><div class="h-10 flex items-center justify-between border-t border-surface-container px-space-xs bg-surface-container-low/60"><div class="flex items-center gap-space-lg font-body-sm text-body-sm text-on-surface-variant"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-sm text-primary">timer</span><span>Avg Consult Time: <strong class="text-on-surface font-semibold">4.8m</strong></span></div><span class="text-outline-variant">•</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-sm text-secondary">auto_awesome</span><span>AI Intake Accuracy: <strong class="text-on-surface font-semibold">98.4%</strong></span></div><span class="text-outline-variant">•</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-sm text-secondary">check_circle</span><span>Sync: <strong class="text-on-surface font-semibold">All Green (ABDM Gateway)</strong></span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-xs text-code-xs bg-surface-container-high px-space-sm py-space-2xs rounded"><span class="font-semibold text-on-surface">Current: Vikramaditya Patel</span><span class="text-on-surface-variant">| ABHA: 91-4829-1029-4412</span></div><div class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-bold px-space-xs py-space-2xs rounded">14 Waiting • 2 Urgent</div></div></div></div></header><aside class="fixed left-0 top-24 bottom-0 w-64 bg-surface-container-low z-40 flex flex-col justify-between border-r border-surface-container-high"><div class="flex flex-col gap-space-sm p-space-sm"><div class="px-space-sm py-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Clinical Workflow</span></div><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="opd-queue-and-triage" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">format_list_bulleted</span><span class="font-body-md text-body-md">Queue &amp; Triage</span></div><span class="bg-tertiary text-on-tertiary font-code-xs text-code-xs px-space-xs rounded-full">2</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="pre-consult-summary" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">clinical_notes</span><span class="font-body-md text-body-md">Pre-Consult Synthesizer</span></div><span class="material-symbols-outlined text-sm text-secondary">verified</span></a><a aria-current="page" class="flex items-center justify-between px-space-sm py-space-sm transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg" data-path="active-consultation" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">edit_document</span><span class="font-body-md text-body-md">Active Consultation</span></div><span class="material-symbols-outlined text-sm text-primary">mic</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="fhir-closure-and-dispatch" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">inventory_2</span><span class="font-body-md text-body-md">FHIR &amp; Dispatch</span></div><span class="material-symbols-outlined text-sm text-outline">sync</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="diagnostic-investigations" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">biotech</span><span class="font-body-md text-body-md">Labs &amp; Diagnostics</span></div></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="abdm-consent-manager" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">security</span><span class="font-body-md text-body-md">ABDM Consents</span></div></a></nav></div><div class="p-space-sm border-t border-surface-container-high bg-surface-container"><div class="flex items-center justify-between text-on-surface-variant font-code-xs text-code-xs mb-space-xs"><span>FHIR v4.0.1</span><span class="text-secondary font-semibold">Connected</span></div><div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden"><div class="bg-primary h-full rounded-full w-full"></div></div></div></aside><div class="pl-64"><main class="w-full pt-24 bg-surface min-h-screen px-pane-gutter py-space-md"><div class="flex flex-col w-full gap-space-md">
+<!-- PATIENT STICKY CONTEXT BAR -->
+<section class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col xl:flex-row xl:items-center justify-between gap-space-md relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary"></div>
+<div class="flex items-center gap-space-md pl-space-xs">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="Clinical close-up portrait of Vikramaditya Patel, a 54-year-old South Asian male patient seated in an OPD triage clinic, wearing a light teal examination gown. Calm expression, realistic soft clinical ambient lighting, sharp focus on facial features with neutral hospital backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYNCxBRaBUEGpst9k1jOrMNj2f3-3jj40Tp7zfRUhLS6JBYJn_OvMkKKJTHelX20PpifwOZfwQM27dzyxJVC81K5ccF3XeDgjEt5l00k29iwIFNEOHzz9eTD99rezRPcYDJRZN1o76dlIOPqjF4ZHCT1Nyd499aqMarRx2LJOl0H6mXn-EOAATllWx9w6T6tGXXoBDjgIUXF5zHatu4m3EVk209JybXtFmCDUVhgLrEt6MPF59ogcP"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full border-2 border-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center flex-wrap gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Vikramaditya Patel</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">54M • OPD-2024-8819</span>
+<div class="flex items-center gap-space-2xs bg-secondary-container/40 text-on-secondary-fixed-variant px-space-xs py-space-2xs rounded">
+<span class="material-symbols-outlined text-sm text-secondary">verified_user</span>
+<span class="font-code-xs text-code-xs font-semibold">vikram.patel@abdm</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm mt-space-2xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-bold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-sm">warning</span> Suspected ACS (NSTEMI / Unstable Angina)
+          </span>
+<span class="text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Arrival: 14:18 IST (T+32m in Consultation)</span>
+</div>
+</div>
+</div>
+<!-- Right Side Vitals Strip & Allergen Alert -->
+<div class="flex items-center flex-wrap gap-space-sm pl-space-xs xl:pl-0">
+<div class="flex items-center gap-space-xs bg-error-container text-on-error-container px-space-sm py-space-xs rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-base">emergency</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-bold tracking-wider uppercase">ALLERGY ALERT</span>
+<span class="font-body-sm text-body-sm font-semibold">Penicillin (Severe Urticaria / Anaphylaxis Risk)</span>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-space-xs bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex flex-col px-space-xs">
+<span class="font-code-xs text-code-xs text-on-surface-variant">BP</span>
+<span class="font-data-metric text-data-metric text-tertiary">152/96</span>
+</div>
+<div class="flex flex-col px-space-xs">
+<span class="font-code-xs text-code-xs text-on-surface-variant">HR</span>
+<span class="font-data-metric text-data-metric text-primary">102 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">bpm</span></span>
+</div>
+<div class="flex flex-col px-space-xs">
+<span class="font-code-xs text-code-xs text-on-surface-variant">SpO2</span>
+<span class="font-data-metric text-data-metric text-secondary">96%</span>
+</div>
+<div class="flex flex-col px-space-xs">
+<span class="font-code-xs text-code-xs text-on-surface-variant">GRBS</span>
+<span class="font-data-metric text-data-metric text-on-surface">174 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">mg%</span></span>
+</div>
+</div>
+</div>
+</section>
+<!-- THREE-PANEL CONSULTATION WORKSPACE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md w-full items-start">
+<!-- LEFT COLUMN: Clinical Findings & Physical Exam Checklist (Span 3) -->
+<section class="lg:col-span-3 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">stethoscope</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Targeted Exam</h2>
+</div>
+<button class="text-secondary hover:text-primary font-label-sm text-label-sm flex items-center gap-space-2xs transition-colors" type="button">
+<span class="material-symbols-outlined text-sm">restart_alt</span> Reset
+          </button>
+</div>
+<!-- Quick Observation Checklist -->
+<div class="flex flex-col gap-space-sm">
+<!-- General -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface">General Appearance</span>
+<span class="font-code-xs text-code-xs bg-tertiary-fixed text-on-tertiary-fixed font-semibold px-space-xs py-space-2xs rounded">Distressed</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Diaphoretic, pale conjunctiva, anxious posture, seated upright.</p>
+</div>
+<!-- Cardiovascular System -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface">Cardiovascular (CVS)</span>
+<span class="font-code-xs text-code-xs bg-tertiary-fixed-dim text-on-tertiary-fixed-variant font-semibold px-space-xs py-space-2xs rounded">S4 Gallop</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">S1 &amp; S2 audible; S4 present at apex. No systolic murmurs. JVP: normal (&lt;3 cm).</p>
+<div class="flex gap-space-2xs mt-space-2xs">
+<span class="font-code-xs text-code-xs px-space-xs py-space-2xs rounded bg-surface-container text-on-surface">Apex beat 5th ICS</span>
+<span class="font-code-xs text-code-xs px-space-xs py-space-2xs rounded bg-surface-container text-on-surface">No friction rub</span>
+</div>
+</div>
+<!-- Respiratory System -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface">Respiratory (RS)</span>
+<span class="font-code-xs text-code-xs bg-secondary-container text-on-secondary-container font-semibold px-space-xs py-space-2xs rounded">Clear</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bilateral vesicular breath sounds. No basal crepitations or wheezes audible.</p>
+</div>
+<!-- Abdomen -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface">Abdomen</span>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface-variant font-semibold px-space-xs py-space-2xs rounded">Benign</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Soft, non-tender, active bowel sounds, no hepatosplenomegaly.</p>
+</div>
+</div>
+<!-- Quick Tap Clinical Confirmation Tags -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Clinical Differentiation Badges</span>
+<div class="flex flex-col gap-space-2xs">
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container text-on-surface p-space-xs rounded-lg flex items-center justify-between transition-colors" type="button">
+<span class="font-body-sm text-body-sm">Chest wall tenderness on palpation</span>
+<span class="font-code-xs text-code-xs font-bold px-space-xs py-space-2xs rounded bg-surface-container-highest text-primary">NEGATIVE</span>
+</button>
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container text-on-surface p-space-xs rounded-lg flex items-center justify-between transition-colors" type="button">
+<span class="font-body-sm text-body-sm">Bilateral pedal edema</span>
+<span class="font-code-xs text-code-xs font-bold px-space-xs py-space-2xs rounded bg-surface-container-highest text-on-surface">ABSENT</span>
+</button>
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container text-on-surface p-space-xs rounded-lg flex items-center justify-between transition-colors" type="button">
+<span class="font-body-sm text-body-sm">Peripheral pulses</span>
+<span class="font-code-xs text-code-xs font-bold px-space-xs py-space-2xs rounded bg-surface-container-highest text-tertiary">RADIAL 102 REG</span>
+</button>
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container text-on-surface p-space-xs rounded-lg flex items-center justify-between transition-colors" type="button">
+<span class="font-body-sm text-body-sm">Cold peripheries / Pallor</span>
+<span class="font-code-xs text-code-xs font-bold px-space-xs py-space-2xs rounded bg-surface-container-highest text-tertiary">MILD PRESENT</span>
+</button>
+</div>
+</div>
+<!-- Bedside Snapshot Image Card -->
+<div class="relative rounded-lg overflow-hidden mt-space-xs shadow-inner">
+<img class="w-full h-28 object-cover" data-alt="High resolution macro medical monitor photograph showing a standard clinical 12-lead ECG rhythm strip displaying ST depressions in leads V4-V6 and inverted T waves, mounted in modern OPD lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdAIZT61pO1-mVlKK7tyfYBREuqefRk6i1q727nCHI00Zgzz8Bs0YdRXLRzahECFCLrW3y9XRdLXMkO3sdo5dQ7e3gtdnL0oi2hxvyLzCU7ko16T3ccUJ0fSw_oJBxVEK8JMssgyJbhQiuLI7_IB_agD5vbGA_fGq-n39nmvA9MyXPOmoxULaQt4pivj1L7lZbeW7NhlZ_t5eW0lMs-SfsBD1XKslMyieaWNRtAq_nPOWcyrZO5X8D"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent flex items-end p-space-xs">
+<span class="font-code-xs text-code-xs text-inverse-on-surface flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-sm text-secondary-container">show_chart</span> Lead V4-V6 ST Depression: 1.5mm
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- CENTER COLUMN: AI-Drafted Clinical Note & Diagnosis Editor (Span 5) -->
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Header & AI Copilot Banner -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">clinical_notes</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">SOAP Encounter Note</h2>
+</div>
+<div class="flex items-center gap-space-xs bg-secondary-container text-on-secondary-container px-space-xs py-space-2xs rounded-full">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span class="font-label-sm text-label-sm font-semibold">AI Synthesizer v4.2</span>
+</div>
+</div>
+<!-- Clinical Guidelines Copilot Callout -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">lightbulb</span>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm font-bold text-primary">ACC / AHA &amp; ESC Clinical Recommendation</span>
+<p class="font-body-sm text-body-sm text-on-surface">High-risk unstable angina with ongoing retrosternal pain: Immediate Dual Antiplatelet Therapy (DAPT - Aspirin 300mg + Clopidogrel 300mg) and Atorvastatin 80mg advised. Avoid Penicillin derivatives.</p>
+</div>
+</div>
+<!-- SOAP Accordion Sections -->
+<div class="flex flex-col gap-space-sm">
+<!-- Subjective -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-space-2xs">
+<span>[S] Subjective Intake</span>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface-variant px-space-xs py-space-2xs rounded">SOCRATES Pre-filled</span>
+</label>
+<button class="text-primary hover:underline font-code-xs text-code-xs" type="button">Regenerate</button>
+</div>
+<textarea class="w-full bg-surface-container-low rounded-lg p-space-sm font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container transition-colors resize-none" rows="3">Patient reports acute retrosternal squeezing chest pain radiating to left jaw &amp; shoulder, ongoing for 45 minutes, rated 8/10. Associated with cold diaphoresis and mild dyspnea. Pain onset while at rest in office. Known diabetic and hypertensive for 6 years; denies smoking or recreational stimulant use.</textarea>
+</div>
+<!-- Objective -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-space-2xs">
+<span>[O] Objective Exam &amp; Vitals</span>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface-variant px-space-xs py-space-2xs rounded">Live Telemetry Linked</span>
+</label>
+<span class="font-code-xs text-code-xs text-secondary">Verified Sync</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm font-body-sm text-body-sm text-on-surface flex flex-col gap-space-xs">
+<div class="font-code-xs text-code-xs text-on-surface-variant">AUTO-POPULATED VITALS &amp; PHYSICAL EXAM:</div>
+<p>BP: 152/96 mmHg (Right Arm Seated), Pulse: 102 bpm (Regular, peripheral volume full). SpO2: 96% on room air. Temp: 98.4°F. Chest: S4 audible at apex, breath sounds clear bilaterally without crackles. No chest wall palpation tenderness. ECG: 1.5mm ST horizontal depression in V4-V6.</p>
+</div>
+</div>
+<!-- Assessment / Diagnoses (Coded in SNOMED & ICD-10) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-space-2xs">
+<span>[A] Assessment &amp; Standard Coding</span>
+</label>
+<button class="text-primary font-label-sm text-label-sm hover:underline flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-sm">add</span> Add Diagnosis
+              </button>
+</div>
+<!-- Coded Items -->
+<div class="flex flex-col gap-space-2xs">
+<!-- Primary Diagnosis -->
+<div class="bg-tertiary-fixed/40 p-space-sm rounded-lg flex items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-base mt-0.5">flag</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface">Acute Coronary Syndrome (Unstable Angina)</span>
+<span class="font-code-xs text-code-xs bg-tertiary text-on-tertiary font-bold px-space-xs rounded">PRIMARY</span>
+</div>
+<div class="flex items-center gap-space-sm font-code-xs text-code-xs text-on-surface-variant mt-space-2xs">
+<span>ICD-10: <strong>I20.0</strong></span>
+<span>•</span>
+<span>SNOMED CT: <strong>22298006</strong></span>
+<span>•</span>
+<span class="text-tertiary font-semibold">High Priority</span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-tertiary transition-colors" type="button"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+<!-- Secondary Diagnosis 1 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-base mt-0.5">adjust</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface">Type 2 Diabetes Mellitus without complications</span>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface-variant px-space-xs rounded">CHRONIC</span>
+</div>
+<div class="flex items-center gap-space-sm font-code-xs text-code-xs text-on-surface-variant mt-space-2xs">
+<span>ICD-10: <strong>E11.9</strong></span>
+<span>•</span>
+<span>SNOMED CT: <strong>44054006</strong></span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-tertiary transition-colors" type="button"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+<!-- Secondary Diagnosis 2 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-base mt-0.5">adjust</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface">Essential (Primary) Hypertension</span>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface-variant px-space-xs rounded">CHRONIC</span>
+</div>
+<div class="flex items-center gap-space-sm font-code-xs text-code-xs text-on-surface-variant mt-space-2xs">
+<span>ICD-10: <strong>I10</strong></span>
+<span>•</span>
+<span>SNOMED CT: <strong>59621000</strong></span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-tertiary transition-colors" type="button"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+</div>
+<!-- Plan Preview -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface">[P] Clinical Plan &amp; Disposition</label>
+<div class="bg-surface-container-low rounded-lg p-space-sm font-body-sm text-body-sm text-on-surface">
+<ul class="list-disc list-inside space-y-1 text-on-surface">
+<li>Load antiplatelet therapy STAT in OPD Room 204.</li>
+<li>Serial Troponin-I testing at 0h and 3h post presentation.</li>
+<li>Emergency cardiology bed reserve for immediate Coronary Angiogram if pain recurs or troponin positive.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Digital Prescription & Order Entry / CPOE (Span 4) -->
+<section class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- CPOE Medications Builder -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">prescriptions</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">CPOE Prescriptions</h2>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm px-space-sm py-space-xs rounded-lg transition-colors flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-sm">add</span> Fast Add Rx
+          </button>
+</div>
+<!-- Medication Item List -->
+<div class="flex flex-col gap-space-sm">
+<!-- Rx 1: Aspirin -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface">Tab. Ecosprin 300 mg</span>
+<span class="font-code-xs text-code-xs bg-tertiary-fixed text-on-tertiary-fixed font-bold px-space-xs py-space-2xs rounded">STAT CHEWABLE</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Aspirin • Oral • Immediate Dose</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+</div>
+<div class="flex items-center justify-between font-code-xs text-code-xs text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">
+<span>Qty: 1 Tab</span>
+<span>Generic ID: IND-GEN-ASP-300</span>
+</div>
+</div>
+<!-- Rx 2: Clopidogrel -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface">Tab. Clavix 300 mg</span>
+<span class="font-code-xs text-code-xs bg-tertiary-fixed text-on-tertiary-fixed font-bold px-space-xs py-space-2xs rounded">STAT</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Clopidogrel • Oral Loading Dose</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+</div>
+<div class="flex items-center justify-between font-code-xs text-code-xs text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">
+<span>Qty: 4 x 75mg Tabs</span>
+<span>Generic ID: IND-GEN-CLOP-300</span>
+</div>
+</div>
+<!-- Rx 3: Atorvastatin -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface">Tab. Atorva 80 mg</span>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface px-space-xs py-space-2xs rounded">1-0-0-1 (Night)</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Atorvastatin • Oral • Post Dinner • 30 Days</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+</div>
+<div class="flex items-center justify-between font-code-xs text-code-xs text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">
+<span>Qty: 30 Tablets</span>
+<span>Rep: 1 Refill Allowed</span>
+</div>
+</div>
+<!-- Rx 4: Sorbitrate -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-on-surface">Tab. Sorbitrate 5 mg</span>
+<span class="font-code-xs text-code-xs bg-secondary-fixed text-on-secondary-fixed font-bold px-space-xs py-space-2xs rounded">S.L. PRN</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Isosorbide Dinitrate • Sublingual for pain</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+</div>
+<div class="flex items-center justify-between font-code-xs text-code-xs text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">
+<span>Instructions: Place under tongue if pain recurs</span>
+</div>
+</div>
+</div>
+<!-- Immediate Diagnostics Ordered -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Bedside Orders &amp; Diagnostics</span>
+<span class="font-code-xs text-code-xs text-tertiary font-bold">STAT PRIORITY</span>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-base">monitor_heart</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">12-Lead ECG Repeat</span>
+</div>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Room 204 Bedside</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-base">biotech</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">Serial High-Sens Troponin-I</span>
+</div>
+<span class="font-code-xs text-code-xs text-on-surface-variant">T0 &amp; T3 hrs</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-base">radiology</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">Bedside 2D Echo (LVEF / RWMA)</span>
+</div>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Cardio Tech En Route</span>
+</div>
+</div>
+</div>
+<!-- Patient Advice Multilingual Preview -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-sm text-secondary">translate</span> Multilingual Patient Advice
+            </span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">EN + HI</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container-lowest p-space-xs rounded border border-surface-container">
+            "Strict bed rest. Avoid any physical exertion. Immediately report recurrence of chest pressure or perspiration. / किसी भी प्रकार का शारीरिक श्रम न करें। सीने में भारीपन या पसीना आने पर तुरंत सूचित करें।"
+          </div>
+</div>
+</div>
+<!-- Quick ABDM Token Verification & Diagnostic Imaging Preview -->
+<div class="bg-surface-container-lowest rounded-xl p-space-sm shadow-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="Clear modern medical digital tablet displaying national health authority security QR code and ABDM consent token authentication checkmark." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQNAJFSjWB-EHIz6vh5Qf7-x8kZ7yBuq6q7wslwLNcs-sqDBFmObgcYuQxe8O7juiH89uZYFVHaCYhWDlZG_12GEuDRRH-t2D358k9TziXTrNSE89AdlOkuBiZfGhuDEm63FoOz3c_I_qUt_H5UIh437_dG0vPLzxPbLepdi_Whf-np1ds2PU01Vy6iM9bXFmcEuAxbHJbIc5VAxrWgKW35bNUsN9fB2p1488O3bSGOYZg34ghW4HD"/>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">ABDM Consent: Active</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Artifact: HIU-DEL-2024-99120</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs bg-secondary-container text-on-secondary-container px-space-xs py-space-2xs rounded font-bold">M3 Ready</span>
+</div>
+</section>
+</div>
+<!-- BOTTOM WORKSPACE ACTION BAR -->
+<footer class="w-full bg-surface-container-lowest rounded-xl shadow-md p-space-sm flex flex-col md:flex-row items-center justify-between gap-space-sm">
+<!-- Voice Dictation Indicator -->
+<div class="flex items-center gap-space-sm">
+<button class="bg-tertiary-fixed text-on-tertiary-fixed hover:bg-tertiary-fixed-dim px-space-sm py-space-xs rounded-lg flex items-center gap-space-xs transition-colors shadow-sm" id="dictationToggle" type="button">
+<span class="material-symbols-outlined text-base animate-pulse">mic</span>
+<span class="font-label-md text-label-md font-bold">Clinical Scribe Active</span>
+</button>
+<!-- SVG Soundwaves visualizer -->
+<div class="flex items-center gap-1 h-6 px-space-xs bg-surface-container-low rounded">
+<span class="w-1 bg-primary rounded-full animate-bounce h-2" style="animation-delay: 0.1s"></span>
+<span class="w-1 bg-primary rounded-full animate-bounce h-5" style="animation-delay: 0.2s"></span>
+<span class="w-1 bg-primary rounded-full animate-bounce h-3" style="animation-delay: 0.3s"></span>
+<span class="w-1 bg-primary rounded-full animate-bounce h-6" style="animation-delay: 0.4s"></span>
+<span class="w-1 bg-primary rounded-full animate-bounce h-4" style="animation-delay: 0.5s"></span>
+<span class="w-1 bg-primary rounded-full animate-bounce h-2" style="animation-delay: 0.25s"></span>
+</div>
+<span class="hidden xl:inline font-code-xs text-code-xs text-on-surface-variant">Indian English &amp; Hindi Dual-Stream Auto-Transcribe</span>
+</div>
+<!-- Final Buttons -->
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end">
+<button class="bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md px-space-md py-space-sm rounded-lg transition-colors flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-base">save</span>
+<span>Save Draft</span>
+</button>
+<button class="bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md px-space-md py-space-sm rounded-lg transition-colors flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-base">print</span>
+<span>Prescription Print</span>
+</button>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-colors flex items-center gap-space-xs shadow-md" type="button">
+<span class="material-symbols-outlined text-base">send_and_archive</span>
+<span>Proceed to ABDM / FHIR Sign-off &amp; Dispatch</span>
+</button>
+</div>
+</footer>
+<!-- Micro-interaction JS -->
+<script>
+    (function() {
+      const toggleBtn = document.getElementById('dictationToggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          const micIcon = this.querySelector('.material-symbols-outlined');
+          const label = this.querySelector('span:last-child');
+          if (micIcon.classList.contains('animate-pulse')) {
+            micIcon.classList.remove('animate-pulse');
+            micIcon.textContent = 'mic_off';
+            label.textContent = 'Scribe Paused';
+            this.classList.remove('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+            this.classList.add('bg-surface-container', 'text-on-surface-variant');
+          } else {
+            micIcon.classList.add('animate-pulse');
+            micIcon.textContent = 'mic';
+            label.textContent = 'Clinical Scribe Active';
+            this.classList.remove('bg-surface-container', 'text-on-surface-variant');
+            this.classList.add('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+          }
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

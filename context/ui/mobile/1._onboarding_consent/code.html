@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8fafb;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-tint": "#1e667f", "on-error-container": "#93000a", "tertiary": "#761d06", "on-tertiary-container": "#ffb9a8", "on-error": "#ffffff", "surface-container-lowest": "#ffffff", "surface-container": "#eceeef", "surface-variant": "#e1e3e4", "on-secondary": "#ffffff", "surface-container-high": "#e6e8e9", "surface": "#f8fafb", "inverse-on-surface": "#eff1f2", "primary": "#004357", "on-tertiary-fixed": "#3c0700", "surface-dim": "#d8dadb", "surface-container-low": "#f2f4f5", "error": "#ba1a1a", "secondary-container": "#8cf5e4", "secondary-fixed-dim": "#6fd8c8", "on-primary-fixed": "#001f2a", "outline-variant": "#bfc8cd", "tertiary-fixed-dim": "#ffb4a2", "on-surface-variant": "#40484c", "on-tertiary": "#ffffff", "on-surface": "#191c1d", "on-primary": "#ffffff", "background": "#f8fafb", "secondary": "#006a60", "inverse-primary": "#90cfec", "error-container": "#ffdad6", "tertiary-fixed": "#ffdad2", "primary-container": "#0d5c75", "on-primary-fixed-variant": "#004d64", "primary-fixed": "#bde9ff", "outline": "#70787d", "secondary-fixed": "#8cf5e4", "on-secondary-container": "#007166", "on-primary-container": "#93d3ef", "surface-bright": "#f8fafb", "inverse-surface": "#2e3132", "tertiary-container": "#96341b", "on-background": "#191c1d", "on-secondary-fixed-variant": "#005048", "on-secondary-fixed": "#00201c", "primary-fixed-dim": "#90cfec", "surface-container-highest": "#e1e3e4", "on-tertiary-fixed-variant": "#83260e" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-lg": "24px", "screen-edge-tablet": "24px", "screen-edge-mobile": "16px", "touch-min": "48px", "gutter-md": "16px", "card-padding-default": "16px", "touch-audio": "56px", "card-padding-compact": "12px", "gutter-xl": "32px", "gutter-xs": "4px", "gutter-sm": "8px", "card-padding-relaxed": "20px" }, fontFamily: { "bilingual-label-primary": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "button-text": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "display-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"], "bilingual-label-secondary": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "audio-caption": ["Inter"] }, fontSize: { "bilingual-label-primary": ["15px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "button-text": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "bilingual-label-secondary": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "audio-caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen pt-safe pb-safe"><main class="flex-1 flex flex-col relative w-full bg-surface"><div class="flex flex-col w-full">
+<!-- Accessibility Micro-Bar -->
+<aside aria-label="Accessibility settings" class="w-full bg-surface-container-low px-4 py-2 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-primary text-base select-none">accessibility_new</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant uppercase tracking-wider">Assistive Tools • सुगम्यता</span>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Toggle larger typography" class="min-w-[48px] min-h-[48px] px-2.5 py-1 rounded-full bg-surface-container-highest flex items-center justify-center gap-1 text-on-surface hover:bg-surface-variant active:scale-95 transition-all focus:outline-none" id="font-scaler-btn" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-sm">format_size</span>
+<span class="font-bilingual-label-secondary text-bilingual-label-secondary font-semibold">A+</span>
+</button>
+<button aria-label="Read screen aloud in current language" class="min-w-[48px] min-h-[48px] px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all focus:outline-none" id="read-aloud-btn" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+<span class="font-audio-caption text-audio-caption">सुनें (Audio)</span>
+</button>
+</div>
+</aside>
+<!-- Content Stream -->
+<div class="px-4 py-3 flex flex-col gap-4 max-w-xl mx-auto w-full">
+<!-- Verified Trust Badge & Header Title -->
+<header class="flex flex-col gap-2 pt-1">
+<div class="inline-flex items-center gap-2 self-start bg-secondary-container/60 text-secondary px-3 py-1.5 rounded-full shadow-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-bilingual-label-secondary text-bilingual-label-secondary font-semibold tracking-wide uppercase">ABDM Certified • राष्ट्रीय स्वास्थ्य मिशन</span>
+</div>
+<div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tight">Swasthya AI Intake</h1>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant mt-0.5">स्वास्थ्य मित्र पंजीकरण एवं सहमति</p>
+</div>
+</header>
+<!-- Visual Anchor: Clinic Care Intake Context Banner -->
+<figure class="relative w-full rounded-2xl overflow-hidden shadow-sm bg-surface-container m-0">
+<img class="w-full h-32 object-cover" data-alt="A warm, compassionate Indian doctor and intake coordinator in clean modern teal clinical attire greeting a patient warmly in an Ayushman Bharat smart clinic, soft diffused sunlight, reassuring atmosphere with digital tablet in view, hyper-detailed photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARfPilIAco7r3d9bqH5IaHeME4OceXlxlg3UApPtl4KUARR6f1NljUMlBCBvylHKgfi-xQH98ngoYJpc7RlVoDhuJSMsYE4I9OojX2T9MyqZEQX22VWEy5r3yVjsIOFbBQA4B-0S7lDu0omI6Qsc5mF9h0XcuU3lEHVhPqWmKtfUxnFwv8xHSyAsXhKBfc9dcamXnHTtm3KqMpBGDUDkRRYOERbD0ZlJJAEPBXf31MqTGLVgIFJAcL0g"/>
+<figcaption class="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-transparent flex flex-col justify-end p-3">
+<div class="flex items-center gap-1.5 text-on-primary">
+<span aria-hidden="true" class="material-symbols-outlined text-sm">health_and_safety</span>
+<span class="font-bilingual-label-secondary text-bilingual-label-secondary font-medium">Ayushman Bharat Digital Mission (ABHA Connected)</span>
+</div>
+</figcaption>
+</figure>
+<!-- Language Selector Ribbon -->
+<section aria-labelledby="lang-label" class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-primary flex items-center gap-1" id="lang-label">
+<span aria-hidden="true" class="material-symbols-outlined text-base text-primary">translate</span>
+          Select Preferred Language / भाषा चुनें
+        </span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant">Voice prompts adapt</span>
+</div>
+<div aria-label="Language selection" class="flex gap-2 overflow-x-auto pb-1.5 pt-0.5 -mx-4 px-4 scroll-smooth" role="radiogroup">
+<!-- Hindi (Selected) -->
+<button aria-checked="true" class="lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-primary text-on-primary shadow-sm flex items-center gap-1.5 active:scale-95 transition-transform focus:outline-none" role="radio" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-sm font-bold">check</span>
+<div class="flex flex-col items-start leading-tight">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-on-primary">हिन्दी</span>
+<span class="font-audio-caption text-audio-caption text-on-primary-container">Hindi</span>
+</div>
+</button>
+<!-- English -->
+<button aria-checked="false" class="lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform focus:outline-none hover:bg-surface-variant" role="radio" type="button">
+<div class="flex flex-col items-start leading-tight">
+<span class="font-bilingual-label-primary text-bilingual-label-primary">English</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant">Default</span>
+</div>
+</button>
+<!-- Tamil -->
+<button aria-checked="false" class="lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform focus:outline-none hover:bg-surface-variant" role="radio" type="button">
+<div class="flex flex-col items-start leading-tight">
+<span class="font-bilingual-label-primary text-bilingual-label-primary">தமிழ்</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant">Tamil</span>
+</div>
+</button>
+<!-- Telugu -->
+<button aria-checked="false" class="lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform focus:outline-none hover:bg-surface-variant" role="radio" type="button">
+<div class="flex flex-col items-start leading-tight">
+<span class="font-bilingual-label-primary text-bilingual-label-primary">తెలుగు</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant">Telugu</span>
+</div>
+</button>
+<!-- Bengali -->
+<button aria-checked="false" class="lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform focus:outline-none hover:bg-surface-variant" role="radio" type="button">
+<div class="flex flex-col items-start leading-tight">
+<span class="font-bilingual-label-primary text-bilingual-label-primary">বাংলা</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant">Bengali</span>
+</div>
+</button>
+<!-- Marathi -->
+<button aria-checked="false" class="lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform focus:outline-none hover:bg-surface-variant" role="radio" type="button">
+<div class="flex flex-col items-start leading-tight">
+<span class="font-bilingual-label-primary text-bilingual-label-primary">मराठी</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant">Marathi</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Component 2: ABHA / Aadhaar OTP Verification Card -->
+<section aria-labelledby="abha-verify-title" class="bg-surface-container-lowest rounded-2xl p-4 shadow-md flex flex-col gap-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span aria-hidden="true" class="material-symbols-outlined">badge</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary" id="abha-verify-title">ABHA Identity Verification</h2>
+<p class="font-audio-caption text-audio-caption text-on-surface-variant">आयुष्मान भारत स्वास्थ्य खाता (ABHA)</p>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2.5 py-1 rounded-full shadow-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-audio-caption text-audio-caption font-semibold">NDHM Safe</span>
+</div>
+</div>
+<!-- 14-digit ABHA / Aadhaar Number Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface flex items-center justify-between" for="abha-id-input">
+<span>ABHA Number or 12-Digit Aadhaar</span>
+<span class="text-secondary font-normal font-bilingual-label-secondary text-bilingual-label-secondary flex items-center gap-0.5">
+<span aria-hidden="true" class="material-symbols-outlined text-xs">check_circle</span> Auto-linked
+          </span>
+</label>
+<div class="relative flex items-center">
+<input aria-label="ABHA Health ID number" class="w-full min-h-[52px] bg-surface-container-low rounded-xl px-3.5 pr-24 font-headline-sm text-headline-sm text-on-surface tracking-wider focus:outline-none focus:bg-surface-container-high transition-colors" id="abha-id-input" placeholder="XX-XXXX-XXXX-XXXX" type="text" value="91-4523-8890-1234"/>
+<div class="absolute right-2 flex items-center gap-1">
+<button aria-label="Speak ABHA number via voice" class="min-w-[48px] min-h-[48px] flex items-center justify-center text-primary active:scale-95 transition-transform" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-secondary shadow-sm" title="Active validation pass"></span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Linked to: <strong>Rajesh Kumar Sharma • ABHA Address: rajesh@abdm</strong></p>
+</div>
+<!-- OTP Group with Resend Timer -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-3 rounded-xl">
+<div class="flex items-center justify-between">
+<label class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface flex items-center gap-1" for="otp-input-code">
+<span aria-hidden="true" class="material-symbols-outlined text-base text-secondary">sms</span>
+<span>Aadhaar OTP (ओ.टी.पी)</span>
+</label>
+<div class="flex items-center gap-1 text-on-surface-variant font-audio-caption text-audio-caption">
+<span aria-hidden="true" class="material-symbols-outlined text-xs">schedule</span>
+<span id="timer-text">Resend in 00:42</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<input aria-label="6 digit Aadhaar one time password" class="w-full min-h-[50px] bg-surface-container-lowest text-center tracking-widest font-headline-md text-headline-md text-primary rounded-xl focus:outline-none shadow-sm" id="otp-input-code" maxlength="6" type="text" value="738491"/>
+<button class="min-w-[48px] min-h-[50px] px-4 rounded-xl bg-secondary text-on-secondary font-button-text text-button-text flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-transform" id="verify-btn" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-sm">done_all</span>
+<span>Verified</span>
+</button>
+</div>
+</div>
+<!-- Continue as Guest Option -->
+<div class="flex items-center justify-center pt-0.5">
+<button class="min-h-[48px] px-3 py-1 flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-base">person_outline</span>
+<span class="font-bilingual-label-secondary text-bilingual-label-secondary underline underline-offset-4">Do not have ABHA? Continue as Guest Patient (अतिथि पंजीकरण)</span>
+</button>
+</div>
+</section>
+<!-- Component 3: Audio-Guided Consent Card -->
+<section aria-labelledby="consent-title" class="bg-surface-container-lowest rounded-2xl p-4 shadow-md flex flex-col gap-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span aria-hidden="true" class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">record_voice_over</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary" id="consent-title">Informed Consent &amp; Privacy</h2>
+<p class="font-audio-caption text-audio-caption text-on-surface-variant">सहमति पत्रक एवं गोपनीयता</p>
+</div>
+</div>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded-full font-audio-caption text-audio-caption font-semibold">DPDP Act 2023</span>
+</div>
+<!-- Audio Player Bar with Interactive Waveform -->
+<div class="bg-surface-container-low rounded-2xl p-3 flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span aria-hidden="true" class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-bilingual-label-secondary text-bilingual-label-secondary font-semibold text-primary">Listen to Consent (हिन्दी)</span>
+</div>
+<button aria-label="Audio speed toggle" class="min-w-[48px] min-h-[48px] px-2 py-1 rounded-full bg-surface-container-high text-on-surface font-audio-caption text-audio-caption font-bold active:scale-95 transition-transform" id="speed-toggle" type="button">1.0x</button>
+</div>
+<!-- Waveform UI + Player Controls -->
+<div class="flex items-center gap-2.5">
+<button aria-label="Play or pause audio consent explanation" class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md active:scale-95 transition-transform focus:outline-none flex-shrink-0" id="audio-play-btn" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-2xl" id="play-icon" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<!-- Dynamic SVG Waveform graphic -->
+<div class="flex-1 flex flex-col gap-1">
+<div aria-hidden="true" class="h-8 flex items-center gap-0.5 px-1 bg-surface-container-highest rounded-lg overflow-hidden">
+<span class="w-1 h-3 rounded-full bg-primary animate-pulse"></span>
+<span class="w-1 h-5 rounded-full bg-primary"></span>
+<span class="w-1 h-7 rounded-full bg-primary"></span>
+<span class="w-1 h-4 rounded-full bg-primary"></span>
+<span class="w-1 h-6 rounded-full bg-primary"></span>
+<span class="w-1 h-8 rounded-full bg-secondary"></span>
+<span class="w-1 h-5 rounded-full bg-secondary"></span>
+<span class="w-1 h-3 rounded-full bg-secondary"></span>
+<span class="w-1 h-7 rounded-full bg-secondary"></span>
+<span class="w-1 h-6 rounded-full bg-secondary"></span>
+<span class="w-1 h-4 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-7 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-3 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-5 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-2 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-4 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-6 rounded-full bg-outline-variant"></span>
+<span class="w-1 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-audio-caption text-audio-caption px-1">
+<span id="audio-time">0:48</span>
+<span>1:20</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Consent Reassurance Summary -->
+<div class="bg-secondary-container/40 p-3 rounded-xl flex items-start gap-2.5">
+<span aria-hidden="true" class="material-symbols-outlined text-secondary text-lg mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">shield</span>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md text-on-surface font-medium">Your health records will be shared strictly with the attending physician today.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">कोई तृतीय-पक्ष डेटा साझाकरण नहीं। आपका डेटा केवल आज के परामर्श हेतु वैध है।</p>
+</div>
+</div>
+<!-- Granular Consent Checkboxes -->
+<div aria-label="Granular patient consent options" class="flex flex-col gap-2 pt-1" role="group">
+<!-- Checkbox 1 (Mandatory - Checked) -->
+<label class="min-h-[48px] bg-surface-container-low hover:bg-surface-container transition-colors rounded-xl p-3 flex items-center gap-3 cursor-pointer select-none">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest flex items-center justify-center peer-checked:bg-primary text-on-primary transition-colors flex-shrink-0 shadow-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface">Share previous lab &amp; diagnostic records</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">पिछले परीक्षण और लैब रिपोर्ट डॉक्टर के साथ साझा करें</span>
+</div>
+</label>
+<!-- Checkbox 2 (Checked) -->
+<label class="min-h-[48px] bg-surface-container-low hover:bg-surface-container transition-colors rounded-xl p-3 flex items-center gap-3 cursor-pointer select-none">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest flex items-center justify-center peer-checked:bg-primary text-on-primary transition-colors flex-shrink-0 shadow-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface">Allow AI transcription of voice consultation</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">परामर्श के वास्तविक समय एआई प्रतिलेखन की अनुमति दें</span>
+</div>
+</label>
+<!-- Checkbox 3 (Optional - Unchecked) -->
+<label class="min-h-[48px] bg-surface-container-low hover:bg-surface-container transition-colors rounded-xl p-3 flex items-center gap-3 cursor-pointer select-none">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-6 h-6 rounded-md bg-surface-container-highest flex items-center justify-center peer-checked:bg-primary text-on-primary transition-colors flex-shrink-0 shadow-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-sm font-bold hidden peer-checked:block">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface">Allow anonymized data for medical research</span>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] font-semibold px-1.5 py-0.5 rounded">Optional</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">सार्वजनिक स्वास्थ्य अनुसंधान के लिए अनाम डेटा का उपयोग</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Visual Secondary Trust Metric: Safe Data Guarantees -->
+<div class="grid grid-cols-2 gap-3 py-1">
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span aria-hidden="true" class="material-symbols-outlined text-base">enhanced_encryption</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface">256-Bit Encrypted</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant truncate">संपूर्ण सुरक्षा</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary flex-shrink-0">
+<span aria-hidden="true" class="material-symbols-outlined text-base">delete_sweep</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-bilingual-label-primary text-bilingual-label-primary text-on-surface">Revoke Anytime</span>
+<span class="font-audio-caption text-audio-caption text-on-surface-variant truncate">कभी भी हटाएँ</span>
+</div>
+</div>
+</div>
+<!-- Component 5: Large Primary Action Sticky Bottom Frame -->
+<div class="pt-2 pb-6 flex flex-col gap-2">
+<button class="w-full min-h-[56px] py-3.5 px-4 rounded-2xl bg-primary text-on-primary shadow-lg hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-between focus:outline-none" id="start-intake-cta" type="button">
+<div class="flex items-center gap-2 pl-1">
+<span aria-hidden="true" class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col items-start text-left">
+<span class="font-button-text text-button-text font-bold leading-tight">Agree &amp; Start Health Intake</span>
+<span class="font-bilingual-label-secondary text-bilingual-label-secondary text-on-primary-container leading-none mt-0.5">सहमति दें और स्वास्थ्य जांच शुरू करें</span>
+</div>
+</div>
+<span aria-hidden="true" class="material-symbols-outlined text-2xl pr-1">arrow_forward</span>
+</button>
+<p class="font-audio-caption text-audio-caption text-center text-on-surface-variant">
+        By clicking, you authorize the clinic according to ABDM Guidelines 2024.
+      </p>
+</div>
+</div>
+</div>
+<script>
+  // Language Ribbon Interactive Switcher
+  const langButtons = document.querySelectorAll('.lang-pill');
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      langButtons.forEach(b => {
+        b.setAttribute('aria-checked', 'false');
+        b.className = 'lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface active:scale-95 transition-transform focus:outline-none hover:bg-surface-variant';
+        const checkIcon = b.querySelector('.material-symbols-outlined');
+        if (checkIcon) checkIcon.remove();
+        const primaryText = b.querySelector('span:first-child');
+        if (primaryText) primaryText.className = 'font-bilingual-label-primary text-bilingual-label-primary';
+      });
+
+      btn.setAttribute('aria-checked', 'true');
+      btn.className = 'lang-pill flex-shrink-0 min-h-[48px] px-3.5 py-1.5 rounded-full bg-primary text-on-primary shadow-sm flex items-center gap-1.5 active:scale-95 transition-transform focus:outline-none';
+      
+      const icon = document.createElement('span');
+      icon.className = 'material-symbols-outlined text-sm font-bold';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = 'check';
+      btn.prepend(icon);
+    });
+  });
+
+  // Audio Play/Pause Simulation
+  const playBtn = document.getElementById('audio-play-btn');
+  const playIcon = document.getElementById('play-icon');
+  let isPlaying = true;
+
+  if (playBtn && playIcon) {
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      playIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
+    });
+  }
+
+  // Audio Playback Speed Toggle
+  const speedToggle = document.getElementById('speed-toggle');
+  const speeds = ['1.0x', '1.25x', '1.5x'];
+  let currentSpeedIdx = 0;
+  if (speedToggle) {
+    speedToggle.addEventListener('click', () => {
+      currentSpeedIdx = (currentSpeedIdx + 1) % speeds.length;
+      speedToggle.textContent = speeds[currentSpeedIdx];
+    });
+  }
+
+  // Custom Font Scaler Micro-interaction
+  const fontScaler = document.getElementById('font-scaler-btn');
+  let isBigFont = false;
+  if (fontScaler) {
+    fontScaler.addEventListener('click', () => {
+      isBigFont = !isBigFont;
+      document.body.style.zoom = isBigFont ? '1.08' : '1.0';
+      fontScaler.classList.toggle('bg-primary');
+      fontScaler.classList.toggle('text-on-primary');
+    });
+  }
+
+  // Primary Action Button Feedback
+  const startCta = document.getElementById('start-intake-cta');
+  if (startCta) {
+    startCta.addEventListener('click', () => {
+      const originalText = startCta.innerHTML;
+      startCta.innerHTML = `
+        <div class="flex items-center justify-center gap-2 w-full">
+          <span class="material-symbols-outlined animate-spin text-xl">progress_activity</span>
+          <span class="font-button-text text-button-text">Verifying Consent... / पुष्टि जारी है</span>
+        </div>
+      `;
+      setTimeout(() => {
+        startCta.innerHTML = `
+          <div class="flex items-center justify-center gap-2 w-full text-on-primary">
+            <span class="material-symbols-outlined text-xl">done</span>
+            <span class="font-button-text text-button-text">Consent Registered! (सहमति दर्ज)</span>
+          </div>
+        `;
+      }, 900);
+    });
+  }
+</script></main></body></html>

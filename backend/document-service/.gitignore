@@ -1,0 +1,77 @@
+# Planned / future implementation files
+app/ai/providers/medgemma.py
+
+# Future service components
+app/ai/chunking/chunker.py
+app/ai/embeddings/embedder.py
+app/ai/vectorstore/chroma_client.py
+app/db/postgres/crud.py
+app/db/postgres/models.py
+app/db/postgres/session.py
+app/services/fhir_mapper.py
+app/services/ner_service.py
+app/storage/object_store.py
+app/tasks/celery_app.py
+app/tasks/ocr_tasks.py
+
+# Experimental scripts
+scripts/test_medgemma.py
+
+# Generated JSON / LLM outputs
+scripts/*.json
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+
+# Logs
+*.log
+
+# Local data
+data/
+uploads/
+chroma_data/
+
+# Temporary files
+tmp/
+temp/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build/package artifacts
+build/
+dist/
+*.egg-info/
+
+# Model/cache files
+.cache/
+huggingface_cache/
+paddle_cache/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3

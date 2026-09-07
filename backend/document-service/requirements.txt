@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+Pillow
+pypdf
+opencv-python-headless
+numpy
+pytesseract
+PyMuPDF
+google-genai
+groq
+python-multipart
+# transformers
+# accelerate
+# torch
+# sentencepiece

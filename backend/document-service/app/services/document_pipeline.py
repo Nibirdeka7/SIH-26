@@ -3,8 +3,14 @@ import logging
 from dataclasses import dataclass
 from uuid import uuid4
 
+from app.ai.agents.vision_extraction_agent import (
+    VisionAgentError,
+    VisionExtractionAgent,
+    should_escalate_for_handwriting,
+)
 from app.ai.factory import get_ai_provider
 from app.schemas.document import DocumentType, SupportedFileType
+from app.services.confidence_router import OCRConfidenceRouter, OCRRoutingDecision
 from app.services.document_verification import (
     DocumentVerificationService,
 )
@@ -18,6 +24,7 @@ from app.utils.file_validation import (
     ValidatedFile,
     validate_file,
 )
+from app.utils.pdf_rendering import PdfRenderingError, render_pdf_page_to_png
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +50,7 @@ class DocumentPipeline:
     """
     Synchronous document-processing pipeline.
 
-    Pipeline:
+    Pipeline (text path, unchanged):
 
         File
           ↓
@@ -59,13 +66,32 @@ class DocumentPipeline:
           ↓
         Canonical ExtractionResult
 
+    Parallel vision path (new): when OCR confidence is too low, OCR found
+    no usable text, or a handwriting heuristic trips even on an
+    acceptable-looking OCR confidence, the ORIGINAL image/PDF page is
+    routed to VisionExtractionAgent instead of the OCR text. The vision
+    agent's output is a dict in the SAME shape GeminiProvider's text path
+    already produces, so it converges on the identical ExtractionMapper
+    step above - only the road to get there differs. This mirrors the
+    "reliable OCR -> Groq/Gemini text" vs "low confidence -> Vision Agent"
+    routing, with vision decided by OCRConfidenceRouter (plus the
+    handwriting heuristic) rather than always running both paths.
+
     This layer only orchestrates the individual services.
     """
+
+    _VISION_MIME_TYPES: dict[SupportedFileType, str] = {
+        SupportedFileType.JPEG: "image/jpeg",
+        SupportedFileType.PNG: "image/png",
+        SupportedFileType.WEBP: "image/webp",
+    }
 
     def __init__(self) -> None:
         self.ocr_service = OCRService()
         self.verification_service = DocumentVerificationService()
         self.mapper = ExtractionMapper()
+        self.confidence_router = OCRConfidenceRouter()
+        self._vision_agent: VisionExtractionAgent | None = None
 
     async def process(
         self,
@@ -137,6 +163,50 @@ class DocumentPipeline:
             ) from exc
 
         raw_text = (ocr_result.text or "").strip()
+
+        # ==============================================================
+        # 3b. ROUTE: reliable OCR text vs vision escalation
+        # ==============================================================
+        #
+        # This has to happen BEFORE the raw_text/verification gate below:
+        # the original motivating failure was a document whose garbled
+        # OCR text failed keyword-based verification even though the
+        # document itself was a legitimate, readable prescription - the
+        # vision path exists specifically to get a fair shot at exactly
+        # that case, rather than never being reached because the text
+        # path already rejected the document.
+
+        routing_decision = self.confidence_router.route(ocr_result)
+        handwriting_override = should_escalate_for_handwriting(ocr_result)
+
+        use_vision = (
+            routing_decision
+            in (OCRRoutingDecision.USE_VISION, OCRRoutingDecision.NO_TEXT)
+            or handwriting_override
+        )
+
+        if use_vision:
+            logger.info(
+                "Routing to vision extraction path: document_id=%s "
+                "ocr_routing=%s handwriting_heuristic=%s",
+                document_id,
+                routing_decision.value,
+                handwriting_override,
+            )
+
+            return await self._process_with_vision(
+                document_id=document_id,
+                session_id=session_id,
+                validated=validated,
+                file_type=file_type,
+                file_data=file_data,
+                raw_text=raw_text,
+                requested_document_type=requested_document_type,
+            )
+
+        # ==============================================================
+        # TEXT PATH (unchanged below this point)
+        # ==============================================================
 
         if not raw_text:
             raise DocumentPipelineError(
@@ -319,3 +389,163 @@ class DocumentPipeline:
             )
 
         return parsed
+
+    # ==================================================================
+    # VISION PATH
+    # ==================================================================
+
+    def _get_vision_agent(self) -> VisionExtractionAgent:
+        """
+        Constructed lazily and cached: a deployment running with
+        AI_PROVIDER=groq and no GEMINI_API_KEY configured must not fail
+        at DocumentPipeline construction time just because the vision
+        path exists - only when a document actually needs it.
+        """
+        if self._vision_agent is None:
+            try:
+                self._vision_agent = VisionExtractionAgent()
+            except Exception as exc:
+                raise DocumentPipelineError(
+                    "Vision-based extraction is not available "
+                    "(the vision provider is not configured)."
+                ) from exc
+
+        return self._vision_agent
+
+    def _resolve_vision_image(
+        self,
+        *,
+        file_data: bytes,
+        file_type: SupportedFileType,
+    ) -> tuple[bytes, str]:
+        """
+        Returns (image_bytes, mime_type) for the ORIGINAL document -
+        never a preprocessed/thresholded version (see the vision path's
+        "IMAGE QUALITY" requirement).
+
+        NOTE - multi-page PDFs: only page 1 is currently sent to the
+        vision model. The architecture (VisionExtractionAgent.analyze
+        operates on a single image/mime_type pair) supports adding
+        per-page iteration + result merging without a redesign, but that
+        merge policy is intentionally not implemented yet - see the
+        implementation notes for why this was scoped out of this pass.
+        """
+        if file_type == SupportedFileType.PDF:
+            try:
+                image_bytes = render_pdf_page_to_png(file_data, page_number=1)
+            except PdfRenderingError as exc:
+                raise DocumentPipelineError(
+                    "Unable to render the PDF for vision analysis."
+                ) from exc
+
+            return image_bytes, "image/png"
+
+        mime_type = self._VISION_MIME_TYPES.get(file_type)
+
+        if mime_type is None:
+            raise DocumentPipelineError(
+                f"Unsupported file type for vision analysis: {file_type}"
+            )
+
+        return file_data, mime_type
+
+    async def _process_with_vision(
+        self,
+        *,
+        document_id: str,
+        session_id: str,
+        validated: ValidatedFile,
+        file_type: SupportedFileType,
+        file_data: bytes,
+        raw_text: str,
+        requested_document_type: DocumentType | None,
+    ) -> PipelineResult:
+
+        image_bytes, mime_type = self._resolve_vision_image(
+            file_data=file_data,
+            file_type=file_type,
+        )
+
+        vision_agent = self._get_vision_agent()
+
+        hint = (
+            requested_document_type.value
+            if requested_document_type not in (None, DocumentType.UNKNOWN)
+            else None
+        )
+
+        try:
+            agent_result = await vision_agent.analyze(
+                image_data=image_bytes,
+                mime_type=mime_type,
+                document_type_hint=hint,
+            )
+
+        except VisionAgentError as exc:
+            logger.exception(
+                "Vision extraction failed: document_id=%s",
+                document_id,
+            )
+
+            raise DocumentPipelineError(
+                "Medical information extraction failed."
+            ) from exc
+
+        if not agent_result.is_medical_document:
+            raise DocumentPipelineError(
+                agent_result.rejection_reason
+                or "Document could not be identified as a supported "
+                   "medical document."
+            )
+
+        try:
+            detected_document_type = DocumentType(agent_result.document_type)
+        except ValueError:
+            detected_document_type = DocumentType.UNKNOWN
+
+        document_type = self._resolve_document_type(
+            requested_document_type=requested_document_type,
+            detected_document_type=detected_document_type,
+        )
+
+        try:
+            canonical_result = self.mapper.map(
+                gemini_data=agent_result.data,
+                document_id=document_id,
+                session_id=session_id,
+                document_type=document_type.value,
+                raw_text=raw_text or None,
+            )
+
+        except Exception as exc:
+            logger.exception(
+                "Extraction mapping failed (vision path): document_id=%s",
+                document_id,
+            )
+
+            raise DocumentPipelineError(
+                "Extracted medical information could not be normalized."
+            ) from exc
+
+        logger.info(
+            "Document pipeline completed via vision path: document_id=%s "
+            "type=%s attempts=%s needs_review=%s",
+            document_id,
+            document_type.value,
+            agent_result.attempts,
+            agent_result.needs_review,
+        )
+
+        return PipelineResult(
+            document_id=document_id,
+            session_id=session_id,
+            filename=validated.filename,
+            file_type=file_type,
+            content_type=validated.content_type,
+            file_size=validated.size,
+            document_type=document_type,
+            # OCR confidence is not a meaningful signal for the vision
+            # path - it was, after all, why this path was taken.
+            ocr_confidence=None,
+            extraction=canonical_result,
+        )

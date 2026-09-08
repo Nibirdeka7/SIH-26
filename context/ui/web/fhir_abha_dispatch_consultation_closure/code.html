@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-fixed-variant":"#00504c","tertiary":"#a4000e","on-error":"#ffffff","on-secondary":"#ffffff","inverse-surface":"#213145","on-error-container":"#93000a","surface-container":"#e5eeff","tertiary-fixed":"#ffdad6","tertiary-fixed-dim":"#ffb4ab","surface-container-highest":"#d3e4fe","surface-variant":"#d3e4fe","outline":"#6e7978","surface-container-high":"#dce9ff","secondary":"#006b5f","surface-container-lowest":"#ffffff","on-background":"#0b1c30","outline-variant":"#bdc9c7","on-primary-fixed":"#00201e","primary":"#005a56","on-tertiary-container":"#ffe1dd","secondary-fixed-dim":"#4fdbc8","on-primary":"#ffffff","on-primary-container":"#a2f7f0","on-tertiary-fixed":"#410002","on-secondary-container":"#006f64","on-secondary-fixed":"#00201c","on-surface-variant":"#3e4948","inverse-on-surface":"#eaf1ff","error-container":"#ffdad6","primary-container":"#0d746f","on-tertiary":"#ffffff","surface-dim":"#cbdbf5","inverse-primary":"#80d5cf","on-tertiary-fixed-variant":"#93000b","surface-container-low":"#eff4ff","secondary-container":"#6df5e1","on-secondary-fixed-variant":"#005048","background":"#f8f9ff","surface-tint":"#006a65","primary-fixed":"#9df1eb","surface-bright":"#f8f9ff","on-surface":"#0b1c30","surface":"#f8f9ff","secondary-fixed":"#71f8e4","error":"#ba1a1a","primary-fixed-dim":"#80d5cf","tertiary-container":"#cd181d"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-2xl":"2rem","pane-gutter":"0.75rem","space-lg":"1rem","table-cell-y":"0.5rem","space-sm":"0.5rem","space-md":"0.75rem","table-cell-x":"0.75rem","space-xl":"1.5rem","space-xs":"0.25rem","space-2xs":"0.125rem"},fontFamily:{"body-lg":["Inter"],"body-md":["Inter"],"headline-md":["Inter"],"headline-sm":["Inter"],"code-xs":["JetBrains Mono"],"body-sm":["Inter"],"code-sm":["JetBrains Mono"],"label-sm":["Inter"],"data-metric":["Inter"],"display-lg":["Inter"],"headline-lg":["Inter"],"label-md":["Inter"]},fontSize:{"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["16px",{lineHeight:"24px",letterSpacing:"-0.005em",fontWeight:"600"}],"code-xs":["10px",{lineHeight:"14px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"code-sm":["11px",{lineHeight:"16px",fontWeight:"500"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.03em",fontWeight:"600"}],"data-metric":["18px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"700"}],"display-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-24 w-full px-pane-gutter flex flex-col justify-between border-b border-surface-container-high"><div class="flex items-center justify-between h-14"><div class="flex items-center gap-space-md"><img alt="AuraHealth ABDM Clinical Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XMzRY4NUBOBWKxpzNvge0-JRBhMmuls_vW54hLGpfcq48V8mZXq6kh4WsGTwbiWXPqX2eNL8j5tGMCQwsdw_SjJJXqUqTo7yIr3CDCP35GExANItk6gs0Xrg-164e7qcUTBc-PC3dZKrkwCoMcwC2dvgtC0-mptenZmdd3xuNmMxOO0Bci336ALkCGzTQHnPZcNBVTAMd-KuWeLOWrYLIeqP2Fyvu8kzzDgoC_GiHkxze7JLepbkdgoA"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">AuraHealth Workstation</span><span class="font-code-xs text-code-xs bg-secondary-container text-on-secondary-container px-space-xs py-space-2xs rounded">ABDM M3 Certified Gateway</span></div><div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm"><span class="material-symbols-outlined text-sm text-secondary">location_on</span><span>Apollo Spectra OPD - Cardiology &amp; Medicine (Room 204)</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-space-2xs rounded-xl" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="opd-queue-and-triage" href="#">OPD Queue &amp; Triage</a><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="pre-consult-summary" href="#">Pre-Consult Summary</a><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="active-consultation" href="#">Active Consultation</a><a class="text-on-surface-variant hover:text-on-surface px-space-md py-space-xs font-label-md text-label-md transition-colors" data-path="fhir-closure-and-dispatch" href="#">FHIR Closure &amp; Dispatch</a></nav><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-xl"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span><span class="font-label-sm text-label-sm text-on-surface">AI Scribe: Active</span></div><button class="p-space-xs rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface" title="Emergency Alerts" type="button"><span class="material-symbols-outlined text-xl text-tertiary">notifications_active</span></button><button class="bg-tertiary hover:bg-tertiary-container text-on-tertiary font-label-sm text-label-sm px-space-sm py-space-xs rounded-lg transition-colors flex items-center gap-space-2xs shadow-sm" type="button"><span class="material-symbols-outlined text-sm">e911_emergency</span><span>Emergency Triage Call</span></button><div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-container-high"><div class="text-right hidden 2xl:block"><div class="font-label-md text-label-md text-on-surface">Dr. Rajiv Sharma, MD, DM</div><div class="font-code-xs text-code-xs text-on-surface-variant">Cardiology • Reg #MH-28491</div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8T2A8SyL9SEusHfJOIdQy00_lwVeRntRm65P391qbwtM-olmw1PNTf4EgaOOiE4AeImWDyw1a-pDm_qm5cc-v0k54NZtlzxbdbgN8YQOLrbIOqV5ZwbjrUmKjW55oycrYOfE5GKzTuUUypOtmg014NICVDtC9OaWeJZhipGEcxUc-8Y0cIdH-PF3WtaB1rO41YA597ArGsop9WutkqsSeizO1W8iZ6ULRlICi2quAEQqZ-5OxixfA"/></div></div></div><div class="h-10 flex items-center justify-between border-t border-surface-container px-space-xs bg-surface-container-low/60"><div class="flex items-center gap-space-lg font-body-sm text-body-sm text-on-surface-variant"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-sm text-primary">timer</span><span>Avg Consult Time: <strong class="text-on-surface font-semibold">4.8m</strong></span></div><span class="text-outline-variant">•</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-sm text-secondary">auto_awesome</span><span>AI Intake Accuracy: <strong class="text-on-surface font-semibold">98.4%</strong></span></div><span class="text-outline-variant">•</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-sm text-secondary">check_circle</span><span>Sync: <strong class="text-on-surface font-semibold">All Green (ABDM Gateway)</strong></span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-xs text-code-xs bg-surface-container-high px-space-sm py-space-2xs rounded"><span class="font-semibold text-on-surface">Current: Vikramaditya Patel</span><span class="text-on-surface-variant">| ABHA: 91-4829-1029-4412</span></div><div class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-bold px-space-xs py-space-2xs rounded">14 Waiting • 2 Urgent</div></div></div></div></header><aside class="fixed left-0 top-24 bottom-0 w-64 bg-surface-container-low z-40 flex flex-col justify-between border-r border-surface-container-high"><div class="flex flex-col gap-space-sm p-space-sm"><div class="px-space-sm py-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Clinical Workflow</span></div><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="opd-queue-and-triage" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">format_list_bulleted</span><span class="font-body-md text-body-md">Queue &amp; Triage</span></div><span class="bg-tertiary text-on-tertiary font-code-xs text-code-xs px-space-xs rounded-full">2</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="pre-consult-summary" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">clinical_notes</span><span class="font-body-md text-body-md">Pre-Consult Synthesizer</span></div><span class="material-symbols-outlined text-sm text-secondary">verified</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="active-consultation" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">edit_document</span><span class="font-body-md text-body-md">Active Consultation</span></div><span class="material-symbols-outlined text-sm text-primary">mic</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="fhir-closure-and-dispatch" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">inventory_2</span><span class="font-body-md text-body-md">FHIR &amp; Dispatch</span></div><span class="material-symbols-outlined text-sm text-outline">sync</span></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="diagnostic-investigations" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">biotech</span><span class="font-body-md text-body-md">Labs &amp; Diagnostics</span></div></a><a class="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="abdm-consent-manager" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">security</span><span class="font-body-md text-body-md">ABDM Consents</span></div></a></nav></div><div class="p-space-sm border-t border-surface-container-high bg-surface-container"><div class="flex items-center justify-between text-on-surface-variant font-code-xs text-code-xs mb-space-xs"><span>FHIR v4.0.1</span><span class="text-secondary font-semibold">Connected</span></div><div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden"><div class="bg-primary h-full rounded-full w-full"></div></div></div></aside><div class="pl-64"><main class="w-full pt-24 bg-surface min-h-screen px-pane-gutter py-space-md"><div class="flex flex-col w-full gap-space-md">
+<!-- Top Milestone & Digital Key Credentials Bar -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Encounter Finalized</span>
+<span class="font-code-xs text-code-xs bg-primary text-on-primary px-space-xs py-space-2xs rounded">Ready for Digital Sign-off &amp; ABDM Gateway Push</span>
+<span class="font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed px-space-xs py-space-2xs rounded flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            FHIR R4 Composition Built
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Consultation complete for Room 204. Artifact ready for Cryptographic DSC Token Seal &amp; National Health Stack (NDHM/ABDM) submission.
+        </p>
+</div>
+</div>
+<!-- Practitioner DSC & Aadhaar Token Card -->
+<div class="flex items-center gap-space-md bg-surface-container-low p-space-sm rounded-lg flex-shrink-0">
+<div class="flex flex-col text-right">
+<div class="flex items-center justify-end gap-space-2xs">
+<span class="font-label-md text-label-md text-on-surface">Dr. Rajiv Sharma, MD, DM</span>
+<span class="material-symbols-outlined text-sm text-secondary" title="Aadhaar e-Sign Validated">check_circle</span>
+</div>
+<div class="font-code-xs text-code-xs text-on-surface-variant">Reg #MH-28491 • Class 3 DSC (e-Sign Active)</div>
+</div>
+<div class="h-8 w-px bg-surface-container-high"></div>
+<div class="flex flex-col items-center">
+<span class="font-code-xs text-code-xs text-secondary font-bold uppercase tracking-wider">HSM Token</span>
+<span class="font-label-sm text-label-sm text-on-surface bg-surface-container-lowest px-space-xs py-space-2xs rounded font-mono">TOKEN: #891A-VAL</span>
+</div>
+</div>
+</section>
+<!-- Critical CCU Transfer Alert Ribbon -->
+<aside class="bg-tertiary-fixed rounded-lg p-space-sm flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-xl" style="font-variation-settings: 'FILL' 1;">e911_emergency</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-tertiary-fixed font-bold tracking-tight">STAT ESCALATION: Immediate Transfer Ordered to Cardiac Care Unit (CCU) / Bed 04</span>
+<span class="font-body-sm text-body-sm text-on-tertiary-fixed-variant">Bed allocated automatically. Charge Nurse (Sr. Anita Kurian) notified via Vocera station. Troponin-I: 0.14 ng/mL [PANIC HIGH].</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs bg-tertiary text-on-tertiary px-space-sm py-space-xs rounded uppercase font-bold tracking-wider">Priority: Red Flag</span>
+</aside>
+<!-- Two Major Workspace Panels -->
+<div class="grid grid-cols-1 2xl:grid-cols-12 gap-space-md items-start">
+<!-- LEFT PANEL: The Standard OPD Summary & Patient Discharge Sheet (7 cols on 2xl) -->
+<section class="2xl:col-span-7 flex flex-col gap-space-md">
+<!-- Discharge Sheet Preview Container (Clinical Printable Document Design) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<!-- Hospital Clinical Letterhead Header -->
+<div class="bg-surface-container-low p-space-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-display-lg text-headline-md">
+              AS
+            </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">APOLLO SPECTRA HOSPITALS</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold tracking-wide uppercase">Department of Cardiology &amp; Critical Medical Care</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">NABH Accredited • Unit No. 14, Tardeo Central, Mumbai 400034</span>
+</div>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface px-space-xs py-space-2xs rounded font-bold">OPD RX #2025-CAR-8419</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">Date: 24 Oct 2025 • 11:42 AM</span>
+<span class="font-code-xs text-code-xs text-secondary font-semibold">Verified Electronic Consultation</span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-lg">
+<!-- Patient Demographics Ribbon -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-headline-sm">
+                VP
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Vikramaditya Patel</span>
+<span class="font-label-sm text-label-sm bg-surface-container-high px-space-xs py-space-2xs rounded">54 Y / Male</span>
+<span class="font-label-sm text-label-sm bg-surface-container-high px-space-xs py-space-2xs rounded">UHID: AP-882190</span>
+</div>
+<div class="flex items-center gap-space-xs font-code-xs text-code-xs text-secondary font-semibold">
+<span class="material-symbols-outlined text-xs">shield</span>
+<span>ABHA ID: 91-4829-1029-4412</span>
+<span class="text-on-surface-variant font-normal">| Mobile: +91 98201-94821</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex flex-col text-right">
+<span class="font-code-xs text-code-xs text-on-surface-variant uppercase">Emergency Contact</span>
+<span class="font-label-md text-label-md text-on-surface">Mrs. Sunita Patel (Wife)</span>
+<span class="font-code-xs text-code-xs text-primary">+91 98201-94822</span>
+</div>
+</div>
+</div>
+<!-- Clinical Vitals Snapshot Bar -->
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-space-xs bg-surface-container p-space-xs rounded-lg text-center">
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col">
+<span class="font-code-xs text-code-xs text-on-surface-variant">BP (Sitting)</span>
+<span class="font-data-metric text-data-metric text-tertiary">168/102</span>
+<span class="font-code-xs text-code-xs text-tertiary">Stage II HTN</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col">
+<span class="font-code-xs text-code-xs text-on-surface-variant">Heart Rate</span>
+<span class="font-data-metric text-data-metric text-on-surface">104 <span class="text-body-sm font-normal">bpm</span></span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Sinus Tachy</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col">
+<span class="font-code-xs text-code-xs text-on-surface-variant">SpO2</span>
+<span class="font-data-metric text-data-metric text-on-surface">94%</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Room Air</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col">
+<span class="font-code-xs text-code-xs text-on-surface-variant">hs-Troponin I</span>
+<span class="font-data-metric text-data-metric text-tertiary">0.14 <span class="text-body-sm font-normal">ng/mL</span></span>
+<span class="font-code-xs text-code-xs text-tertiary font-bold">▲ Elevated</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col col-span-2 sm:col-span-1">
+<span class="font-code-xs text-code-xs text-on-surface-variant">Random Blood Sugar</span>
+<span class="font-data-metric text-data-metric text-on-surface">192 <span class="text-body-sm font-normal">mg/dL</span></span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Post-prandial</span>
+</div>
+</div>
+<!-- Diagnostic Impression & Reason for Encounter -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Provisional Clinical Diagnosis</span>
+<span class="font-code-xs text-code-xs bg-tertiary-fixed text-on-tertiary-fixed px-space-xs rounded font-semibold">ICD-10: I20.0 • SNOMED: 22298006</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-tertiary mt-space-2xs">crisis_alert</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Acute Coronary Syndrome (ACS) - Non-ST Elevation Myocardial Infarction (NSTEMI)</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-2xs">
+                  Recurrent retrosternal pressure radiating to left mandible, associated with diaphoresis and exertional dyspnea (NYHA Class III). Resting 12-lead ECG demonstrates dynamic 1.5mm ST-segment depressions in anterolateral leads (V4-V6) with inverted T waves in aVL.
+                </p>
+</div>
+</div>
+</div>
+<!-- SOCRATES HPI Recap & Physical Findings -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">SOCRATES HPI Summary</span>
+<ul class="font-body-sm text-body-sm text-on-surface space-y-space-2xs">
+<li><strong class="font-semibold text-on-surface">Site:</strong> Retrosternal, precordial distribution.</li>
+<li><strong class="font-semibold text-on-surface">Onset:</strong> Acute crescendo over 4 hours during morning walk.</li>
+<li><strong class="font-semibold text-on-surface">Character:</strong> Constricting heaviness ("elephant on chest").</li>
+<li><strong class="font-semibold text-on-surface">Radiation:</strong> Left shoulder, inner arm &amp; jaw angle.</li>
+<li><strong class="font-semibold text-on-surface">Associated:</strong> Diaphoresis, nausea, mild dizziness.</li>
+<li><strong class="font-semibold text-on-surface">Severity:</strong> 8/10 at peak, currently 5/10 post-sublingual nitrate.</li>
+</ul>
+</div>
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Targeted Examination</span>
+<ul class="font-body-sm text-body-sm text-on-surface space-y-space-2xs">
+<li><strong class="font-semibold text-on-surface">CVS:</strong> S1, S2 audible; soft S4 gallop present. No systolic murmurs.</li>
+<li><strong class="font-semibold text-on-surface">Respiratory:</strong> Clear vesicular breath sounds bilaterally. No crackles.</li>
+<li><strong class="font-semibold text-on-surface">Peripheral:</strong> Bilateral radial pulses equal, brisk. JVP not elevated.</li>
+<li><strong class="font-semibold text-on-surface">Allergies:</strong> Nil known drug allergies (NKDA). Penicillin tested neg.</li>
+<li><strong class="font-semibold text-on-surface">Comorbidities:</strong> Type 2 Diabetes (HbA1c 7.9%), Dyslipidemia.</li>
+</ul>
+</div>
+</div>
+<!-- Prescribed Immediate Medications (Standard OPD Rx Table) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Finalized Pharmacotherapy (Active Rx)</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">4 Active Formulations Prescribed</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container text-on-surface font-label-sm text-label-sm">
+<tr>
+<th class="p-space-sm rounded-l">Drug &amp; Formulation</th>
+<th class="p-space-sm">Strength</th>
+<th class="p-space-sm">Regimen &amp; Timing</th>
+<th class="p-space-sm">Duration</th>
+<th class="p-space-sm rounded-r text-right">Route</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-space-sm">
+<div class="font-semibold text-on-surface">Tab. Aspirin (Ecosprin)</div>
+<div class="font-code-xs text-code-xs text-on-surface-variant">Antiplatelet • Soluble / Chewable</div>
+</td>
+<td class="p-space-sm font-code-sm text-code-sm">325 mg (STAT) then 75 mg</td>
+<td class="p-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="bg-surface-container-high px-space-xs py-space-2xs rounded font-code-xs text-code-xs font-bold">1 - 0 - 0</span>
+<span class="text-on-surface-variant text-body-sm">Post-breakfast</span>
+</div>
+</td>
+<td class="p-space-sm">Continuous</td>
+<td class="p-space-sm text-right font-mono text-body-sm">Oral</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-space-sm">
+<div class="font-semibold text-on-surface">Tab. Clopidogrel (Plavix)</div>
+<div class="font-code-xs text-code-xs text-on-surface-variant">P2Y12 Inhibitor • Dual antiplatelet</div>
+</td>
+<td class="p-space-sm font-code-sm text-code-sm">300 mg (Loading) then 75 mg</td>
+<td class="p-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="bg-surface-container-high px-space-xs py-space-2xs rounded font-code-xs text-code-xs font-bold">1 - 0 - 0</span>
+<span class="text-on-surface-variant text-body-sm">Morning</span>
+</div>
+</td>
+<td class="p-space-sm">12 Months</td>
+<td class="p-space-sm text-right font-mono text-body-sm">Oral</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-space-sm">
+<div class="font-semibold text-on-surface">Tab. Atorvastatin (Lipitor)</div>
+<div class="font-code-xs text-code-xs text-on-surface-variant">HMG-CoA Reductase Inhibitor</div>
+</td>
+<td class="p-space-sm font-code-sm text-code-sm">80 mg</td>
+<td class="p-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="bg-surface-container-high px-space-xs py-space-2xs rounded font-code-xs text-code-xs font-bold">0 - 0 - 1</span>
+<span class="text-on-surface-variant text-body-sm">Bedtime</span>
+</div>
+</td>
+<td class="p-space-sm">Continuous</td>
+<td class="p-space-sm text-right font-mono text-body-sm">Oral</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-space-sm">
+<div class="font-semibold text-on-surface">Tab. Isosorbide Dinitrate (Sorbitrate)</div>
+<div class="font-code-xs text-code-xs text-tertiary">Vasodilator • For acute angina only</div>
+</td>
+<td class="p-space-sm font-code-sm text-code-sm">5 mg</td>
+<td class="p-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-space-xs py-space-2xs rounded font-code-xs text-code-xs font-bold">SOS</span>
+<span class="text-on-surface-variant text-body-sm">Repeat q5m max 3 doses</span>
+</div>
+</td>
+<td class="p-space-sm">As needed</td>
+<td class="p-space-sm text-right font-mono text-body-sm text-tertiary font-bold">Sublingual</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Follow-up & Discharge Instructions -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Immediate Follow-Up &amp; Labs</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+                • Serial high-sensitivity Troponin-I at 3h and 6h post-admission.<br/>
+                • Transthoracic Echocardiogram (TTE) within 12 hours.<br/>
+                • Cardiology IPD review post-troponin evaluation at 48 hours.
+              </p>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Clinician Signature Verification</span>
+<div class="flex items-center gap-space-sm mt-space-2xs">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-sm">draw</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Dr. Rajiv Sharma, MD, DM (Card.)</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Aadhaar eSigned: 2025-10-24T11:42:08.192+05:30</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bilingual Patient Explanatory Card (English & Hindi QR Instructions) -->
+<div class="bg-surface-container p-space-md rounded-xl flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg p-space-xs flex items-center justify-center flex-shrink-0 shadow-sm">
+<!-- Decorative SVG QR Code Stamp -->
+<svg class="w-full h-full text-on-surface" fill="currentColor" viewbox="0 0 24 24">
+<path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm8-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm10-2h2v2h-2v-2zm4 0h2v4h-2v-4zm-4 4h2v4h-2v-4zm2 2h2v2h-2v-2zm2 0h2v2h-2v-2zm-6-2h2v2h-2v-2z"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">हृदय संबंधी आपातकालीन सलाह और दवा की जानकारी</span>
+<span class="font-code-xs text-code-xs bg-secondary text-on-secondary px-space-xs py-space-2xs rounded">Bilingual Audio Card</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">
+                  छाती में दर्द, सांस फूलने या पसीना आने पर तत्काल सोर्बिट्रेट (5 mg) जीभ के नीचे रखें और आपातकालीन नंबर 1066 पर कॉल करें। Scan QR code on patient mobile for spoken Gujarati / Hindi medication instructions.
+                </p>
+</div>
+</div>
+<button class="bg-surface-container-lowest hover:bg-surface-container-high text-on-surface px-space-md py-space-sm rounded-lg font-label-md text-label-md flex items-center gap-space-xs flex-shrink-0 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-base text-primary">qr_code_scanner</span>
+<span>Test Audio Playback</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: ABDM Integration, FHIR R4 Bundle & Push Action Center (5 cols on 2xl) -->
+<section class="2xl:col-span-5 flex flex-col gap-space-md">
+<!-- ABDM Gateway Live Interoperability Status Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-xl">hub</span>
+<span class="font-label-md text-label-md text-on-surface uppercase tracking-wider font-bold">ABDM Gateway Link</span>
+</div>
+<span class="font-code-xs text-code-xs bg-secondary-container text-on-secondary-container px-space-xs py-space-2xs rounded font-bold flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+            HFR: HFR-IND-MUM-00482 [ONLINE]
+          </span>
+</div>
+<!-- Consent Artifact Details Box -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-code-xs text-code-xs text-on-surface-variant">Consent Artifact ID:</span>
+<span class="font-code-xs text-code-xs text-primary font-mono font-bold">CONF-ABDM-2025-08192-EXP</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-code-xs text-code-xs text-on-surface-variant">Consent Status:</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-xs">verified</span>
+              Granted via OTP (Expires 2025-10-31)
+            </span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-code-xs text-code-xs text-on-surface-variant">Data Permissions:</span>
+<span class="font-code-xs text-code-xs text-on-surface">OPConsultation, DiagnosticReport, Prescription</span>
+</div>
+</div>
+<!-- Validation Badge -->
+<div class="bg-secondary-fixed/50 p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-lg">fact_check</span>
+<span class="font-label-sm text-label-sm text-on-secondary-fixed font-bold">FHIR R4 ABDM Clinical Artifact v2.1</span>
+</div>
+<span class="font-code-xs text-code-xs bg-secondary text-on-secondary px-space-xs py-space-2xs rounded font-bold">100% Validated</span>
+</div>
+</div>
+<!-- FHIR R4 Bundle Resource Explorer (Interactive Synthesizer) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">account_tree</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">FHIR R4 Bundle Payload</span>
+</div>
+<span class="font-code-xs text-code-xs bg-surface-container text-on-surface-variant px-space-xs py-space-2xs rounded font-mono">6 Resources Linked</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Click any clinical resource tile to inspect the verified JSON schema payload prepared for the National Health Information Exchange.
+        </p>
+<!-- Interactive Resource Tiles Grid -->
+<div class="flex flex-col gap-space-xs" id="fhirResourceList">
+<!-- Tile 1: Composition -->
+<div class="cursor-pointer bg-surface-container-low hover:bg-surface-container p-space-sm rounded-lg transition-colors flex items-center justify-between" onclick="toggleFhirDoc('fhir-comp')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-lg">article</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-bold">Bundle/encounter-doc</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Composition: OPD Clinical Consultation Record</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs text-secondary font-semibold">Valid ✓</span>
+</div>
+<div class="hidden p-space-sm bg-surface-container-highest rounded font-code-xs text-code-xs text-on-surface overflow-x-auto" id="fhir-comp">
+<pre class="font-mono">{
+  "resourceType": "Composition",
+  "id": "encounter-doc-apollo-8419",
+  "status": "final",
+  "type": { "coding": [{ "system": "http://snomed.info/sct", "code": "371530004", "display": "Clinical consultation report" }] },
+  "subject": { "reference": "Patient/91-4829-1029-4412" },
+  "encounter": { "reference": "Encounter/opd-room-204" },
+  "author": [{ "reference": "Practitioner/MH-28491", "display": "Dr. Rajiv Sharma" }]
+}</pre>
+</div>
+<!-- Tile 2: Patient -->
+<div class="cursor-pointer bg-surface-container-low hover:bg-surface-container p-space-sm rounded-lg transition-colors flex items-center justify-between" onclick="toggleFhirDoc('fhir-pat')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-lg">person</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-bold">Patient/91-4829-1029-4412</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Schema: ABDM M3 Compliant Patient Identity Token</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs text-secondary font-semibold">Verified ✓</span>
+</div>
+<div class="hidden p-space-sm bg-surface-container-highest rounded font-code-xs text-code-xs text-on-surface overflow-x-auto" id="fhir-pat">
+<pre class="font-mono">{
+  "resourceType": "Patient",
+  "id": "91-4829-1029-4412",
+  "identifier": [{ "system": "https://healthid.ndhm.gov.in", "value": "91-4829-1029-4412" }],
+  "name": [{ "text": "Vikramaditya Patel", "family": "Patel", "given": ["Vikramaditya"] }],
+  "gender": "male",
+  "birthDate": "1971-06-14"
+}</pre>
+</div>
+<!-- Tile 3: Condition -->
+<div class="cursor-pointer bg-surface-container-low hover:bg-surface-container p-space-sm rounded-lg transition-colors flex items-center justify-between" onclick="toggleFhirDoc('fhir-cond')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-lg">diagnosis</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-bold">Condition/I20.0</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SNOMED-CT 22298006 (Unstable Angina / NSTEMI)</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs bg-tertiary-fixed text-on-tertiary-fixed px-space-xs rounded font-bold">Active</span>
+</div>
+<div class="hidden p-space-sm bg-surface-container-highest rounded font-code-xs text-code-xs text-on-surface overflow-x-auto" id="fhir-cond">
+<pre class="font-mono">{
+  "resourceType": "Condition",
+  "code": {
+    "coding": [
+      { "system": "http://snomed.info/sct", "code": "22298006", "display": "Unstable angina" },
+      { "system": "http://hl7.org/fhir/sid/icd-10", "code": "I20.0", "display": "Unstable angina" }
+    ]
+  },
+  "clinicalStatus": { "coding": [{ "code": "active" }] },
+  "verificationStatus": { "coding": [{ "code": "provisional" }] }
+}</pre>
+</div>
+<!-- Tile 4: MedicationRequest -->
+<div class="cursor-pointer bg-surface-container-low hover:bg-surface-container p-space-sm rounded-lg transition-colors flex items-center justify-between" onclick="toggleFhirDoc('fhir-med')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-lg">pill</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-bold">MedicationRequest/4-Items</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Aspirin 75mg, Clopidogrel 75mg, Atorvastatin 80mg, ISDN 5mg</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs text-secondary font-semibold">Valid ✓</span>
+</div>
+<div class="hidden p-space-sm bg-surface-container-highest rounded font-code-xs text-code-xs text-on-surface overflow-x-auto" id="fhir-med">
+<pre class="font-mono">{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    { "resource": { "resourceType": "MedicationRequest", "status": "active", "intent": "order", "medicationCodeableConcept": { "text": "Aspirin 75 mg" } } },
+    { "resource": { "resourceType": "MedicationRequest", "status": "active", "intent": "order", "medicationCodeableConcept": { "text": "Clopidogrel 75 mg" } } },
+    { "resource": { "resourceType": "MedicationRequest", "status": "active", "intent": "order", "medicationCodeableConcept": { "text": "Atorvastatin 80 mg" } } },
+    { "resource": { "resourceType": "MedicationRequest", "status": "active", "intent": "order", "medicationCodeableConcept": { "text": "Isosorbide Dinitrate 5 mg" } } }
+  ]
+}</pre>
+</div>
+<!-- Tile 5: Observation -->
+<div class="cursor-pointer bg-surface-container-low hover:bg-surface-container p-space-sm rounded-lg transition-colors flex items-center justify-between" onclick="toggleFhirDoc('fhir-obs')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-lg">vital_signs</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-bold">Observation/vitals-and-troponin</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">LOINC 49563-0 (Troponin I 0.14 ng/mL) • LOINC 85354-9 (BP 168/102)</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs text-tertiary font-bold">Panic Obs</span>
+</div>
+<div class="hidden p-space-sm bg-surface-container-highest rounded font-code-xs text-code-xs text-on-surface overflow-x-auto" id="fhir-obs">
+<pre class="font-mono">{
+  "resourceType": "Observation",
+  "status": "final",
+  "code": { "coding": [{ "system": "http://loinc.org", "code": "49563-0", "display": "Cardiac troponin I [Mass/volume] in Serum" }] },
+  "valueQuantity": { "value": 0.14, "unit": "ng/mL" },
+  "interpretation": [{ "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation", "code": "H", "display": "High" }] }]
+}</pre>
+</div>
+<!-- Tile 6: DiagnosticReport -->
+<div class="cursor-pointer bg-surface-container-low hover:bg-surface-container p-space-sm rounded-lg transition-colors flex items-center justify-between" onclick="toggleFhirDoc('fhir-diag')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-lg">ecg_heart</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-bold">DiagnosticReport/ecg-and-labs</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">12-Lead ECG Telemetry Strip Attached</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs text-secondary font-semibold">Attached ✓</span>
+</div>
+<div class="hidden p-space-sm bg-surface-container-highest rounded font-code-xs text-code-xs text-on-surface overflow-x-auto" id="fhir-diag">
+<pre class="font-mono">{
+  "resourceType": "DiagnosticReport",
+  "status": "final",
+  "code": { "coding": [{ "system": "http://loinc.org", "code": "11524-6", "display": "EKG study" }] },
+  "conclusion": "Sinus tachycardia with ST depression V4-V6 and T wave inversion aVL."
+}</pre>
+</div>
+</div>
+</div>
+<!-- Sign-off & Dispatch Action Center -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md flex flex-col gap-space-md">
+<!-- Digital Signature Confirmation Box -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-2xl" style="font-variation-settings: 'FILL' 1;">enhanced_encryption</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Signed via Aadhaar eSign / ABDM Practitioner KYC</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">DSC SHA-256 Hash: 7e91a0b5c421f8a7d8... (Dr. Rajiv Sharma)</span>
+</div>
+</div>
+<!-- Primary Action Trigger -->
+<button class="w-full bg-secondary hover:bg-secondary-container hover:text-on-secondary-container text-on-secondary font-headline-sm text-headline-sm py-space-md px-space-lg rounded-xl flex items-center justify-center gap-space-sm transition-all shadow-md active:scale-95" id="btnSignAndPush" onclick="triggerDispatchFlow()" type="button">
+<span class="material-symbols-outlined text-2xl">lock_open</span>
+<span>Digitally Sign &amp; Push to Patient ABHA Health Locker</span>
+</button>
+<!-- Secondary Workflow Actions Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs">
+<button class="bg-surface-container-low hover:bg-surface-container-high text-on-surface p-space-sm rounded-lg font-label-sm text-label-sm flex flex-col items-center justify-center gap-space-2xs transition-colors" onclick="triggerPrintNotification()" type="button">
+<span class="material-symbols-outlined text-lg text-primary">print</span>
+<span>Print Official Rx</span>
+</button>
+<button class="bg-surface-container-low hover:bg-surface-container-high text-on-surface p-space-sm rounded-lg font-label-sm text-label-sm flex flex-col items-center justify-center gap-space-2xs transition-colors" onclick="triggerSmsNotification()" type="button">
+<span class="material-symbols-outlined text-lg text-secondary">chat</span>
+<span>WhatsApp PDF</span>
+</button>
+<button class="bg-tertiary-fixed hover:bg-tertiary-fixed-dim text-on-tertiary-fixed p-space-sm rounded-lg font-label-sm text-label-sm flex flex-col items-center justify-center gap-space-2xs transition-colors" onclick="triggerNurseHandover()" type="button">
+<span class="material-symbols-outlined text-lg text-tertiary">transfer_within_a_station</span>
+<span class="font-bold">CCU Handover</span>
+</button>
+</div>
+<!-- Dynamic Success / In-Flight Toast Alert Indicator -->
+<div class="hidden bg-secondary-container text-on-secondary-container p-space-sm rounded-lg flex items-center justify-between shadow-sm" id="toastSuccess">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary">task_alt</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold">ABHA PHR Push Complete &amp; Encrypted</span>
+<span class="font-body-sm text-body-sm">Instant notification sent to patient's AuraHealth Mobile App. OPD Room 204 cleared.</span>
+</div>
+</div>
+<span class="font-code-xs text-code-xs font-mono font-bold">DISPATCHED</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script>
+  function toggleFhirDoc(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('hidden');
+    }
+  }
+
+  function triggerDispatchFlow() {
+    const btn = document.getElementById('btnSignAndPush');
+    const toast = document.getElementById('toastSuccess');
+    if (!btn || !toast) return;
+
+    btn.disabled = true;
+    btn.innerHTML = `<span class="material-symbols-outlined text-2xl animate-spin">progress_activity</span><span>Encrypting with DSC Token & Dispatching...</span>`;
+
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-2xl">check_circle</span><span>Record Signed & Dispatched to ABHA</span>`;
+      btn.classList.remove('bg-secondary', 'hover:bg-secondary-container');
+      btn.classList.add('bg-primary', 'text-on-primary', 'cursor-default');
+      toast.classList.remove('hidden');
+    }, 1200);
+  }
+
+  function triggerPrintNotification() {
+    alert("Sending encrypted PDF consultation report to Room 204 Laser Barcode Printer (Apollo-PRN-04).");
+  }
+
+  function triggerSmsNotification() {
+    alert("Discharge PDF and bilingual audio QR token dispatched via WhatsApp to +91 98201-94821.");
+  }
+
+  function triggerNurseHandover() {
+    alert("Emergency alert sent to CCU Desk (Sr. Anita Kurian). Observation Bed 04 transport team en route to Room 204.");
+  }
+</script></main></div></body></html>

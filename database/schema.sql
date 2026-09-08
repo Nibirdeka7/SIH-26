@@ -139,6 +139,5 @@ ALTER TABLE "refresh_tokens" ADD CONSTRAINT chk_refresh_token_owner
     (patient_id IS NULL AND physician_id IS NOT NULL)
   );
   
-CREATE INDEX idx_patients_abha_id ON patients(abha_id);
 CREATE INDEX idx_sessions_status ON clinical_sessions(status);
 CREATE INDEX idx_sessions_red_flag ON clinical_sessions(red_flag_triggered);

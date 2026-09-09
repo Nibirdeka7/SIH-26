@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cardiac-triage-protocol",
+    "category": "cardiology",
+    "title": "Emergency Cardiac Intake & SOCRATES Protocol",
+    "content": "\n        CARDIAC EMERGENCY TRIAGE:\n        Red flags include acute substernal chest pain, heavy pressure or squeezing sensation, radiation to left shoulder, arm, neck, or jaw, accompanied by diaphoresis, dyspnea, or presyncope.\n        SOCRATES Questions:\n        1. Site: Substernal or retrosternal location.\n        2. Onset: Sudden vs gradual onset with physical exertion.\n        3. Character: Heavy pressure, crushing, tight band around chest.\n        4. Radiation: Left upper limb, epigastrium, jaw, interscapular region.\n        5. Associations: Sweating, nausea, acute breathlessness.\n        6. Timing: Sustained > 20 minutes indicates acute coronary syndrome (ACS).\n        7. Exacerbation: Worse with exertion, unchanged by respiration/palpation.\n        8. Severity: Pain rating 8-10.\n        Emergency Action: Immediate triage red-flag alert, ECG within 10 minutes, direct transfer to Emergency Bay.\n        "
+  },
+  {
+    "id": "respiratory-triage-protocol",
+    "category": "pulmonology",
+    "title": "Respiratory Distress & Asthma Intake",
+    "content": "\n        RESPIRATORY EMERGENCY TRIAGE:\n        Red flags include inability to complete full sentences in one breath, accessory muscle use, central cyanosis, stridor, altered mental status, SpO2 < 92%.\n        SOCRATES Questions:\n        1. Onset: Acute allergic airway obstruction vs gradual pulmonary infection.\n        2. Character: Tightness in chest, wheezing sound, inability to catch breath.\n        3. Associations: Productive cough, hemoptysis, fever, leg swelling (PE risk).\n        Emergency Action: High-flow oxygenation, nebulization readiness, urgent physician review.\n        "
+  },
+  {
+    "id": "neuro-stroke-protocol",
+    "category": "neurology",
+    "title": "Acute Neurological & FAST Stroke Protocol",
+    "content": "\n        NEUROLOGICAL EMERGENCY TRIAGE:\n        Screen for FAST stroke signs: Facial asymmetry/droop, Arm weakness/drift, Speech slurring/aphasia, Time of onset.\n        Thunderclap headache (sudden peak within 1 minute) suggests subarachnoid hemorrhage (SAH).\n        Emergency Action: Urgent CT head scan, immediate emergency stroke alert.\n        "
+  },
+  {
+    "id": "ayush-dashavidha-protocol",
+    "category": "ayush",
+    "title": "AYUSH Dashavidha Pariksha Clinical Framework",
+    "content": "\n        AYUSH DASHAVIDHA PARIKSHA (10-FOLD CLINICAL EXAMINATION):\n        1. Dushya: Examination of affected tissues (Dhatus) and humors (Doshas).\n        2. Desha: Geographical habitat and anatomical site of disease.\n        3. Bala: Patient's physical strength and immunity (Ojas).\n        4. Kala: Seasonal variation and diurnal time of symptom onset.\n        5. Anala: Digestive fire capacity (Agni: Manda, Tikshna, Vishama, Sama).\n        6. Prakriti: Baseline dosha constitution (Vata, Pitta, Kapha).\n        7. Vaya: Age group classification (Bala, Madhya, Vriddha).\n        8. Satmya: Environmental and dietary habituation.\n        9. Sattva: Psychological strength and mental resilience.\n        10. Ahara: Food intake capacity and metabolic power.\n        "
+  }
+]

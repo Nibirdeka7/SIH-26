@@ -1,0 +1,26 @@
+{
+  "name": "medikiosk-patient-mobile",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "expo": "~57.0.16",
+    "expo-constants": "~57.0.17",
+    "expo-image-picker": "~57.0.16",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.2",
+    "@react-native-async-storage/async-storage": "1.23.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start -c",
+    "tunnel": "expo start --tunnel -c",
+    "android": "expo start --android -c",
+    "ios": "expo start --ios -c",
+    "web": "expo start --web"
+  },
+  "private": true
+}

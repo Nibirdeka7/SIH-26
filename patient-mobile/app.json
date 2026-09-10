@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "MediKiosk Patient App",
+    "slug": "medikiosk-patient-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "updates": {
+      "enabled": false
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0B2545",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.medikioskpatient"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow MediKiosk to access photos to scan medical prescriptions and reports.",
+          "cameraPermission": "Allow MediKiosk to use the camera to take photos of medical documents."
+        }
+      ]
+    ]
+  }
+}

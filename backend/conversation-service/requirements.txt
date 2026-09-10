@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+pinecone
+google-genai
+groq
+httpx
+gTTS
+python-multipart
+websockets

@@ -1,0 +1,64 @@
+
+# Experimental scripts
+scripts/test_medgemma.py
+/node_modules
+# Generated JSON / LLM outputs
+scripts/*.json
+
+# Environment variables
+.env
+.env.*
+!.env.example
+/node_modules
+/.expo
+/.yarn
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+
+# Logs
+*.log
+
+# Local data
+data/
+uploads/
+chroma_data/
+
+# Temporary files
+tmp/
+temp/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build/package artifacts
+build/
+dist/
+*.egg-info/
+
+# Model/cache files
+.cache/
+huggingface_cache/
+paddle_cache/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3

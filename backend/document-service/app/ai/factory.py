@@ -1,6 +1,5 @@
 from app.ai.providers.base import AIProvider
 from app.ai.providers.gemini import GeminiProvider
-from app.ai.providers.medgemma import MedGemmaProvider
 from app.ai.providers.groq import GroqProvider
 from app.core.config import settings
 

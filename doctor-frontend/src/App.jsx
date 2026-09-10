@@ -1,54 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import DoctorQueueView from './components/DoctorQueueView';
-import PreConsultReview from './components/PreConsultReview';
-import { doctorApiService } from './services/doctorApi';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import DashboardLayout from './components/layout/DashboardLayout.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import DashboardPage from './pages/DashboardPage.jsx';
+import PatientDetailPage from './pages/PatientDetailPage.jsx';
+import CheckedInHistoryPage from './pages/CheckedInHistoryPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 export default function App() {
-  const [queue, setQueue] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchQueue = async () => {
-    setIsLoading(true);
-    const data = await doctorApiService.getOpdQueue();
-    setQueue(data);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchQueue();
-    const interval = setInterval(fetchQueue, 15000); // Polling queue every 15s
-    return () => clearInterval(interval);
-  }, []);
-
-  const emergencyCount = queue.filter((q) => q.is_critical).length;
-
   return (
-    <div className="min-h-screen bg-[#faf9f5] flex flex-col font-body">
-      {/* Physician Header */}
-      <Header
-        activeCount={queue.length}
-        emergencyCount={emergencyCount}
-        selectedPatient={selectedPatient}
-        onBackToQueue={() => setSelectedPatient(null)}
-      />
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
 
-      {/* Main View Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-        {selectedPatient ? (
-          <PreConsultReview
-            patient={selectedPatient}
-            onBack={() => setSelectedPatient(null)}
-            onSyncSuccess={() => fetchQueue()}
-          />
-        ) : (
-          <DoctorQueueView
-            queue={queue}
-            onSelectPatient={(patient) => setSelectedPatient(patient)}
-          />
-        )}
-      </main>
-    </div>
+      <Route element={<ProtectedRoute />}>
+        <Route element={<DashboardLayout />}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/lookup" element={<Navigate to="/" replace />} />
+          <Route path="/patient/:patientId" element={<PatientDetailPage />} />
+          <Route path="/history" element={<CheckedInHistoryPage />} />
+        </Route>
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }

@@ -1,0 +1,284 @@
+/*
+  Scoped to .dashboard-page so nothing here leaks into the rest of the
+  app. Reuses the project's existing tokens (--muted, --border, --danger)
+  and button classes (btn-primary / btn-secondary) rather than inventing
+  a parallel system. Local-only tokens (accent, tint, radius) are
+  declared on the root class below.
+*/
+
+.dashboard-page {
+  --accent: #1d6653;
+  --accent-dark: #123f33;
+  --accent-tint: #e8f2ee;
+  --radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+
+  height: calc(100dvh - 54px - 3rem);
+  min-height: 520px;
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dashboard-heading {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.dashboard-subheading {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.dashboard-tally {
+  text-align: right;
+}
+
+.dashboard-tally-figure {
+  display: block;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.dashboard-tally-label {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ---------- Layout ---------- */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: 2rem;
+
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+@media (max-width: 860px) {
+  .dashboard-page {
+    height: auto;
+    overflow: visible;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .lookup-panel {
+    position: static;
+  }
+}
+
+/* ---------- Lookup panel (the doctor's primary tool) ---------- */
+
+.lookup-panel {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1.4rem;
+  background: var(--surface, #fff);
+  align-self: flex-start;
+  position: sticky;
+  top: calc(54px + 1.5rem);
+}
+
+.lookup-panel h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.lookup-hint {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+.lookup-error {
+  margin: 0.75rem 0 0;
+  color: var(--danger);
+  font-size: 0.85rem;
+  animation: rise-in 0.15s ease-out;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Completed visits ledger ---------- */
+
+.ledger {
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ledger-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+
+  flex-shrink: 0;
+}
+
+.ledger-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.ledger-search {
+  width: 220px;
+  max-width: 100%;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  background: transparent;
+}
+
+.ledger-search:focus-visible,
+.lookup-panel :focus-visible,
+.ledger-view:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ledger-empty {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.ledger-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  border-top: 1px solid var(--border);
+
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 4.75rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0.25rem;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.12s ease;
+}
+
+.ledger-row:hover {
+  background: var(--accent-tint);
+}
+
+.ledger-time {
+  font-family: ui-monospace, "SF Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--accent-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.ledger-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.ledger-name {
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+
+.ledger-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ledger-meta-divider {
+  width: 1px;
+  height: 0.75em;
+  background: var(--border);
+  flex: none;
+}
+
+.ledger-view {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.75rem;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lookup-error,
+  .ledger-row {
+    animation: none;
+    transition: none;
+  }
+}
+
+.ledger-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ledger-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ledger-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.ledger-list::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}

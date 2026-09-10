@@ -5,16 +5,19 @@
 
 import { Platform } from 'react-native';
 
-// Set your computer's local Wi-Fi IP address here if testing on a physical device via Expo Go
-// e.g. const CUSTOM_IP = '192.168.222.241';
-const CUSTOM_IP = process.env.EXPO_PUBLIC_API_HOST || '192.168.222.241';
+// Local Network LAN IP Address from system ipconfig (Ethernet: 192.168.222.241)
+const LOCAL_LAN_IP = process.env.EXPO_PUBLIC_API_HOST || '192.168.222.241';
 
 const resolveHost = () => {
-  try {
-    if (CUSTOM_IP) {
-      return CUSTOM_IP;
+  if (Platform.OS === 'web' && typeof window !== 'undefined' && window.location) {
+    const host = window.location.hostname;
+    if (host && host !== 'localhost' && host !== '127.0.0.1') {
+      return host;
     }
+    return 'localhost';
+  }
 
+  try {
     const Constants = require('expo-constants').default || require('expo-constants');
     if (Constants) {
       const hostUri = Constants.expoConfig?.hostUri || Constants.manifest?.hostUri;
@@ -27,6 +30,10 @@ const resolveHost = () => {
     }
   } catch (err) {
     console.warn('[API Config] Exception resolving host IP:', err);
+  }
+
+  if (LOCAL_LAN_IP) {
+    return LOCAL_LAN_IP;
   }
 
   return Platform.OS === 'android' ? '10.0.2.2' : 'localhost';

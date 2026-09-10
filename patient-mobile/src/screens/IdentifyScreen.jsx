@@ -19,15 +19,22 @@ export const IdentifyScreen = () => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [otpError, setOtpError] = useState('');
 
-  const handleSendOtp = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSendOtp = async () => {
     if (selectedIdType === 'guest') {
-      completeIdentification({
-        patientId: `p_guest_${Date.now()}`,
-        name: patientName || 'अतिथि मरीज (Guest Patient)',
-        age: patientAge || '35',
-        gender: patientGender,
-        authType: 'guest',
-      });
+      setIsSubmitting(true);
+      try {
+        await completeIdentification({
+          patientId: `p_guest_${Date.now()}`,
+          name: patientName || 'अतिथि मरीज (Guest Patient)',
+          age: patientAge || '35',
+          gender: patientGender,
+          authType: 'guest',
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
       return;
     }
 
@@ -40,16 +47,15 @@ export const IdentifyScreen = () => {
     setOtpError('');
   };
 
-  const handleVerifyOtp = () => {
+  const handleVerifyOtp = async () => {
     if (otpVal.length < 4) {
       setOtpError('गलत OTP दर्ज किया गया है। कृपया पुनः प्रयास करें।');
       return;
     }
 
     setIsVerifying(true);
-    setTimeout(() => {
-      setIsVerifying(false);
-      completeIdentification({
+    try {
+      await completeIdentification({
         patientId: idNumber || `p_abhamember_${Date.now()}`,
         name: patientName || 'सत्यापित मरीज',
         age: patientAge || '40',
@@ -57,7 +63,9 @@ export const IdentifyScreen = () => {
         mobile: mobileNum,
         authType: selectedIdType,
       });
-    }, 800);
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   return (
@@ -214,11 +222,16 @@ export const IdentifyScreen = () => {
         <TouchableOpacity
           style={styles.continueButton}
           onPress={handleSendOtp}
+          disabled={isSubmitting}
           activeOpacity={0.8}
         >
-          <Text style={styles.continueButtonText}>
-            {selectedIdType === 'guest' ? 'आगे बढ़ें (Continue)' : 'OTP प्राप्त करें (Send OTP)'} ►
-          </Text>
+          {isSubmitting ? (
+            <ActivityIndicator color={COLORS.textInverted} size="small" />
+          ) : (
+            <Text style={styles.continueButtonText}>
+              {selectedIdType === 'guest' ? 'आगे बढ़ें (Continue)' : 'OTP प्राप्त करें (Send OTP)'} ►
+            </Text>
+          )}
         </TouchableOpacity>
       )}
     </ScrollView>

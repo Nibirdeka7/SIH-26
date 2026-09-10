@@ -43,6 +43,7 @@ export const SessionProvider = ({ children }) => {
   const [submittedToken, setSubmittedToken] = useState('A-101');
 
   // UI Modals & Speech State
+  const [audioBase64, setAudioBase64] = useState(null);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showLangModal, setShowLangModal] = useState(false);
   const [showRedFlagModal, setShowRedFlagModal] = useState(false);
@@ -74,28 +75,32 @@ export const SessionProvider = ({ children }) => {
     const newSessionId = `sess_${Date.now()}`;
     setSessionId(newSessionId);
 
-    const res = await conversationApi.startSession({
-      patientId: identityData.patientId || `p_${Date.now()}`,
-      name: identityData.name,
-      age: identityData.age,
-      gender: identityData.gender,
-      language: lang,
-      intakeMode: intakeMode,
-    });
+    try {
+      const res = await conversationApi.startSession({
+        patientId: identityData.patientId || `p_${Date.now()}`,
+        name: identityData.name,
+        age: identityData.age,
+        gender: identityData.gender,
+        language: lang,
+        intakeMode: intakeMode,
+      });
 
-    if (res.sessionId) {
-      setSessionId(res.sessionId);
+      if (res.sessionId) {
+        setSessionId(res.sessionId);
+      }
+      if (res.initialQuestion) {
+        setCurrentQuestionText(res.initialQuestion);
+      }
+      if (res.currentQuestion) {
+        setCurrentQuestionModel(res.currentQuestion);
+      }
+      if (res.suggestedOptions && res.suggestedOptions.length > 0) {
+        setSuggestedOptions(res.suggestedOptions);
+      }
+      setSessionStatus(res.status || 'INTAKE_IN_PROGRESS');
+    } catch (err) {
+      console.warn('[SessionContext] startSession fallback:', err);
     }
-    if (res.initialQuestion) {
-      setCurrentQuestionText(res.initialQuestion);
-    }
-    if (res.currentQuestion) {
-      setCurrentQuestionModel(res.currentQuestion);
-    }
-    if (res.suggestedOptions && res.suggestedOptions.length > 0) {
-      setSuggestedOptions(res.suggestedOptions);
-    }
-    setSessionStatus(res.status || 'INTAKE_IN_PROGRESS');
 
     setCurrentRoute('consent');
   }, [lang, intakeMode]);
@@ -109,13 +114,37 @@ export const SessionProvider = ({ children }) => {
   const submitTurnAnswer = useCallback(async ({ userText = '', selectedOption = null, audioBase64 = null }) => {
     setIsSubmittingTurn(true);
     try {
-      const response = await conversationApi.submitTurn({
-        sessionId,
-        userText,
-        selectedOption,
-        audioBase64,
-        language: lang,
-      });
+      let response;
+      try {
+        response = await conversationApi.submitTurn({
+          sessionId,
+          userText,
+          selectedOption,
+          audioBase64,
+          language: lang,
+        });
+      } catch (firstErr) {
+        console.warn('First turn submit failed, attempting session auto-restart:', firstErr);
+        // Re-start session if backend lost session state
+        const freshRes = await conversationApi.startSession({
+          patientId: patientData.patientId || `p_${Date.now()}`,
+          name: patientData.name || 'Anonymous',
+          age: patientData.age,
+          gender: patientData.gender,
+          language: lang,
+          intakeMode: intakeMode,
+        });
+        const freshSessId = freshRes.sessionId || sessionId;
+        setSessionId(freshSessId);
+
+        response = await conversationApi.submitTurn({
+          sessionId: freshSessId,
+          userText,
+          selectedOption,
+          audioBase64,
+          language: lang,
+        });
+      }
 
       if (response.question) {
         setCurrentQuestionText(response.question);
@@ -125,6 +154,9 @@ export const SessionProvider = ({ children }) => {
       }
       if (response.suggestedOptions && response.suggestedOptions.length > 0) {
         setSuggestedOptions(response.suggestedOptions);
+      }
+      if (response.audioBase64) {
+        setAudioBase64(response.audioBase64);
       }
       if (response.extractedClinicalUpdates) {
         setClinicalUpdates((prev) => ({ ...prev, ...response.extractedClinicalUpdates }));
@@ -138,15 +170,19 @@ export const SessionProvider = ({ children }) => {
         }));
       }
 
-      setTurnCount((prev) => prev + 1);
+      let currentTurn = 1;
+      setTurnCount((prev) => {
+        currentTurn = prev + 1;
+        return currentTurn;
+      });
 
       // Check Red Flag Escalation
-      if (response.isCritical || response.triagePriority === 'CRITICAL' || response.triagePriority === 'EMERGENCY') {
+      if (response.isCritical || response.triagePriority === 'CRITICAL' || response.triagePriority === 'EMERGENCY' || response.triagePriority === 'P1_CRITICAL') {
         setShowRedFlagModal(true);
       }
 
       // Check Completion
-      if (response.isCompleted || turnCount >= 6) {
+      if (response.isCompleted || currentTurn >= 6) {
         setCurrentRoute('documents');
       }
     } catch (err) {
@@ -154,7 +190,7 @@ export const SessionProvider = ({ children }) => {
     } finally {
       setIsSubmittingTurn(false);
     }
-  }, [sessionId, lang, turnCount]);
+  }, [sessionId, lang, patientData, intakeMode]);
 
   // Pause / Resume Session
   const pauseSession = useCallback(async () => {
@@ -256,6 +292,8 @@ export const SessionProvider = ({ children }) => {
     suggestedOptions,
     clinicalUpdates,
     triage,
+    audioBase64,
+    setAudioBase64,
     documentsList,
     clinicalSummary,
     submittedToken,

@@ -105,11 +105,10 @@ export default function PatientAuthStep({
         {/* Left Card: ABHA Path */}
         <section
           onClick={() => setAuthMethod('abha')}
-          className={`lg:col-span-6 rounded-3xl p-6 lg:p-8 shadow-sm transition-all relative overflow-hidden cursor-pointer border ${
-            authMethod === 'abha'
+          className={`lg:col-span-6 rounded-3xl p-6 lg:p-8 shadow-sm transition-all relative overflow-hidden cursor-pointer border ${authMethod === 'abha'
               ? 'bg-[#ffffff] border-[#2d3a31] ring-2 ring-[#2d3a31]'
               : 'bg-[#ffffff] border-[#e6e2da] hover:border-[#8c9a84]'
-          }`}
+            }`}
         >
           <div className="flex items-center justify-between gap-3 mb-4">
             <span className="inline-flex items-center gap-1.5 bg-[#d8e7ce] text-[#5b6854] px-3 py-1 rounded-full text-xs font-semibold">
@@ -181,11 +180,10 @@ export default function PatientAuthStep({
         {/* Right Card: Guest Path */}
         <section
           onClick={() => setAuthMethod('guest')}
-          className={`lg:col-span-6 rounded-3xl p-6 lg:p-8 shadow-sm transition-all relative overflow-hidden cursor-pointer border ${
-            authMethod === 'guest'
+          className={`lg:col-span-6 rounded-3xl p-6 lg:p-8 shadow-sm transition-all relative overflow-hidden cursor-pointer border ${authMethod === 'guest'
               ? 'bg-[#ffffff] border-[#2d3a31] ring-2 ring-[#2d3a31]'
               : 'bg-[#ffffff] border-[#e6e2da] hover:border-[#8c9a84]'
-          }`}
+            }`}
         >
           <div className="flex items-center justify-between gap-3 mb-4">
             <span className="inline-flex items-center gap-1.5 bg-[#efeeea] text-[#18241c] px-3 py-1 rounded-full text-xs font-semibold">
@@ -248,11 +246,10 @@ export default function PatientAuthStep({
                       key={g}
                       type="button"
                       onClick={() => setGender(g)}
-                      className={`flex-1 h-full rounded-full text-xs font-semibold capitalize transition-colors ${
-                        gender === g
+                      className={`flex-1 h-full rounded-full text-xs font-semibold capitalize transition-colors ${gender === g
                           ? 'bg-[#2d3a31] text-[#ffffff]'
                           : 'bg-[#f4f4f0] text-[#434844] hover:bg-[#d8e7ce]'
-                      }`}
+                        }`}
                     >
                       {t(currentLanguage, g)}
                     </button>

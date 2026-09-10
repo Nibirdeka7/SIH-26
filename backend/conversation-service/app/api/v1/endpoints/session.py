@@ -38,6 +38,16 @@ async def process_dialogue_turn(req: DialogueTurnRequest) -> DialogueTurnRespons
 
 
 
+@router.get("/queue")
+async def get_opd_queue():
+    """Returns active OPD patient queue for physician dashboard review."""
+    try:
+        return interview_manager.get_opd_queue()
+    except Exception as e:
+        logger.error(f"Error fetching queue: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/{session_id}", response_model=SessionStateResponse)
 async def get_session_state(session_id: str) -> SessionStateResponse:
     """Returns full current state, SOCRATES entities, triage assessment, and turn history."""

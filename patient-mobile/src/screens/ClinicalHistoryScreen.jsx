@@ -19,6 +19,7 @@ export const ClinicalHistoryScreen = ({
     suggestedOptions,
     clinicalUpdates,
     triage,
+    audioBase64,
     isSubmittingTurn,
     submitTurnAnswer,
     pauseSession,
@@ -32,6 +33,41 @@ export const ClinicalHistoryScreen = ({
 
   const [inputMode, setInputMode] = useState('speak'); // 'speak' | 'tap' | 'type'
   const [typeText, setTypeText] = useState('');
+
+  // Auto-play AI question voice audio when turn updates
+  React.useEffect(() => {
+    if (audioBase64) {
+      try {
+        const audioSrc = audioBase64.startsWith('data:') ? audioBase64 : `data:audio/mp3;base64,${audioBase64}`;
+        const audio = new Audio(audioSrc);
+        audio.play().catch((err) => console.warn('[ClinicalHistory] Auto-play audio notice:', err));
+      } catch (e) {
+        console.warn('[ClinicalHistory] Audio init notice:', e);
+      }
+    }
+  }, [audioBase64, currentQuestionText]);
+
+  const handlePlayAudio = () => {
+    const textToSpeak = currentQuestionModel?.text_native || currentQuestionText;
+    if (audioBase64) {
+      try {
+        const audioSrc = audioBase64.startsWith('data:') ? audioBase64 : `data:audio/mp3;base64,${audioBase64}`;
+        const audio = new Audio(audioSrc);
+        audio.play();
+        return;
+      } catch (e) {
+        console.warn('Base64 audio playback failed:', e);
+      }
+    }
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+      window.speechSynthesis.speak(utterance);
+    } else if (onPlayQuestionAudio) {
+      onPlayQuestionAudio(textToSpeak);
+    }
+  };
 
   const handleAnswer = async ({ userText = '', selectedOption = null, audioBase64 = null }) => {
     await submitTurnAnswer({ userText, selectedOption, audioBase64 });
@@ -60,14 +96,12 @@ export const ClinicalHistoryScreen = ({
         <View style={styles.qHeader}>
           <Text style={styles.qIcon}>💬</Text>
           <Text style={styles.qLabel}>वर्तमान प्रश्न (Current Question):</Text>
-          {onPlayQuestionAudio && (
-            <TouchableOpacity
-              onPress={() => onPlayQuestionAudio(currentQuestionText)}
-              style={styles.audioPlayIcon}
-            >
-              <Text style={styles.audioPlayText}>🔊 सुनो</Text>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            onPress={handlePlayAudio}
+            style={styles.audioPlayIcon}
+          >
+            <Text style={styles.audioPlayText}>🔊 सुनो</Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.questionText}>

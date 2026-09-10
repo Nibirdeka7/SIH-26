@@ -26,8 +26,79 @@ from app.services.triage_engine import triage_engine
 
 logger = logging.getLogger(__name__)
 
-# In-memory Session Storage
-sessions_db: Dict[str, dict] = {}
+import os
+import json
+
+# Persistent local JSON storage path
+DATA_DIR = os.path.join(os.path.dirname(__file__), "../data")
+STORE_FILE = os.path.join(DATA_DIR, "sessions_store.json")
+os.makedirs(DATA_DIR, exist_ok=True)
+
+def _load_sessions_db() -> Dict[str, dict]:
+    if os.path.exists(STORE_FILE):
+        try:
+            with open(STORE_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            logger.warn(f"Failed loading sessions store file: {e}")
+    return {}
+
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
+
+try:
+    from shared_db.database import SessionLocal
+    from shared_db.models import ClinicalSessionRecord
+except Exception as e:
+    logger.warning(f"Could not import shared_db: {e}")
+    SessionLocal = None
+    ClinicalSessionRecord = None
+
+def _sync_to_central_db(session_record: dict):
+    if not SessionLocal or not ClinicalSessionRecord or not isinstance(session_record, dict):
+        return
+    db = SessionLocal()
+    try:
+        sid = session_record.get("session_id")
+        if not sid:
+            return
+        rec = db.query(ClinicalSessionRecord).filter(ClinicalSessionRecord.id == sid).first()
+        if not rec:
+            rec = ClinicalSessionRecord(id=sid)
+            db.add(rec)
+        
+        rec.patient_id = session_record.get("patient_id")
+        rec.patient_name = session_record.get("patient_name")
+        rec.age = session_record.get("age", 42)
+        rec.gender = session_record.get("gender", "male")
+        rec.language = _get_str_val(session_record.get("language"), "hi")
+        rec.intake_mode = _get_str_val(session_record.get("intake_mode"), "allopathy")
+        rec.status = _get_str_val(session_record.get("status"), "INITIATED")
+        rec.chief_complaint = session_record.get("chief_complaint")
+        rec.socrates_json = json.dumps(session_record.get("socrates", {}))
+        rec.ayush_json = json.dumps(session_record.get("ayush", {}))
+        rec.triage_json = json.dumps(session_record.get("triage", {}))
+        rec.current_question_json = json.dumps(session_record.get("current_question", {}))
+        rec.turns_json = json.dumps(session_record.get("turns", []))
+        
+        db.commit()
+    except Exception as err:
+        logger.warning(f"Central DB session sync notice: {err}")
+        db.rollback()
+    finally:
+        db.close()
+
+def _save_sessions_db(db: Dict[str, dict]):
+    try:
+        with open(STORE_FILE, "w", encoding="utf-8") as f:
+            json.dump(db, f, ensure_ascii=False, indent=2)
+        for _, sess in db.items():
+            _sync_to_central_db(sess)
+    except Exception as e:
+        logger.warn(f"Failed saving sessions store file: {e}")
+
+# In-memory Session Storage synced with persistent store
+sessions_db: Dict[str, dict] = _load_sessions_db()
 
 # Clinical Ontology Questions Registry with Rich Touch Option Presets
 CLINICAL_QUESTIONS_REGISTRY = {
@@ -142,6 +213,16 @@ def _get_str_val(val, default="en") -> str:
     return str(val)
 
 
+def _to_question_option(opt) -> QuestionOption:
+    if isinstance(opt, QuestionOption):
+        return opt
+    if isinstance(opt, dict):
+        return QuestionOption(**opt)
+    if isinstance(opt, str):
+        return QuestionOption(label_native=opt, label_english=opt, value=opt)
+    return QuestionOption(label_native=str(opt), label_english=str(opt), value=str(opt))
+
+
 class InterviewManager:
     def create_session(self, req: StartSessionRequest) -> StartSessionResponse:
         session_id = f"sess_{uuid.uuid4().hex[:10]}"
@@ -159,7 +240,7 @@ class InterviewManager:
             section=first_q_meta["section"],
             input_mode=first_q_meta["input_mode"],
             answer_type=first_q_meta["answer_type"],
-            options=[QuestionOption(**opt) for opt in first_q_meta["options"]],
+            options=[_to_question_option(opt) for opt in first_q_meta["options"]],
             allow_voice=True,
             allow_text=True,
             allow_touch=True,
@@ -186,6 +267,7 @@ class InterviewManager:
         }
 
         sessions_db[session_id] = session_record
+        _save_sessions_db(sessions_db)
 
         audio_base64 = multilingual_engine.generate_tts_base64(greeting_native, lang_str)
         suggested_responses = ["Chest Pain", "Fever & Cough", "Headache", "Stomach Ache"] if lang_str == "en" else ["सीने में दर्द", "बुखार और खांसी", "सिरदर्द", "पेट दर्द"]
@@ -326,7 +408,7 @@ class InterviewManager:
                 section=q_meta["section"],
                 input_mode=q_meta["input_mode"],
                 answer_type=q_meta["answer_type"],
-                options=[QuestionOption(**opt) for opt in q_meta["options"]],
+                options=[_to_question_option(opt) for opt in q_meta["options"]],
                 allow_voice=True,
                 allow_text=True,
                 allow_touch=True,
@@ -359,6 +441,7 @@ class InterviewManager:
 
         audio_b64 = multilingual_engine.generate_tts_base64(next_q_native, lang)
         sess["updated_at"] = now
+        _save_sessions_db(sessions_db)
 
         return DialogueTurnResponse(
             session_id=session_id,
@@ -383,6 +466,7 @@ class InterviewManager:
         sess = sessions_db[session_id]
         sess["status"] = SessionStatus.PAUSED
         sess["updated_at"] = datetime.datetime.utcnow().isoformat()
+        _save_sessions_db(sessions_db)
         return self.get_session_state(session_id)
 
     def resume_session(self, session_id: str) -> SessionStateResponse:
@@ -391,6 +475,7 @@ class InterviewManager:
         sess = sessions_db[session_id]
         sess["status"] = SessionStatus.INTAKE_IN_PROGRESS
         sess["updated_at"] = datetime.datetime.utcnow().isoformat()
+        _save_sessions_db(sessions_db)
         return self.get_session_state(session_id)
 
     def complete_session(self, session_id: str) -> SessionStateResponse:
@@ -399,6 +484,7 @@ class InterviewManager:
         sess = sessions_db[session_id]
         sess["status"] = SessionStatus.COMPLETED
         sess["updated_at"] = datetime.datetime.utcnow().isoformat()
+        _save_sessions_db(sessions_db)
         return self.get_session_state(session_id)
 
     def get_session_state(self, session_id: str) -> SessionStateResponse:
@@ -424,6 +510,62 @@ class InterviewManager:
             created_at=s["created_at"],
             updated_at=s["updated_at"],
         )
+
+    def get_opd_queue(self) -> List[dict]:
+        """Generates live OPD patient queue list for physician dashboard review."""
+        queue_items = []
+        idx = 101
+        for sid, sess in sessions_db.items():
+            triage_info = sess.get("triage", {})
+            triage_lvl = triage_info.get("triage_level") or triage_info.get("triagePriority") or "ROUTINE"
+            is_crit = triage_info.get("is_critical") or triage_lvl in ["CRITICAL_EMERGENCY", "P1_CRITICAL", "CRITICAL"]
+
+            queue_items.append({
+                "session_id": sid,
+                "token_number": f"A-{idx}",
+                "patient_name": sess.get("patient_name") or "Rajesh Sharma",
+                "age": sess.get("age") or 42,
+                "gender": sess.get("gender") or "Male",
+                "language": sess.get("language") or "Hindi",
+                "chief_complaint": sess.get("chief_complaint") or "Clinical intake in progress",
+                "triage_level": triage_lvl,
+                "is_critical": is_crit,
+                "status": "History Ready",
+                "time_waiting": "4 Mins",
+            })
+            idx += 1
+
+        if not queue_items:
+            # Provide initial default queue items if store is empty
+            queue_items = [
+                {
+                    "session_id": "sess_live_101",
+                    "token_number": "A-101",
+                    "patient_name": "Rajesh Sharma",
+                    "age": 42,
+                    "gender": "Male",
+                    "language": "Hindi",
+                    "chief_complaint": "Severe chest discomfort & shortness of breath",
+                    "triage_level": "CRITICAL_EMERGENCY",
+                    "is_critical": True,
+                    "status": "History Ready",
+                    "time_waiting": "4 Mins",
+                },
+                {
+                    "session_id": "sess_live_102",
+                    "token_number": "A-102",
+                    "patient_name": "Sunita Devi",
+                    "age": 58,
+                    "gender": "Female",
+                    "language": "Hindi",
+                    "chief_complaint": "High fever, severe headache, and joint pain for 3 days",
+                    "triage_level": "URGENT",
+                    "is_critical": False,
+                    "status": "History Ready",
+                    "time_waiting": "12 Mins",
+                },
+            ]
+        return queue_items
 
 
 interview_manager = InterviewManager()

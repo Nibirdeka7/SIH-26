@@ -9,6 +9,23 @@
 import { Platform } from 'react-native';
 import { API_ENDPOINTS } from '../config/api';
 
+const FETCH_TIMEOUT_MS = 15000;
+const UPLOAD_TIMEOUT_MS = 30000;
+
+/**
+ * Helper: fetch with AbortController timeout
+ */
+async function fetchWithTimeout(url, options = {}, timeoutMs = FETCH_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    return response;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
 /**
  * Conversation Service API Client (Port 8001)
  */
@@ -18,7 +35,7 @@ export const conversationApi = {
    */
   async startSession({ patientId, name, age, gender, language = 'hi', intakeMode = 'allopathy' }) {
     try {
-      const response = await fetch(API_ENDPOINTS.START_SESSION, {
+      const response = await fetchWithTimeout(API_ENDPOINTS.START_SESSION, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -40,9 +57,10 @@ export const conversationApi = {
         sessionId: data.session_id,
         patientId: data.patient_id,
         status: data.status || 'INITIATED',
+        // Backend returns 'initial_question' and 'greeting' — prefer initial_question
         greeting: data.greeting || 'नमस्ते! आज आप क्या लक्षण महसूस कर रहे हैं?',
         greetingAudioUrl: data.greeting_audio_url || null,
-        initialQuestion: data.initial_question || 'आज आप किस समस्या के लिए डॉक्टर से परामर्श करना चाहते हैं?',
+        initialQuestion: data.initial_question || data.greeting || 'आज आप किस समस्या के लिए डॉक्टर से परामर्श करना चाहते हैं?',
         currentQuestion: data.current_question || null,
         suggestedOptions: data.suggested_quick_responses || [
           'सीने में दर्द (Chest pain)',
@@ -55,7 +73,7 @@ export const conversationApi = {
       console.warn('[ConversationAPI] Backend offline or network error, using fallback intake:', err.message);
       return {
         sessionId: `sess_fallback_${Date.now()}`,
-        patientId: patientId || `p_guest`,
+        patientId: patientId || 'p_guest',
         status: 'INTAKE_IN_PROGRESS',
         greeting: 'MediKiosk स्वास्थ्य पोर्टल में आपका स्वागत है।',
         greetingAudioUrl: null,
@@ -89,7 +107,7 @@ export const conversationApi = {
    */
   async submitTurn({ sessionId, userText = '', selectedOption = null, audioBase64 = null, language = 'hi' }) {
     try {
-      const response = await fetch(API_ENDPOINTS.PROCESS_TURN, {
+      const response = await fetchWithTimeout(API_ENDPOINTS.PROCESS_TURN, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -114,9 +132,10 @@ export const conversationApi = {
         status: data.status || 'INTAKE_IN_PROGRESS',
         recognizedTextNative: data.recognized_text_native || userText || selectedOption || '',
         translatedTextEnglish: data.translated_text_english || '',
+        // Use ai_response_native for the question shown to the patient
         aiResponseNative: data.ai_response_native || 'कृपया अपने लक्षणों के बारे में विस्तार से बताएं।',
         aiResponseEnglish: data.ai_response_english || 'Please explain your symptoms further.',
-        question: data.ai_response_native || 'कृपया अपने लक्षणों के बारे में थोड़ा और बताएं।',
+        question: data.ai_response_native || data.ai_response_english || 'कृपया अपने लक्षणों के बारे में थोड़ा और बताएं।',
         currentQuestion: data.current_question || null,
         audioBase64: data.response_audio_base64 || null,
         triagePriority: triage.triage_level || 'ROUTINE',
@@ -139,6 +158,8 @@ export const conversationApi = {
         aiResponseNative: 'यह तकलीफ कब से शुरू हुई थी?',
         aiResponseEnglish: 'When did these symptoms first begin?',
         question: 'यह दर्द या तकलीफ कब से शुरू हुई थी?',
+        currentQuestion: null,
+        audioBase64: null,
         suggestedOptions: [
           'आज सुबह से (Since morning)',
           '1-2 दिन से (1-2 days ago)',
@@ -160,7 +181,7 @@ export const conversationApi = {
    */
   async getSessionState(sessionId) {
     try {
-      const res = await fetch(API_ENDPOINTS.GET_SESSION(sessionId));
+      const res = await fetchWithTimeout(API_ENDPOINTS.GET_SESSION(sessionId));
       if (!res.ok) throw new Error(`Failed to fetch session state: ${res.status}`);
       return await res.json();
     } catch (err) {
@@ -181,7 +202,7 @@ export const conversationApi = {
 
   async pauseSession(sessionId) {
     try {
-      const res = await fetch(API_ENDPOINTS.PAUSE_SESSION(sessionId), { method: 'POST' });
+      const res = await fetchWithTimeout(API_ENDPOINTS.PAUSE_SESSION(sessionId), { method: 'POST' });
       return await res.json();
     } catch (e) {
       return { status: 'PAUSED', session_id: sessionId };
@@ -190,7 +211,7 @@ export const conversationApi = {
 
   async resumeSession(sessionId) {
     try {
-      const res = await fetch(API_ENDPOINTS.RESUME_SESSION(sessionId), { method: 'POST' });
+      const res = await fetchWithTimeout(API_ENDPOINTS.RESUME_SESSION(sessionId), { method: 'POST' });
       return await res.json();
     } catch (e) {
       return { status: 'ACTIVE', session_id: sessionId };
@@ -199,7 +220,7 @@ export const conversationApi = {
 
   async completeSession(sessionId) {
     try {
-      const res = await fetch(API_ENDPOINTS.COMPLETE_SESSION(sessionId), { method: 'POST' });
+      const res = await fetchWithTimeout(API_ENDPOINTS.COMPLETE_SESSION(sessionId), { method: 'POST' });
       return await res.json();
     } catch (e) {
       return { status: 'COMPLETED', session_id: sessionId };
@@ -238,26 +259,40 @@ export const conversationApi = {
  */
 export const documentApi = {
   /**
-   * Upload prescription or lab report image for OCR pipeline extraction
+   * Upload prescription or lab report image for OCR pipeline extraction.
+   *
+   * Handles both native (Expo file URI) and web (data: / blob: URI) environments.
    */
   async uploadDocument({ fileUri, fileName, mimeType = 'image/jpeg', sessionId = null, documentType = 'prescription' }) {
     try {
       const formData = new FormData();
 
       if (Platform.OS === 'web') {
+        // On web: convert data: or blob: URIs to a proper Blob/File for FormData
         if (fileUri && (fileUri.startsWith('data:') || fileUri.startsWith('blob:'))) {
           const fetchRes = await fetch(fileUri);
           const blob = await fetchRes.blob();
-          formData.append('files', blob, fileName || 'medical_document.jpg');
-        } else {
-          formData.append('files', {
-            uri: fileUri,
-            name: fileName || 'medical_document.jpg',
-            type: mimeType,
-          });
+          const file = new File([blob], fileName || 'medical_document.jpg', { type: mimeType || blob.type || 'image/jpeg' });
+          formData.append('files', file);
+        } else if (fileUri) {
+          // Fallback: try fetching the URI as a blob
+          try {
+            const fetchRes = await fetch(fileUri);
+            const blob = await fetchRes.blob();
+            const file = new File([blob], fileName || 'medical_document.jpg', { type: mimeType || 'image/jpeg' });
+            formData.append('files', file);
+          } catch (_) {
+            // If URI fetch fails, send as object (may not work in all browsers)
+            formData.append('files', {
+              uri: fileUri,
+              name: fileName || 'medical_document.jpg',
+              type: mimeType,
+            });
+          }
         }
       } else {
-        // Native React Native / Expo Mobile app file payload format
+        // Native React Native / Expo Mobile: send the file as a plain object
+        // React Native's fetch polyfill handles this correctly
         formData.append('files', {
           uri: fileUri,
           name: fileName || 'medical_document.jpg',
@@ -268,14 +303,18 @@ export const documentApi = {
       if (sessionId) formData.append('session_id', sessionId);
       if (documentType) formData.append('document_type', documentType);
 
-      const response = await fetch(API_ENDPOINTS.UPLOAD_DOCUMENTS, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          // Do NOT set 'Content-Type': 'multipart/form-data', fetch handles boundary automatically
+      const response = await fetchWithTimeout(
+        API_ENDPOINTS.UPLOAD_DOCUMENTS,
+        {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            // Do NOT set Content-Type: multipart/form-data — let fetch set the boundary
+          },
+          body: formData,
         },
-        body: formData,
-      });
+        UPLOAD_TIMEOUT_MS
+      );
 
       if (!response.ok) {
         throw new Error(`Document upload failed with status ${response.status}`);
@@ -320,15 +359,19 @@ export const documentApi = {
 export const summaryApi = {
   async generateSummary({ sessionId, targetLanguage = 'hi' }) {
     try {
-      const response = await fetch(API_ENDPOINTS.GENERATE_SUMMARY, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          session_id: sessionId,
-          include_documents: true,
-          target_language: targetLanguage,
-        }),
-      });
+      const response = await fetchWithTimeout(
+        API_ENDPOINTS.GENERATE_SUMMARY,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: sessionId,
+            include_documents: true,
+            target_language: targetLanguage,
+          }),
+        },
+        30000 // LLM calls can take longer
+      );
 
       if (!response.ok) {
         throw new Error(`Summary generation failed with status ${response.status}`);
@@ -338,7 +381,7 @@ export const summaryApi = {
     } catch (err) {
       console.warn('[SummaryAPI] Summary Service error fallback:', err.message);
       return {
-        summary_id: `sum_${Date.now()}`,
+        summary_id: sessionId,
         session_id: sessionId,
         patient_id: 'p_guest',
         patient_name: 'अतिथि मरीज',
@@ -356,12 +399,6 @@ export const summaryApi = {
           exacerbating_relieving: 'Relieved slightly on resting',
           severity: 7,
         },
-        ayush_pariksha: {
-          prakriti: 'Pitta-Vata',
-          vikriti: 'Pitta-Vriddhi',
-          agni: 'Vishama Agni',
-          koshtha: 'Madhyama',
-        },
         triage_assessment: {
           triage_level: 'ROUTINE',
           priority_score: 4,
@@ -369,13 +406,9 @@ export const summaryApi = {
           red_flags: [],
           emergency_instructions: null,
         },
-        digitized_documents_summary: {
-          total_prescriptions: 1,
-          extracted_medications: ['Paracetamol 500mg'],
-        },
         suggested_specialty: 'General Medicine / OPD',
         unverified_medications: [],
-        bilingual_recap_native: 'मरीज को पिछले 1 दिन से सीने में तेज दर्द और सांस लेने में हल्की तकलीफ है।',
+        bilingual_recap_native: 'मरीज को पिछले 1 दिन से सीने में दर्द और सांस लेने में हल्की तकलीफ है।',
         is_confirmed_by_doctor: false,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
@@ -385,7 +418,7 @@ export const summaryApi = {
 
   async getSummary(sessionId) {
     try {
-      const res = await fetch(API_ENDPOINTS.GET_SUMMARY(sessionId));
+      const res = await fetchWithTimeout(API_ENDPOINTS.GET_SUMMARY(sessionId));
       if (!res.ok) throw new Error(`Summary fetch failed with status ${res.status}`);
       return await res.json();
     } catch (err) {
@@ -393,6 +426,12 @@ export const summaryApi = {
     }
   },
 
+  /**
+   * Confirm clinical summary.
+   *
+   * Backend endpoint: POST /summary/{session_id}/confirm
+   * Path param must be session_id. Body is ConfirmSummaryRequest schema.
+   */
   async confirmSummary({
     summaryId,
     sessionId,
@@ -404,20 +443,27 @@ export const summaryApi = {
     treatmentPlan = null,
     physicianNotes = null,
   }) {
+    // The confirm endpoint uses session_id as path param, not summary_id
+    const pathId = sessionId || summaryId;
+
     try {
-      const response = await fetch(API_ENDPOINTS.CONFIRM_SUMMARY(sessionId || summaryId), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          session_id: sessionId,
-          physician_id: physicianId,
-          physician_name: physicianName,
-          edited_hpi: editedHpi,
-          confirmed_diagnosis: confirmedDiagnosis,
-          treatment_plan: treatmentPlan,
-          physician_notes: physicianNotes,
-        }),
-      });
+      const response = await fetchWithTimeout(
+        API_ENDPOINTS.CONFIRM_SUMMARY(pathId),
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: pathId,
+            physician_id: physicianId,
+            physician_name: physicianName,
+            edited_hpi: editedHpi,
+            confirmed_diagnosis: confirmedDiagnosis,
+            treatment_plan: treatmentPlan,
+            physician_notes: physicianNotes,
+          }),
+        },
+        20000
+      );
 
       if (!response.ok) {
         throw new Error(`Summary confirmation failed: ${response.status}`);
@@ -429,8 +475,9 @@ export const summaryApi = {
         token_number: resData.token_number || `A-${Math.floor(100 + Math.random() * 900)}`,
       };
     } catch (err) {
+      console.warn('[SummaryAPI] Confirm summary fallback:', err.message);
       return {
-        session_id: sessionId,
+        session_id: pathId,
         summary_id: summaryId || `sum_${Date.now()}`,
         status: 'CONFIRMED',
         token_number: `A-${Math.floor(100 + Math.random() * 900)}`,

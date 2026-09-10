@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
 import { COLORS, TYPOGRAPHY, SPACING, RADIUS, SHADOWS, ACCESSIBILITY } from '../theme/tokens';
 import { useSession } from '../context/SessionContext';
 
@@ -12,6 +12,19 @@ export const VOICE_STATES = {
   ERROR: 'ERROR',
 };
 
+const LANG_CODE_MAP = {
+  hi: 'hi-IN',
+  en: 'en-US',
+  bn: 'bn-IN',
+  ta: 'ta-IN',
+  te: 'te-IN',
+  mr: 'mr-IN',
+  gu: 'gu-IN',
+  kn: 'kn-IN',
+  ml: 'ml-IN',
+  as: 'as-IN',
+};
+
 export const VoiceRecorderCard = ({
   onTranscriptComplete,
   disabled = false,
@@ -19,16 +32,19 @@ export const VoiceRecorderCard = ({
   const { lang } = useSession();
   const [voiceState, setVoiceState] = useState(VOICE_STATES.IDLE);
   const [transcript, setTranscript] = useState('');
+  const [isSupported, setIsSupported] = useState(true);
+  const [manualText, setManualText] = useState('');
   const [recognitionInstance, setRecognitionInstance] = useState(null);
 
   useEffect(() => {
-    // Check if Web Speech API is supported
+    // Check if Web Speech API is supported in browser/webview
     const SpeechRecognition = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
     if (SpeechRecognition) {
+      setIsSupported(true);
       const rec = new SpeechRecognition();
       rec.continuous = false;
       rec.interimResults = true;
-      rec.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+      rec.lang = LANG_CODE_MAP[lang] || 'hi-IN';
 
       rec.onresult = (event) => {
         let currentTranscript = '';
@@ -39,7 +55,12 @@ export const VoiceRecorderCard = ({
       };
 
       rec.onend = () => {
-        setVoiceState((prev) => (prev === VOICE_STATES.RECORDING || prev === VOICE_STATES.LISTENING ? VOICE_STATES.SUCCESS : prev));
+        setVoiceState((prev) => {
+          if (prev === VOICE_STATES.RECORDING || prev === VOICE_STATES.LISTENING) {
+            return VOICE_STATES.SUCCESS;
+          }
+          return prev;
+        });
       };
 
       rec.onerror = (err) => {
@@ -48,35 +69,52 @@ export const VoiceRecorderCard = ({
       };
 
       setRecognitionInstance(rec);
+
+      return () => {
+        try {
+          rec.abort();
+        } catch (_) {}
+      };
+    } else {
+      setIsSupported(false);
     }
   }, [lang]);
 
-  const handleStartListening = () => {
+  const handleStartListening = async () => {
     if (disabled) return;
     setTranscript('');
     setVoiceState(VOICE_STATES.LISTENING);
 
+    // Request explicit device microphone access from the browser/device
+    if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        // Stop temporary stream tracks once permission is confirmed
+        stream.getTracks().forEach((track) => track.stop());
+      } catch (permErr) {
+        console.warn('[Microphone Permission] User denied or error requesting mic:', permErr);
+        alert('माइक्रोफ़ोन एक्सेस (Microphone Access) की अनुमति नहीं मिली। कृपया अपने ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।');
+        setVoiceState(VOICE_STATES.ERROR);
+        return;
+      }
+    }
+
     if (recognitionInstance) {
       try {
-        recognitionInstance.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+        recognitionInstance.lang = LANG_CODE_MAP[lang] || 'hi-IN';
         recognitionInstance.start();
         setVoiceState(VOICE_STATES.RECORDING);
         return;
       } catch (e) {
-        console.warn('SpeechRecognition start failed, fallback simulation active:', e);
+        console.warn('SpeechRecognition start notice:', e);
+        // If recognition was already running or starting, transition to RECORDING anyway
+        setVoiceState(VOICE_STATES.RECORDING);
+        return;
       }
     }
 
-    // Fallback progression for devices without Web Speech API
-    setTimeout(() => setVoiceState(VOICE_STATES.RECORDING), 800);
-    setTimeout(() => setVoiceState(VOICE_STATES.PROCESSING), 3000);
-    setTimeout(() => {
-      const fallbackText = lang === 'hi'
-        ? 'मुझे कल शाम से सीने में तेज दर्द हो रहा है।'
-        : 'I have severe chest pain starting yesterday evening.';
-      setTranscript(fallbackText);
-      setVoiceState(VOICE_STATES.SUCCESS);
-    }, 4200);
+    // Speech recognition not supported on this specific environment
+    setVoiceState(VOICE_STATES.ERROR);
   };
 
   const handleStopListening = () => {
@@ -89,104 +127,148 @@ export const VoiceRecorderCard = ({
     }
     setVoiceState(VOICE_STATES.PROCESSING);
     setTimeout(() => {
-      if (!transcript) {
-        setTranscript(lang === 'hi' ? 'लक्षण दर्ज किए गए' : 'Symptoms recorded');
-      }
       setVoiceState(VOICE_STATES.SUCCESS);
-    }, 1000);
+    }, 600);
   };
 
   const handleConfirmTranscript = () => {
-    if (transcript && onTranscriptComplete) {
-      onTranscriptComplete(transcript);
+    const textToSubmit = transcript.trim() || manualText.trim();
+    if (textToSubmit && onTranscriptComplete) {
+      onTranscriptComplete(textToSubmit);
       setVoiceState(VOICE_STATES.IDLE);
       setTranscript('');
+      setManualText('');
     }
   };
 
   const handleRetry = () => {
     setVoiceState(VOICE_STATES.IDLE);
     setTranscript('');
+    setManualText('');
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>🎙 आवाज से उत्तर दें (Voice Input)</Text>
-      <Text style={styles.subtext}>माइक बटन दबाएं और अपनी समस्या स्वाभाविक भाषा में बोलें</Text>
+      <Text style={styles.subtext}>माइक बटन दबाएं और अपने लक्षण स्वाभाविक भाषा में बोलें</Text>
 
       <View style={styles.micSection}>
-        {voiceState === VOICE_STATES.IDLE && (
-          <TouchableOpacity
-            style={styles.micButtonIdle}
-            onPress={handleStartListening}
-            activeOpacity={0.8}
-            disabled={disabled}
-            accessibilityLabel="Tap to speak"
-          >
-            <View style={styles.iconCircle}>
-              <Text style={styles.micIcon}>🎙</Text>
-            </View>
-            <Text style={styles.micLabel}>बोलने के लिए दबाएं (Tap to Speak)</Text>
-          </TouchableOpacity>
-        )}
-
-        {(voiceState === VOICE_STATES.LISTENING || voiceState === VOICE_STATES.RECORDING) && (
-          <TouchableOpacity
-            style={styles.micButtonActive}
-            onPress={handleStopListening}
-            activeOpacity={0.8}
-          >
-            <View style={styles.recordingPulse} />
-            <Text style={styles.micIconActive}>🔴</Text>
-            <Text style={styles.micLabelActive}>
-              {voiceState === VOICE_STATES.LISTENING ? 'सुन रहे हैं... (Listening)' : 'रिकॉर्ड हो रहा है... (Recording)'}
+        {!isSupported ? (
+          <View style={styles.unsupportedCard}>
+            <Text style={styles.unsupportedTitle}>⚠️ इस डिवाइस पर लाइव वॉइस स्पीच उपलब्ध नहीं है</Text>
+            <Text style={styles.unsupportedDesc}>
+              आप नीचे बॉक्स में लिखकर या प्रश्नों के विकल्पों पर टैप करके उत्तर दर्ज कर सकते हैं:
             </Text>
-            {transcript ? <Text style={styles.liveTranscript}>"{transcript}"</Text> : null}
-            <Text style={styles.tapToStop}>रुकने और उत्तर जमा करने के लिए पुनः दबाएं</Text>
-          </TouchableOpacity>
-        )}
 
-        {voiceState === VOICE_STATES.PROCESSING && (
-          <View style={styles.processingBox}>
-            <ActivityIndicator size="large" color={COLORS.saffron} />
-            <Text style={styles.processingText}>आपकी आवाज़ का विश्लेषण किया जा रहा है...</Text>
-          </View>
-        )}
+            <TextInput
+              style={styles.unsupportedInput}
+              placeholder="यहाँ अपनी समस्या विस्तार से लिखें..."
+              value={manualText}
+              onChangeText={setManualText}
+              multiline
+              numberOfLines={3}
+            />
 
-        {voiceState === VOICE_STATES.SUCCESS && (
-          <View style={styles.successBox}>
-            <Text style={styles.successHeadline}>हमने सुना (Recognized Text):</Text>
-            <View style={styles.transcriptCard}>
-              <Text style={styles.transcriptText}>"{transcript}"</Text>
-            </View>
-
-            <View style={styles.actionButtonsRow}>
-              <TouchableOpacity
-                style={styles.retryButton}
-                onPress={handleRetry}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.retryButtonText}>🔄 दोबारा बोलें</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.confirmButton}
-                onPress={handleConfirmTranscript}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.confirmButtonText}>✓ उत्तर जमा करें</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-
-        {voiceState === VOICE_STATES.ERROR && (
-          <View style={styles.errorBox}>
-            <Text style={styles.errorText}>⚠️ आवाज पहचान नहीं पाई। कृपया पुनः प्रयास करें।</Text>
-            <TouchableOpacity style={styles.retryButton} onPress={handleRetry}>
-              <Text style={styles.retryButtonText}>पुनः प्रयास करें</Text>
+            <TouchableOpacity
+              style={[styles.confirmButton, !manualText.trim() && styles.disabledButton]}
+              onPress={handleConfirmTranscript}
+              disabled={!manualText.trim() || disabled}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.confirmButtonText}>✓ उत्तर जमा करें (Submit)</Text>
             </TouchableOpacity>
           </View>
+        ) : (
+          <>
+            {voiceState === VOICE_STATES.IDLE && (
+              <TouchableOpacity
+                style={styles.micButtonIdle}
+                onPress={handleStartListening}
+                activeOpacity={0.8}
+                disabled={disabled}
+                accessibilityLabel="Tap to speak"
+              >
+                <View style={styles.iconCircle}>
+                  <Text style={styles.micIcon}>🎙</Text>
+                </View>
+                <Text style={styles.micLabel}>बोलने के लिए दबाएं (Tap to Speak)</Text>
+              </TouchableOpacity>
+            )}
+
+            {(voiceState === VOICE_STATES.LISTENING || voiceState === VOICE_STATES.RECORDING) && (
+              <TouchableOpacity
+                style={styles.micButtonActive}
+                onPress={handleStopListening}
+                activeOpacity={0.8}
+              >
+                <View style={styles.recordingPulse} />
+                <Text style={styles.micIconActive}>🔴</Text>
+                <Text style={styles.micLabelActive}>
+                  {voiceState === VOICE_STATES.LISTENING ? 'सुन रहे हैं... (Listening)' : 'रिकॉर्ड हो रहा है... (Recording)'}
+                </Text>
+                {transcript ? <Text style={styles.liveTranscript}>"{transcript}"</Text> : <Text style={styles.listeningHint}>बोलिए, हम सुन रहे हैं...</Text>}
+                <Text style={styles.tapToStop}>रुकने और उत्तर जमा करने के लिए पुनः दबाएं</Text>
+              </TouchableOpacity>
+            )}
+
+            {voiceState === VOICE_STATES.PROCESSING && (
+              <View style={styles.processingBox}>
+                <ActivityIndicator size="large" color={COLORS.saffron} />
+                <Text style={styles.processingText}>आपकी आवाज़ का विश्लेषण किया जा रहा है...</Text>
+              </View>
+            )}
+
+            {voiceState === VOICE_STATES.SUCCESS && (
+              <View style={styles.successBox}>
+                {transcript ? (
+                  <>
+                    <Text style={styles.successHeadline}>हमने सुना (Recognized Text):</Text>
+                    <View style={styles.transcriptCard}>
+                      <Text style={styles.transcriptText}>"{transcript}"</Text>
+                    </View>
+                  </>
+                ) : (
+                  <View style={styles.noSpeechCard}>
+                    <Text style={styles.noSpeechText}>⚠️ कोई आवाज़ पहचान नहीं पाई। कृपया दोबारा बोलें या नीचे दर्ज करें:</Text>
+                    <TextInput
+                      style={styles.unsupportedInput}
+                      placeholder="या यहाँ अपने लक्षण लिखें..."
+                      value={manualText}
+                      onChangeText={setManualText}
+                    />
+                  </View>
+                )}
+
+                <View style={styles.actionButtonsRow}>
+                  <TouchableOpacity
+                    style={styles.retryButton}
+                    onPress={handleRetry}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.retryButtonText}>🔄 दोबारा बोलें</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[styles.confirmButton, (!transcript.trim() && !manualText.trim()) && styles.disabledButton]}
+                    onPress={handleConfirmTranscript}
+                    disabled={!transcript.trim() && !manualText.trim()}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.confirmButtonText}>✓ उत्तर जमा करें</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+
+            {voiceState === VOICE_STATES.ERROR && (
+              <View style={styles.errorBox}>
+                <Text style={styles.errorText}>⚠️ आवाज पहचान नहीं पाई। कृपया पुनः प्रयास करें।</Text>
+                <TouchableOpacity style={styles.retryButton} onPress={handleRetry}>
+                  <Text style={styles.retryButtonText}>पुनः प्रयास करें</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </>
         )}
       </View>
     </View>
@@ -352,6 +434,55 @@ const styles = StyleSheet.create({
     color: COLORS.textInverted,
     fontWeight: TYPOGRAPHY.weights.bold,
     fontSize: TYPOGRAPHY.sizes.sm,
+  },
+  disabledButton: {
+    backgroundColor: COLORS.border,
+    borderColor: COLORS.border,
+  },
+  listeningHint: {
+    fontSize: TYPOGRAPHY.sizes.sm,
+    color: COLORS.saffronDark,
+    fontStyle: 'italic',
+  },
+  unsupportedCard: {
+    width: '100%',
+    backgroundColor: COLORS.surfaceAlt,
+    borderRadius: RADIUS.md,
+    padding: SPACING.md,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    gap: SPACING.sm,
+  },
+  unsupportedTitle: {
+    fontSize: TYPOGRAPHY.sizes.xs,
+    fontWeight: TYPOGRAPHY.weights.bold,
+    color: COLORS.saffronDark,
+  },
+  unsupportedDesc: {
+    fontSize: 11,
+    color: COLORS.textMuted,
+  },
+  unsupportedInput: {
+    minHeight: 70,
+    backgroundColor: COLORS.surface,
+    borderWidth: 1.5,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.md,
+    padding: SPACING.sm,
+    fontSize: TYPOGRAPHY.sizes.sm,
+    color: COLORS.textPrimary,
+    textAlignVertical: 'top',
+  },
+  noSpeechCard: {
+    backgroundColor: COLORS.saffronLight,
+    padding: SPACING.sm,
+    borderRadius: RADIUS.md,
+    gap: SPACING.xs,
+  },
+  noSpeechText: {
+    fontSize: 11,
+    color: COLORS.saffronDark,
+    fontWeight: TYPOGRAPHY.weights.semibold,
   },
   errorBox: {
     alignItems: 'center',

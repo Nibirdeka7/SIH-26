@@ -61,6 +61,8 @@ export default function App() {
 
   // Speech Recognition API Reference
   const recognitionRef = useRef(null);
+  // Keep a ref to the latest handleSendMessage so speech callbacks don't stale-close over it
+  const sendMessageRef = useRef(null);
 
   // Synchronize Text Size to Document Element
   useEffect(() => {
@@ -94,32 +96,40 @@ export default function App() {
   }, []);
 
 
-  // Setup Web Speech API for Browser Voice Input
+  // Setup Web Speech API for Browser Voice Input — only once on mount
   useEffect(() => {
-    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
 
-      recognitionRef.current.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setIsListening(false);
-        if (transcript) {
-          handleSendMessage(transcript);
-        }
-      };
+    const rec = new SpeechRecognition();
+    rec.continuous = false;
+    rec.interimResults = false;
 
-      recognitionRef.current.onerror = (err) => {
-        console.warn('Speech recognition error:', err);
-        setIsListening(false);
-      };
+    rec.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setIsListening(false);
+      if (transcript && sendMessageRef.current) {
+        sendMessageRef.current(transcript);
+      }
+    };
 
-      recognitionRef.current.onend = () => {
-        setIsListening(false);
-      };
-    }
-  }, [sessionId, currentLanguage]);
+    rec.onerror = (err) => {
+      console.warn('Speech recognition error:', err);
+      setIsListening(false);
+    };
+
+    rec.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = rec;
+
+    return () => {
+      try { rec.abort(); } catch (_) {}
+    };
+  // Only run once on mount — lang changes handled in handleToggleListening
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Toggle Voice Recognition Listening
   const handleToggleListening = () => {
@@ -210,6 +220,8 @@ export default function App() {
 
   // Process Dialogue Turn (Voice, Touch Option, or Text)
   const handleSendMessage = async (text, selectedOption = null) => {
+    // Keep ref up-to-date for speech recognition callback
+    sendMessageRef.current = handleSendMessage;
     const userText = text || selectedOption;
     if (!userText) return;
 
@@ -299,13 +311,25 @@ export default function App() {
       setSummaryData(summary);
       setActiveStepIndex(6);
     } catch (err) {
-      console.warn('Summary generation fallback:', err);
+      console.warn('Summary generation fallback (backend may be offline):', err.message);
+      const userMessages = messages.filter((m) => m.sender === 'user').map((m) => m.text);
       setSummaryData({
-        summary_id: `sum_${Date.now()}`,
-        chief_complaint: messages.filter((m) => m.sender === 'user').map((m) => m.text).join('; ') || 'Chest pain and cough',
+        summary_id: activeSessId,
+        session_id: activeSessId,
+        chief_complaint: userMessages.join('; ') || 'Symptoms described during interview',
         suggested_specialty: triagePriority === 'P1_CRITICAL' ? 'Emergency Medicine' : 'General Medicine OPD',
-        unverified_medications: ['Paracetamol 500mg (Self-medicated)'],
+        recommended_specialty: triagePriority === 'P1_CRITICAL' ? 'Emergency Medicine' : 'General Medicine OPD',
+        unverified_medications: [],
         triage_category: triagePriority || 'P2_URGENT',
+        triage_assessment: {
+          triage_level: triagePriority || 'ROUTINE',
+          is_critical: isCritical,
+          red_flags: redFlags,
+        },
+        bilingual_recap_native: userMessages.length > 0
+          ? `मरीज ने बताया: ${userMessages.slice(0, 2).join('; ')}`
+          : 'लक्षण दर्ज किए गए।',
+        is_confirmed_by_doctor: false,
       });
       setActiveStepIndex(6);
     } finally {

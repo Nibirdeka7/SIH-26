@@ -12,6 +12,7 @@ import CriticalAlertModal from './components/CriticalAlertModal';
 
 import { conversationService } from './services/conversation_api';
 import { summaryService } from './services/summary_api';
+import { sharedDbService } from './services/sharedDbService';
 
 export default function App() {
   // Accessibility & System Preferences
@@ -177,6 +178,15 @@ export default function App() {
 
       if (result.suggested_options) setSuggestedOptions(result.suggested_options);
       if (result.audio_base64) setAudioBase64(result.audio_base64);
+
+      sharedDbService.broadcast('NEW_SESSION', {
+        session_id: result.session_id,
+        patient_name: customPatientData.name,
+        age: customPatientData.age,
+        gender: customPatientData.gender,
+        language: currentLanguage,
+        chief_complaint: 'Patient check-in initiated',
+      });
 
       const greeting = result.question || 'Hello, what health symptoms are you experiencing today?';
       setMessages([{ sender: 'bot', text: greeting }]);
@@ -458,7 +468,9 @@ export default function App() {
             onDocumentExtracted={(doc) => setExtractedDocs((prev) => [...prev, doc])}
             onRemoveDocument={(docId) =>
               setExtractedDocs((prev) =>
-                prev.filter((d, i) => (d.document_id ? d.document_id !== docId : i !== docId))
+                prev.filter((d, i) =>
+                  typeof docId === 'number' ? i !== docId : d.document_id !== docId
+                )
               )
             }
             onProceedToReview={handleFinishIntake}

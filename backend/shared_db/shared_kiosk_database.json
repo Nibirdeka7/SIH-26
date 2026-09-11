@@ -1,0 +1,159 @@
+{
+  "patients": [
+    {
+      "id": "P-101",
+      "name": "Rajesh Sharma",
+      "age": 42,
+      "gender": "Male",
+      "mobile": "9876543210",
+      "abhaNumber": "91-8273-4920-11"
+    },
+    {
+      "id": "P-102",
+      "name": "Sunita Devi",
+      "age": 58,
+      "gender": "Female",
+      "mobile": "9876543211",
+      "abhaNumber": "91-4451-9923-88"
+    }
+  ],
+  "sessions": {
+    "sess_live_101": {
+      "session_id": "sess_live_101",
+      "patient_id": "P-101",
+      "patient_name": "Rajesh Sharma",
+      "age": 42,
+      "gender": "Male",
+      "language": "hi",
+      "intake_mode": "allopathy",
+      "status": "COMPLETED",
+      "chief_complaint": "Severe substernal chest discomfort & shortness of breath",
+      "socrates": {
+        "site": "Substernal chest / Precordium",
+        "onset": "Sudden onset 1 day ago while climbing stairs",
+        "character": "Heavy crushing & sharp tightness",
+        "radiation": "Radiating to left shoulder and jaw",
+        "associations": ["Mild diaphoresis", "Shortness of breath", "Nausea"],
+        "time_course": "Intermittent episodes lasting 15-20 minutes each",
+        "exacerbating_relieving": "Aggravated by exertion; partially relieved by rest",
+        "severity": 8
+      },
+      "ayush": {
+        "prakriti": "Pitta-Vata",
+        "vikriti": "Pitta-Vriddhi",
+        "agni": "Vishama Agni",
+        "koshtha": "Madhyama"
+      },
+      "triage": {
+        "triage_level": "CRITICAL_EMERGENCY",
+        "priority_score": 9,
+        "is_critical": true,
+        "red_flags": ["Acute Coronary Syndrome Suspected"],
+        "emergency_instructions": "Perform STAT 12-lead ECG and notify Cardiology Registrar."
+      },
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text_native": "सीने में तेज दर्द और सांस फूल रही है",
+          "text_english": "Severe chest pain and shortness of breath",
+          "language": "hi",
+          "timestamp": "2026-09-10T10:15:00Z"
+        }
+      ],
+      "created_at": "2026-09-10T10:15:00Z",
+      "updated_at": "2026-09-10T10:20:00Z"
+    },
+    "sess_live_102": {
+      "session_id": "sess_live_102",
+      "patient_id": "P-102",
+      "patient_name": "Sunita Devi",
+      "age": 58,
+      "gender": "Female",
+      "language": "hi",
+      "intake_mode": "allopathy",
+      "status": "COMPLETED",
+      "chief_complaint": "High fever, severe headache, and joint pain for 3 days",
+      "socrates": {
+        "site": "Head & bilateral knee joints",
+        "onset": "3 days ago",
+        "character": "Throbbing headache & dull aching joint pain",
+        "radiation": "None",
+        "associations": ["High fever", "Chills", "Loss of appetite"],
+        "severity": 6
+      },
+      "ayush": {
+        "prakriti": "Vata-Kapha",
+        "vikriti": "Vata-Kopa",
+        "agni": "Mandagni",
+        "koshtha": "Regular"
+      },
+      "triage": {
+        "triage_level": "URGENT",
+        "priority_score": 6,
+        "is_critical": false,
+        "red_flags": []
+      },
+      "turns": [],
+      "created_at": "2026-09-10T11:00:00Z",
+      "updated_at": "2026-09-10T11:05:00Z"
+    }
+  },
+  "summaries": {
+    "sess_live_101": {
+      "summary_id": "sum_live_101",
+      "session_id": "sess_live_101",
+      "patient_id": "P-101",
+      "patient_name": "Rajesh Sharma",
+      "age": 42,
+      "gender": "Male",
+      "language": "hi",
+      "chief_complaint": "Severe substernal chest discomfort & shortness of breath",
+      "hpi_socrates": {
+        "site": "Substernal chest / Precordium",
+        "onset": "Sudden onset 1 day ago while climbing stairs",
+        "character": "Heavy crushing & sharp tightness",
+        "radiation": "Radiating to left shoulder and jaw",
+        "associations": ["Mild diaphoresis", "Shortness of breath", "Nausea"],
+        "time_course": "Intermittent episodes lasting 15-20 minutes each",
+        "exacerbating_relieving": "Aggravated by exertion; partially relieved by rest",
+        "severity": 8
+      },
+      "ayush_pariksha": {
+        "prakriti": "Pitta-Vata",
+        "vikriti": "Pitta-Vriddhi",
+        "agni": "Vishama Agni",
+        "koshtha": "Madhyama"
+      },
+      "triage_assessment": {
+        "triage_level": "CRITICAL_EMERGENCY",
+        "priority_score": 9,
+        "is_critical": true,
+        "red_flags": ["Acute Coronary Syndrome Suspected"],
+        "emergency_instructions": "Perform STAT 12-lead ECG and notify Cardiology Registrar."
+      },
+      "digitized_documents_summary": {
+        "total_prescriptions": 1,
+        "extracted_medications": ["Tab. Sorbitrate 5mg (Sublingual)", "Tab. Aspirin 75mg QD"],
+        "doctor_instructions": "Discontinue heavy physical activity. Follow up in 3 days."
+      },
+      "suggested_specialty": "Cardiology / Emergency OPD",
+      "unverified_medications": ["Self-medicated Paracetamol 500mg"],
+      "bilingual_recap_native": "मरीज को पिछले 1 दिन से सीने में तेज दर्द, बाएं कंधे में खिंचाव और सांस फूलने की समस्या है।",
+      "is_confirmed_by_doctor": false,
+      "created_at": "2026-09-10T10:20:00Z",
+      "updated_at": "2026-09-10T10:20:00Z"
+    }
+  },
+  "documents": [],
+  "completed_visits": [
+    {
+      "id": "P-101",
+      "name": "Rajesh Sharma",
+      "age": 42,
+      "gender": "M",
+      "reason": "High fever, persistent cough, and mild shortness of breath",
+      "completedAt": "2026-09-10T10:35:00Z"
+    }
+  ]
+}

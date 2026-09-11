@@ -22,15 +22,17 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = FETCH_TIMEOUT_MS)
 export const documentService = {
   /**
    * Check health status of Document Service backend
-   * Backend returns { status: 'ok' } or { status: 'healthy' }
+   * Backend returns { status: 'ok' } or { status: 'running' }
    */
   async checkHealth() {
     try {
-      const response = await fetchWithTimeout(`${API_BASE_URLS.DOCUMENT}/health`, {}, 5000);
-      if (!response.ok) return { status: 'error', service: 'document-service' };
+      let response = await fetchWithTimeout(`${API_BASE_URLS.DOCUMENT}/health`, {}, 5000).catch(() => null);
+      if (!response || !response.ok) {
+        response = await fetchWithTimeout(`${API_BASE_URLS.DOCUMENT}/`, {}, 5000).catch(() => null);
+      }
+      if (!response || !response.ok) return { status: 'error', service: 'document-service' };
       const data = await response.json();
-      // Accept both 'ok' and 'healthy' as valid status responses
-      const isOnline = data.status === 'ok' || data.status === 'healthy';
+      const isOnline = data.status === 'ok' || data.status === 'healthy' || data.status === 'running';
       return { status: isOnline ? 'ok' : 'error', service: 'document-service', raw: data };
     } catch (err) {
       console.warn('[DocumentService] Health check failed:', err.message);
@@ -64,7 +66,9 @@ export const documentService = {
     }
 
     if (documentType) {
-      formData.append('document_type', documentType);
+      // Map 'OTHER' to 'UNKNOWN' to align with backend DocumentType Enum
+      const normalizedDocType = documentType === 'OTHER' ? 'UNKNOWN' : documentType;
+      formData.append('document_type', normalizedDocType);
     }
 
     let response;
@@ -89,7 +93,18 @@ export const documentService = {
 
     if (!response.ok) {
       const errorText = await response.text().catch(() => response.statusText);
-      throw new Error(`Document Service error (${response.status}): ${errorText || response.statusText}`);
+      let formattedMsg = errorText || response.statusText;
+      try {
+        const parsedErr = JSON.parse(errorText);
+        if (parsedErr.detail) {
+          formattedMsg = typeof parsedErr.detail === 'string'
+            ? parsedErr.detail
+            : Array.isArray(parsedErr.detail)
+            ? parsedErr.detail.map((d) => d.msg || JSON.stringify(d)).join('; ')
+            : JSON.stringify(parsedErr.detail);
+        }
+      } catch (_) {}
+      throw new Error(`Document Service error (${response.status}): ${formattedMsg}`);
     }
 
     return await response.json();

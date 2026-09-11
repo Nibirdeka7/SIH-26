@@ -49,10 +49,12 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 try:
     from shared_db.database import SessionLocal
     from shared_db.models import ClinicalSessionRecord
+    from shared_db.json_db_manager import json_db_manager
 except Exception as e:
     logger.warning(f"Could not import shared_db: {e}")
     SessionLocal = None
     ClinicalSessionRecord = None
+    json_db_manager = None
 
 def _sync_to_central_db(session_record: dict):
     if not SessionLocal or not ClinicalSessionRecord or not isinstance(session_record, dict):
@@ -92,6 +94,9 @@ def _save_sessions_db(db: Dict[str, dict]):
     try:
         with open(STORE_FILE, "w", encoding="utf-8") as f:
             json.dump(db, f, ensure_ascii=False, indent=2)
+        if json_db_manager:
+            for sid, sess in db.items():
+                json_db_manager.save_session(sess)
         for _, sess in db.items():
             _sync_to_central_db(sess)
     except Exception as e:
@@ -99,6 +104,9 @@ def _save_sessions_db(db: Dict[str, dict]):
 
 # In-memory Session Storage synced with persistent store
 sessions_db: Dict[str, dict] = _load_sessions_db()
+if json_db_manager:
+    shared_sessions = json_db_manager.get_all_sessions()
+    sessions_db.update(shared_sessions)
 
 # Clinical Ontology Questions Registry with Rich Touch Option Presets
 CLINICAL_QUESTIONS_REGISTRY = {

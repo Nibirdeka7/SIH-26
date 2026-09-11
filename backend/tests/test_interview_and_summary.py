@@ -49,14 +49,16 @@ async def run_verification_tests():
     print(f"         Greeting: {sess_res.greeting}")
     print(f"         Has TTS Audio Payload: {sess_res.greeting_audio_url is not None}")
 
+    from app.schemas.session import DialogueTurnRequest
+
     # Turn 1: Chief Complaint
-    turn1 = await interview_manager.process_turn(sess_res.session_id, "मुझे पिछले 2 दिन से बुखार और पेट में दर्द है")
+    turn1 = await interview_manager.process_turn(DialogueTurnRequest(session_id=sess_res.session_id, user_text="मुझे पिछले 2 दिन से बुखार और पेट में दर्द है", language=LanguageCode.HI))
     print(f"\n[Turn 1] Patient: मुझे पिछले 2 दिन से बुखार और पेट में दर्द है")
     print(f"         Translated English: {turn1.translated_text_english}")
     print(f"         AI Follow-up ({turn1.current_framework_step}): {turn1.ai_response_native}")
     
     # Turn 2: Critical Escalation test mid-session
-    turn2 = await interview_manager.process_turn(sess_res.session_id, "अब मेरे सीने में बहुत तेज़ दर्द शुरू हो गया है")
+    turn2 = await interview_manager.process_turn(DialogueTurnRequest(session_id=sess_res.session_id, user_text="अब मेरे सीने में बहुत तेज़ दर्द शुरू हो गया है", language=LanguageCode.HI))
     print(f"\n[Turn 2] Patient: अब मेरे सीने में बहुत तेज़ दर्द शुरू हो गया है")
     print(f"         Status: {turn2.status}")
     print(f"         Is Critical Emergency: {turn2.triage.is_critical}")

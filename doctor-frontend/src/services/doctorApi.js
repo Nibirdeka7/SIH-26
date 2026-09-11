@@ -5,6 +5,8 @@
  * - Conversation Service (Port 8001)
  */
 
+import { sharedDbService } from './sharedDbService';
+
 const SUMMARY_BASE_URL = 'http://localhost:8002/api/v1';
 const CONVERSATION_BASE_URL = 'http://localhost:8001/api/v1';
 
@@ -13,14 +15,38 @@ export const doctorApiService = {
    * Fetch patient OPD queue
    */
   async getOpdQueue() {
+    let queueItems = [];
     try {
       const res = await fetch(`${CONVERSATION_BASE_URL}/sessions/queue`);
       if (res.ok) {
-        return await res.json();
+        queueItems = await res.json();
       }
     } catch (e) {
-      console.warn('[DoctorAPI] Queue fetch warning, using live queue list:', e);
+      console.warn('[DoctorAPI] Queue fetch notice:', e);
     }
+
+    // Merge any live sessions created in sharedDbService local JSON store
+    const localStore = sharedDbService.getStore();
+    const localSessions = Object.values(localStore.sessions || {});
+    localSessions.forEach((sess, i) => {
+      if (!queueItems.some((q) => q.session_id === sess.session_id)) {
+        queueItems.unshift({
+          session_id: sess.session_id,
+          token_number: `A-${200 + i}`,
+          patient_name: sess.patient_name || 'Rajesh Sharma',
+          age: sess.age || 42,
+          gender: sess.gender || 'Male',
+          language: sess.language || 'Hindi',
+          chief_complaint: sess.chief_complaint || 'Clinical intake completed',
+          triage_level: sess.triage?.triage_level || 'ROUTINE',
+          is_critical: sess.triage?.is_critical || false,
+          status: 'History Ready',
+          time_waiting: 'Just now',
+        });
+      }
+    });
+
+    if (queueItems.length > 0) return queueItems;
 
     // Default active queue list for OPD Room 104
     return [
@@ -49,19 +75,6 @@ export const doctorApiService = {
         is_critical: false,
         status: 'History Ready',
         time_waiting: '12 Mins',
-      },
-      {
-        session_id: 'sess_live_103',
-        token_number: 'A-103',
-        patient_name: 'Amina Khatun',
-        age: 35,
-        gender: 'Female',
-        language: 'Bengali',
-        chief_complaint: 'Abdominal burning pain worsening after meals',
-        triage_level: 'ROUTINE',
-        is_critical: false,
-        status: 'History Ready',
-        time_waiting: '18 Mins',
       },
     ];
   },

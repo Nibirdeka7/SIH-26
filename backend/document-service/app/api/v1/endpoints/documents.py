@@ -8,6 +8,13 @@ from app.services.document_pipeline import (
     DocumentPipeline,
     DocumentPipelineError,
 )
+import sys
+import os
+try:
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../..")))
+    from shared_db.json_db_manager import json_db_manager
+except Exception:
+    json_db_manager = None
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +78,18 @@ async def upload_documents(
             if result.extraction.verification.needs_review:
                 status = DocumentStatus.NEEDS_REVIEW
 
+            doc_entry = {
+                "document_id": result.document_id,
+                "session_id": result.session_id,
+                "filename": result.filename,
+                "content_type": result.content_type,
+                "file_type": str(result.file_type),
+                "file_size": result.file_size,
+                "document_type": str(result.document_type),
+                "status": str(status),
+                "ocr_confidence": result.ocr_confidence,
+                "error": None,
+            }
             results.append(
                 {
                     "document_id": result.document_id,
@@ -86,6 +105,8 @@ async def upload_documents(
                     "error": None,
                 }
             )
+            if json_db_manager:
+                json_db_manager.add_document(doc_entry)
 
         except DocumentPipelineError as exc:
             logger.warning(

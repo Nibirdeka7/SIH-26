@@ -38,19 +38,33 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "../data")
 STORE_FILE = os.path.join(DATA_DIR, "summaries_store.json")
 os.makedirs(DATA_DIR, exist_ok=True)
 
+try:
+    import sys
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
+    from shared_db.json_db_manager import json_db_manager
+except Exception as e:
+    json_db_manager = None
+
 def _load_summaries_db() -> Dict[str, dict]:
+    local_db = {}
     if os.path.exists(STORE_FILE):
         try:
             with open(STORE_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                local_db = json.load(f)
         except Exception as e:
             logger.warning(f"Failed loading summaries store: {e}")
-    return {}
+    if json_db_manager:
+        shared_summaries = json_db_manager.get_all_summaries()
+        local_db.update(shared_summaries)
+    return local_db
 
 def _save_summaries_db(db: Dict[str, dict]):
     try:
         with open(STORE_FILE, "w", encoding="utf-8") as f:
             json.dump(db, f, ensure_ascii=False, indent=2)
+        if json_db_manager:
+            for sid, summ in db.items():
+                json_db_manager.save_summary(summ)
     except Exception as e:
         logger.warning(f"Failed saving summaries store: {e}")
 

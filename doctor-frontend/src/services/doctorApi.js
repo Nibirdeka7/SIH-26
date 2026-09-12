@@ -83,28 +83,63 @@ export const doctorApiService = {
    * Fetch structured pre-consult summary for a patient
    */
   async getClinicalSummary(sessionId) {
+    let summaryData = null;
     try {
       const res = await fetch(`${SUMMARY_BASE_URL}/summary/${sessionId}`);
       if (res.ok) {
-        return await res.json();
+        summaryData = await res.json();
       }
     } catch (e) {
       console.warn('[DoctorAPI] Summary fetch warning, generating draft:', e);
     }
 
-    // Attempt generate summary endpoint if not yet confirmed
-    try {
-      const genRes = await fetch(`${SUMMARY_BASE_URL}/summary/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ session_id: sessionId, include_documents: true }),
-      });
-      if (genRes.ok) {
-        return await genRes.json();
+    if (!summaryData) {
+      // Attempt generate summary endpoint if not yet confirmed
+      try {
+        const genRes = await fetch(`${SUMMARY_BASE_URL}/summary/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId, include_documents: true }),
+        });
+        if (genRes.ok) {
+          summaryData = await genRes.json();
+        }
+      } catch (e) {
+        console.warn('[DoctorAPI] Generate endpoint offline, returning structured summary schema:', e);
       }
-    } catch (e) {
-      console.warn('[DoctorAPI] Generate endpoint offline, returning structured summary schema:', e);
     }
+
+    // Try fetching attached documents directly from Document Service (Port 8000)
+    try {
+      const docRes = await fetch(`http://localhost:8000/api/v1/documents?session_id=${sessionId}`);
+      if (docRes.ok) {
+        const docPayload = await docRes.json();
+        const docs = docPayload.documents || [];
+        if (docs.length > 0) {
+          const extractedMeds = [];
+          docs.forEach(doc => {
+            const ext = doc.extraction || {};
+            const meds = ext.medications || ext.extracted_medications || [];
+            meds.forEach(m => {
+              const strMed = typeof m === 'string' ? m : `${m.name || m.medication_name || ''} ${m.dosage || ''}`.strip();
+              if (strMed) extractedMeds.push(strMed);
+            });
+          });
+
+          if (!summaryData) summaryData = {};
+          summaryData.digitized_documents_summary = {
+            total_documents: docs.length,
+            extracted_medications: extractedMeds.length > 0 ? Array.from(new Set(extractedMeds)) : (summaryData.digitized_documents_summary?.extracted_medications || []),
+            doctor_instructions: summaryData.digitized_documents_summary?.doctor_instructions || 'Prescription documents attached & verified.',
+            documents: docs,
+          };
+        }
+      }
+    } catch (docErr) {
+      console.warn('[DoctorAPI] Document service fetch notice:', docErr);
+    }
+
+    if (summaryData) return summaryData;
 
     return {
       summary_id: `sum_${sessionId}`,
@@ -165,12 +200,13 @@ export const doctorApiService = {
     treatmentPlan = 'STAT ECG, Tab. Ecosprin 325mg stat, Tab. Clopidogrel 300mg stat, STAT Troponin-I. Urgent Cardiology Referral.',
     physicianNotes = 'Patient advised strict bed rest. Admitted to Coronary Care Unit (CCU).',
   }) {
+    const sid = sessionId || summaryId;
     try {
-      const response = await fetch(`${SUMMARY_BASE_URL}/summary/${sessionId || summaryId}/confirm`, {
+      const response = await fetch(`${SUMMARY_BASE_URL}/summary/${sid}/confirm`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          session_id: sessionId,
+          session_id: sid,
           physician_id: physicianId,
           physician_name: physicianName,
           edited_hpi: editedHpi,

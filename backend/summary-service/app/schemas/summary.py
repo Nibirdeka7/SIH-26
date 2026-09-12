@@ -34,9 +34,9 @@ class GenerateSummaryRequest(BaseModel):
 
 
 class ConfirmSummaryRequest(BaseModel):
-    session_id: str
-    physician_id: str
-    physician_name: str
+    session_id: Optional[str] = None
+    physician_id: str = "DR_104_OPD"
+    physician_name: str = "Dr. Vikramaditya Roy"
     edited_hpi: Optional[str] = None
     confirmed_diagnosis: Optional[str] = None
     treatment_plan: Optional[str] = None

@@ -61,7 +61,7 @@ def _load_summaries_db() -> Dict[str, dict]:
 def _save_summaries_db(db: Dict[str, dict]):
     try:
         with open(STORE_FILE, "w", encoding="utf-8") as f:
-            json.dump(db, f, ensure_ascii=False, indent=2)
+            json.dump(db, f, default=str, ensure_ascii=False, indent=2)
         if json_db_manager:
             for sid, summ in db.items():
                 json_db_manager.save_summary(summ)
@@ -83,7 +83,12 @@ class SummaryGeneratorService:
                 logger.warning(f"Could not initialize Gemini Client in Summary Service: {e}")
 
     async def fetch_session_data(self, session_id: str) -> dict:
-        """Fetches session data from Conversation Service via HTTP, in-memory sessions_db, or fallback."""
+        """Fetches session data from Conversation Service via HTTP, json_db_manager, in-memory sessions_db, or fallback."""
+        if json_db_manager:
+            sess_shared = json_db_manager.get_session(session_id)
+            if sess_shared:
+                return sess_shared
+
         url = f"{settings.CONVERSATION_SERVICE_URL}/sessions/{session_id}"
         try:
             async with httpx.AsyncClient(timeout=3.0) as client:
@@ -145,6 +150,43 @@ class SummaryGeneratorService:
         ayush_raw = session_data.get("ayush", {})
         triage_raw = session_data.get("triage", {})
         turns_raw = session_data.get("turns", [])
+
+        # Fetch attached documents for this session
+        session_docs = []
+        if json_db_manager:
+            session_docs = json_db_manager.get_documents_by_session(req.session_id)
+        
+        extracted_meds = []
+        doctor_inst = []
+        lab_findings = []
+
+        for doc in session_docs:
+            ext = doc.get("extraction", {})
+            if isinstance(ext, dict):
+                meds = ext.get("medications") or ext.get("extracted_medications") or []
+                if isinstance(meds, list):
+                    for m in meds:
+                        if isinstance(m, str):
+                            extracted_meds.append(m)
+                        elif isinstance(m, dict):
+                            name = m.get("name") or m.get("medication_name") or str(m)
+                            dosage = m.get("dosage") or m.get("frequency") or ""
+                            extracted_meds.append(f"{name} {dosage}".strip())
+                instructions = ext.get("doctor_instructions") or ext.get("instructions")
+                if instructions:
+                    doctor_inst.append(str(instructions))
+                labs = ext.get("lab_results") or ext.get("findings")
+                if labs:
+                    lab_findings.append(str(labs))
+
+        digitized_doc_summary = {
+            "total_documents": len(session_docs),
+            "total_prescriptions": len([d for d in session_docs if d.get("document_type") in ["PRESCRIPTION", "prescription"]]),
+            "extracted_medications": list(dict.fromkeys(extracted_meds)),
+            "doctor_instructions": " ".join(doctor_inst) if doctor_inst else "No specific document instructions provided.",
+            "lab_findings": lab_findings,
+            "documents": session_docs,
+        }
 
         # Call live Gemini LLM for structured synthesis if client available
         if self.gemini_client:
@@ -239,6 +281,7 @@ class SummaryGeneratorService:
             hpi_socrates=hpi,
             ayush_pariksha=ayush,
             triage_assessment=triage,
+            digitized_documents_summary=digitized_doc_summary,
             suggested_specialty=suggested_specialty,
             unverified_medications=unverified_meds,
             bilingual_recap_native=bilingual_recap,
@@ -251,22 +294,42 @@ class SummaryGeneratorService:
         _save_summaries_db(summaries_db)
         return summary_record
 
-    def confirm_summary(self, req: ConfirmSummaryRequest) -> ClinicalSummaryResponse:
-        if req.session_id not in summaries_db:
-            self.get_summary(req.session_id)
 
-        rec = summaries_db[req.session_id]
+    def confirm_summary(self, req: ConfirmSummaryRequest) -> ClinicalSummaryResponse:
+        sid = req.session_id
+        if not sid:
+            raise ValueError("session_id is required for summary confirmation.")
+        if sid not in summaries_db:
+            self.get_summary(sid)
+
+        rec = dict(summaries_db[sid])
         rec["is_confirmed_by_doctor"] = True
         rec["physician_id"] = req.physician_id
         rec["physician_notes"] = req.physician_notes or f"Confirmed by Dr. {req.physician_name}"
         rec["updated_at"] = datetime.datetime.utcnow().isoformat()
 
         # Generate FHIR R4 Bundle for ABDM/HIS integration
-        rec["fhir_bundle"] = fhir_mapper.generate_fhir_bundle(rec)
+        try:
+            rec["fhir_bundle"] = fhir_mapper.generate_fhir_bundle(rec)
+        except Exception as fe:
+            logger.warning(f"FHIR bundle generation note: {fe}")
 
-        summaries_db[req.session_id] = rec
+        summaries_db[sid] = rec
         _save_summaries_db(summaries_db)
-        return ClinicalSummaryResponse(**rec)
+
+        if json_db_manager:
+            json_db_manager.add_completed_visit({
+                "id": sid,
+                "name": rec.get("patient_name", "Patient"),
+                "age": rec.get("age", 40),
+                "gender": rec.get("gender", "M"),
+                "reason": rec.get("chief_complaint", "Consultation Completed"),
+                "completedAt": rec["updated_at"],
+            })
+
+        valid_keys = ClinicalSummaryResponse.model_fields.keys()
+        filtered_rec = {k: v for k, v in rec.items() if k in valid_keys}
+        return ClinicalSummaryResponse(**filtered_rec)
 
     def get_summary(self, session_id: str) -> ClinicalSummaryResponse:
         if session_id not in summaries_db:

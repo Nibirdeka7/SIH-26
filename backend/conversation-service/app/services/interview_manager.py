@@ -93,7 +93,7 @@ def _sync_to_central_db(session_record: dict):
 def _save_sessions_db(db: Dict[str, dict]):
     try:
         with open(STORE_FILE, "w", encoding="utf-8") as f:
-            json.dump(db, f, ensure_ascii=False, indent=2)
+            json.dump(db, f, default=str, ensure_ascii=False, indent=2)
         if json_db_manager:
             for sid, sess in db.items():
                 json_db_manager.save_session(sess)
@@ -488,16 +488,28 @@ class InterviewManager:
 
     def complete_session(self, session_id: str) -> SessionStateResponse:
         if session_id not in sessions_db:
-            raise ValueError(f"Session {session_id} not found.")
+            if json_db_manager:
+                sess_shared = json_db_manager.get_session(session_id)
+                if sess_shared:
+                    sessions_db[session_id] = sess_shared
+            if session_id not in sessions_db:
+                raise ValueError(f"Session {session_id} not found.")
         sess = sessions_db[session_id]
         sess["status"] = SessionStatus.COMPLETED
         sess["updated_at"] = datetime.datetime.utcnow().isoformat()
         _save_sessions_db(sessions_db)
+        if json_db_manager:
+            json_db_manager.save_session(sess)
         return self.get_session_state(session_id)
 
     def get_session_state(self, session_id: str) -> SessionStateResponse:
         if session_id not in sessions_db:
-            raise ValueError(f"Session {session_id} not found.")
+            if json_db_manager:
+                sess_shared = json_db_manager.get_session(session_id)
+                if sess_shared:
+                    sessions_db[session_id] = sess_shared
+            if session_id not in sessions_db:
+                raise ValueError(f"Session {session_id} not found.")
 
         s = sessions_db[session_id]
         q_model = QuestionModel(**s["current_question"]) if s.get("current_question") else None
@@ -521,6 +533,11 @@ class InterviewManager:
 
     def get_opd_queue(self) -> List[dict]:
         """Generates live OPD patient queue list for physician dashboard review."""
+        if json_db_manager:
+            db_queue = json_db_manager.get_opd_queue()
+            if db_queue:
+                return db_queue
+
         queue_items = []
         idx = 101
         for sid, sess in sessions_db.items():
@@ -577,4 +594,5 @@ class InterviewManager:
 
 
 interview_manager = InterviewManager()
+
 

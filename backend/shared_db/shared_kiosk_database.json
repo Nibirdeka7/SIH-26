@@ -107,6 +107,51 @@
       "turns": [],
       "created_at": "2026-09-10T11:00:00Z",
       "updated_at": "2026-09-10T11:05:00Z"
+    },
+    "test_sess_999": {
+      "session_id": "test_sess_999",
+      "patient_id": "P-999",
+      "patient_name": "Anita Verma",
+      "age": 34,
+      "gender": "Female",
+      "language": "hi",
+      "chief_complaint": "Severe abdominal pain and fever",
+      "triage": {
+        "triage_level": "URGENT",
+        "priority_score": 7,
+        "is_critical": false,
+        "red_flags": [
+          "Acute abdominal tenderness"
+        ]
+      },
+      "socrates": {
+        "site": "Right lower quadrant",
+        "onset": "6 hours ago",
+        "character": "Sharp cramping",
+        "severity": 7
+      },
+      "status": "COMPLETED",
+      "documents": [
+        {
+          "document_id": "doc_999",
+          "session_id": "test_sess_999",
+          "filename": "prescription_anita.jpg",
+          "content_type": "image/jpeg",
+          "file_type": "image",
+          "file_size": 2048,
+          "document_type": "PRESCRIPTION",
+          "status": "COMPLETED",
+          "ocr_confidence": 0.95,
+          "extraction": {
+            "medications": [
+              "Tab. Buscopan 10mg BD",
+              "Tab. Paracetamol 650mg TDS"
+            ],
+            "doctor_instructions": "Take after meals for 3 days.",
+            "findings": "Tenderness noted over McBurney's point."
+          }
+        }
+      ]
     }
   },
   "summaries": {
@@ -776,6 +821,1099 @@
             "date",
             "medications",
             "follow_up"
+          ],
+          "sections_detected_but_not_represented": [],
+          "unmapped_content": []
+        },
+        "raw_text": null
+      },
+      "error": null
+    },
+    {
+      "document_id": "b48dfe74-0f6d-4ecd-9990-2ec88d8f4a7f",
+      "session_id": "sess_ef5ab1c092",
+      "filename": "try.webp",
+      "content_type": "image/webp",
+      "file_type": "WEBP",
+      "file_size": 71848,
+      "document_type": "DISCHARGE_SUMMARY",
+      "status": "COMPLETED",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "b48dfe74-0f6d-4ecd-9990-2ec88d8f4a7f",
+        "session_id": "sess_ef5ab1c092",
+        "document_type": "DISCHARGE_SUMMARY",
+        "metadata": {
+          "document_title": null,
+          "document_date": null,
+          "patient": {
+            "name": "Francisco Javier Pollak Araya",
+            "age": 30,
+            "sex": "Male",
+            "date_of_birth": "19/07/1993",
+            "patient_id": null,
+            "hospital_id": null,
+            "address": "Gili Trawangan",
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": null,
+            "physician_registration_number": null,
+            "facility_name": "Blue Island Medical Clinic",
+            "facility_address": "Gili Trawangan - Lombok - Indonesia",
+            "department": null,
+            "specialty": null
+          }
+        },
+        "prescription": null,
+        "lab_report": null,
+        "discharge_summary": {
+          "admission_date": null,
+          "discharge_date": null,
+          "admission_reason": null,
+          "chief_complaints": [
+            {
+              "name": "High Fever",
+              "severity": "high",
+              "duration": null,
+              "onset": "this morning",
+              "associated_factors": [
+                "weakness",
+                "headache",
+                "body ache",
+                "joint pain"
+              ],
+              "notes": null,
+              "evidence": "High Fever + Weakness",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "High Fever + Weakness",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Weakness",
+              "severity": null,
+              "duration": null,
+              "onset": "this morning",
+              "associated_factors": [
+                "High Fever"
+              ],
+              "notes": null,
+              "evidence": "High Fever + Weakness",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "High Fever + Weakness",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "headache",
+              "severity": null,
+              "duration": null,
+              "onset": null,
+              "associated_factors": [],
+              "notes": null,
+              "evidence": "headache",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "headache",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "body ache",
+              "severity": null,
+              "duration": null,
+              "onset": null,
+              "associated_factors": [],
+              "notes": null,
+              "evidence": "body ache",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "body ache",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "joint pain",
+              "severity": null,
+              "duration": null,
+              "onset": null,
+              "associated_factors": [],
+              "notes": null,
+              "evidence": "joint pain",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "joint pain",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "stomach cramps",
+              "severity": "slight",
+              "duration": null,
+              "onset": null,
+              "associated_factors": [],
+              "notes": null,
+              "evidence": "slight stomach cramps",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "slight stomach cramps",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "nausea",
+              "severity": null,
+              "duration": null,
+              "onset": null,
+              "associated_factors": [],
+              "notes": null,
+              "evidence": "feeling very nauseous",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "feeling very nauseous",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "vomiting",
+              "severity": null,
+              "duration": null,
+              "onset": null,
+              "associated_factors": [],
+              "notes": "vomited just once",
+              "evidence": "vomiting and diarrhea. He vomited just once",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "vomiting and diarrhea. He vomited just once",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "diarrhea",
+              "severity": null,
+              "duration": "past 6 hours",
+              "onset": null,
+              "associated_factors": [
+                "stomach cramps"
+              ],
+              "notes": "watery diarrhea followed by stomach cramps for 3 times in the past 6 hours",
+              "evidence": "watery diarrhea followed by stomach cramps for 3 times in the past 6 hours",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "watery diarrhea followed by stomach cramps for 3 times in the past 6 hours",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "past_medical_history": [
+            {
+              "condition": "never had before",
+              "duration": null,
+              "status": null,
+              "notes": null,
+              "evidence": "never had before",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "never had before",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "diagnoses": [
+            {
+              "name": "2nd day of Fever + dyspepsia + Gastroenteritis acute with mild-moderate dehydration e.c bacterial infection",
+              "code": null,
+              "code_system": null,
+              "status": "active",
+              "onset_date": null,
+              "notes": null,
+              "evidence": "2nd day of Fever + dyspepsia + Gastroenteritis acute with mild-moderate dehydration e.c bacterial infection",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "2nd day of Fever + dyspepsia + Gastroenteritis acute with mild-moderate dehydration e.c bacterial infection",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "clinical_findings": [
+            {
+              "finding": "GCS E4V5M6",
+              "body_site": null,
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "GCS : E4V5M6",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "GCS : E4V5M6",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "Pupil reflect +/+ isocor",
+              "body_site": "Eye",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "Eye: Pupil reflect +/+ isocor",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Eye: Pupil reflect +/+ isocor",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "anemic -/-",
+              "body_site": "Eye",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "anemic-/-",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "anemic-/-",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "icteric -/-",
+              "body_site": "Eye",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "icteric-/-",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "icteric-/-",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "sunken -/-",
+              "body_site": "Eye",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "sunken -/-",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "sunken -/-",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "T1/T1",
+              "body_site": "Neck & Mouth",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "Neck & Mouth: T1/T1",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Neck & Mouth: T1/T1",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "crypta (-)",
+              "body_site": "Neck & Mouth",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "crypta (-)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "crypta (-)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "hyperemi (-)",
+              "body_site": "Neck & Mouth",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "hyperemi (-)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "hyperemi (-)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "Breath sound vesicular +/+",
+              "body_site": "Thorax: Pulmo",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "Thorax: Pulmo : Breath sound vesicular +/+",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Thorax: Pulmo : Breath sound vesicular +/+",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "rhonchi -/-",
+              "body_site": "Thorax: Pulmo",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "rhonchi -/-",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "rhonchi -/-",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "wheezing -/-",
+              "body_site": "Thorax: Pulmo",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "wheezing -/-",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "wheezing -/-",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "S1 S2 single regular",
+              "body_site": "Thorax: Cor",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "Cor : S1 S2 single regular",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Cor : S1 S2 single regular",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "murmur (-)",
+              "body_site": "Thorax: Cor",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "murmur (-)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "murmur (-)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "gallop (-)",
+              "body_site": "Thorax: Cor",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "gallop (-)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "gallop (-)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "Distension (-)",
+              "body_site": "Abdomen",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "Abdomen : Distension (-)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Abdomen : Distension (-)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "bowel sound (+) N",
+              "body_site": "Abdomen",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "bowel sound (+) N",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "bowel sound (+) N",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "tenderness (-)",
+              "body_site": "Abdomen",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "tenderness (-)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "tenderness (-)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "Hepar/ Lien unpalpable",
+              "body_site": "Abdomen",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "Hepar/ Lien unpalpable",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Hepar/ Lien unpalpable",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "skin turgor normally",
+              "body_site": "Skin",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "skin turgor normally",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "skin turgor normally",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "finding": "upper abdominal pain (+)",
+              "body_site": "Abdomen",
+              "severity": null,
+              "status": null,
+              "date": null,
+              "related_diagnosis": null,
+              "notes": null,
+              "evidence": "upper abdominal pain (+)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "upper abdominal pain (+)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "procedures": [],
+          "medications": [],
+          "allergies": [
+            {
+              "substance": "none",
+              "reaction": null,
+              "severity": null,
+              "status": null,
+              "notes": null,
+              "evidence": "none",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "none",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "vitals": [
+            {
+              "name": "Blood Pressure",
+              "value": "100/70",
+              "unit": "mmHg",
+              "measurement_date": null,
+              "measurement_time": null,
+              "reference_range": null,
+              "context": null,
+              "evidence": "BP = 100/70mmHg",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "BP = 100/70mmHg",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Heart Rate",
+              "value": "86",
+              "unit": "x/mnt",
+              "measurement_date": null,
+              "measurement_time": null,
+              "reference_range": null,
+              "context": null,
+              "evidence": "HR = 86x/mnt",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "HR = 86x/mnt",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Respiratory Rate",
+              "value": "24",
+              "unit": "x/mnt",
+              "measurement_date": null,
+              "measurement_time": null,
+              "reference_range": null,
+              "context": null,
+              "evidence": "RR = 24 x/mnt",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "RR = 24 x/mnt",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Temperature",
+              "value": "36,4",
+              "unit": "°C",
+              "measurement_date": null,
+              "measurement_time": null,
+              "reference_range": null,
+              "context": null,
+              "evidence": "T = 36,4 °C",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "T = 36,4 °C",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "investigations": [],
+          "imaging_findings": [],
+          "investigation_findings": [],
+          "hospital_course": "Patient came to the clinic with main complaints of fever and weakness today. He explains that the sudden high fever just started this morning, and goes up and down throughout the day with headache, body ache and joint pain. He mention no diarrhea but had a slight stomach cramps and feeling very nauseous. The patient has not been taking any medicine to reduce the symptom. He felt tired, weak and is losing appetite since this morning.\n\nWhile undergoing treatment at the clinic, the patient experiences vomiting and diarrhea. He vomited just once, and had watery diarrhea followed by stomach cramps for 3 times in the past 6 hours. He was then given additional medicine.\n\nAs per this afternoon, the patient felt a lot better. There was no more diarrhea, stomach cramps, nor nausea and weakness. The patient is the discharged.",
+          "treatment_summary": null,
+          "condition_at_discharge": "Felt a lot better. There was no more diarrhea, stomach cramps, nor nausea and weakness.",
+          "discharge_instructions": [],
+          "follow_up_instructions": [],
+          "follow_up_date": null,
+          "follow_up_facility": null,
+          "diet_instructions": [],
+          "activity_restrictions": [],
+          "warning_signs": [],
+          "additional_notes": [
+            "Past Traveling History: The patient have been traveling to Bali in past weeks.",
+            "High Fever + Weakness"
+          ]
+        },
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 1.0,
+          "needs_review": false,
+          "review_reasons": [],
+          "note": "Automated vision extraction only. No field in this document constitutes independent clinical verification."
+        },
+        "evidence": [],
+        "completeness_audit": {
+          "sections_detected_in_source": [
+            "patient",
+            "provider",
+            "chief_complaints",
+            "explanation_in_details",
+            "past_medical_history",
+            "past_traveling_history",
+            "allergy",
+            "vital_sign",
+            "physical_examination",
+            "laboratory_investigation",
+            "working_diagnosis"
+          ],
+          "sections_represented_in_output": [
+            "patient",
+            "provider",
+            "chief_complaints",
+            "symptoms",
+            "past_medical_history",
+            "allergies",
+            "vitals",
+            "physical_examination",
+            "diagnoses",
+            "hospital_course",
+            "condition_at_discharge"
+          ],
+          "sections_detected_but_not_represented": [],
+          "unmapped_content": []
+        },
+        "raw_text": null
+      },
+      "error": null
+    },
+    {
+      "document_id": "doc_999",
+      "session_id": "test_sess_999",
+      "filename": "prescription_anita.jpg",
+      "content_type": "image/jpeg",
+      "file_type": "image",
+      "file_size": 2048,
+      "document_type": "PRESCRIPTION",
+      "status": "COMPLETED",
+      "ocr_confidence": 0.95,
+      "extraction": {
+        "medications": [
+          "Tab. Buscopan 10mg BD",
+          "Tab. Paracetamol 650mg TDS"
+        ],
+        "doctor_instructions": "Take after meals for 3 days.",
+        "findings": "Tenderness noted over McBurney's point."
+      }
+    },
+    {
+      "document_id": "e1d85825-6300-4361-928c-02b2e85c8c0a",
+      "session_id": "sess_71a23c5a5e",
+      "filename": "joints.jpg",
+      "content_type": "image/jpeg",
+      "file_type": "JPEG",
+      "file_size": 24040,
+      "document_type": "PRESCRIPTION",
+      "status": "COMPLETED",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "e1d85825-6300-4361-928c-02b2e85c8c0a",
+        "session_id": "sess_71a23c5a5e",
+        "document_type": "PRESCRIPTION",
+        "metadata": {
+          "document_title": null,
+          "document_date": "04/05/2026",
+          "patient": {
+            "name": "Ramesh",
+            "age": 45,
+            "sex": "Male",
+            "date_of_birth": null,
+            "patient_id": null,
+            "hospital_id": null,
+            "address": null,
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": null,
+            "physician_registration_number": null,
+            "facility_name": "HealthTalks",
+            "facility_address": null,
+            "department": null,
+            "specialty": "Physician"
+          }
+        },
+        "prescription": {
+          "medications": [
+            {
+              "name": "Zerodol-SP",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Tab.",
+              "dose": "1 tab",
+              "route": null,
+              "frequency": "BD",
+              "duration": "5 days",
+              "quantity": null,
+              "instructions": "after food",
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tab. Zerodol-SP\n1 tab BD x 5 days (after food)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Tab. Zerodol-SP\n1 tab BD x 5 days (after food)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Pantocid",
+              "generic_name": null,
+              "strength": "40",
+              "dosage_form": "Tab.",
+              "dose": "1 tab",
+              "route": null,
+              "frequency": "OD",
+              "duration": "5 days",
+              "quantity": null,
+              "instructions": "before breakfast",
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tab. Pantocid 40\n1 tab OD x 5 days (before breakfast)",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Tab. Pantocid 40\n1 tab OD x 5 days (before breakfast)",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Shelcal",
+              "generic_name": null,
+              "strength": "500",
+              "dosage_form": "Cap.",
+              "dose": "1 cap",
+              "route": null,
+              "frequency": "OD",
+              "duration": "30 days",
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Cap. Shelcal 500\n1 cap OD x 30 days",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Cap. Shelcal 500\n1 cap OD x 30 days",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Volini Gel",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Gel",
+              "dose": null,
+              "route": "Local apply",
+              "frequency": "TDS",
+              "duration": null,
+              "quantity": null,
+              "instructions": "Local apply TDS",
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Volini Gel\nLocal apply TDS",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Volini Gel\nLocal apply TDS",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Chymoral Forte",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Tab.",
+              "dose": "1 tab",
+              "route": null,
+              "frequency": "BD",
+              "duration": "5 days",
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tab. Chymoral Forte\n1 tab BD x 5 days",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Tab. Chymoral Forte\n1 tab BD x 5 days",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "diagnoses": [
+            {
+              "name": "Osteoarthritis Knee",
+              "code": null,
+              "code_system": null,
+              "status": null,
+              "onset_date": null,
+              "notes": null,
+              "evidence": "Osteoarthritis Knee",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Osteoarthritis Knee",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "symptoms": [
+            {
+              "name": "Knee pain",
+              "severity": null,
+              "duration": "5 days",
+              "onset": null,
+              "associated_factors": [
+                "Swelling (+)",
+                "Pain ↑ on walking"
+              ],
+              "notes": null,
+              "evidence": "Knee pain x 5 days\nSwelling (+)\nPain ↑ on walking",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Knee pain x 5 days\nSwelling (+)\nPain ↑ on walking",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "allergies": [
+            {
+              "substance": "any medicine",
+              "reaction": null,
+              "severity": null,
+              "status": "negative",
+              "notes": "Not allergic to any medicine",
+              "evidence": "Not allergic to any medicine",
+              "confidence": {
+                "score": 1.0,
+                "status": "UNVERIFIED",
+                "source_text": "Not allergic to any medicine",
+                "reason": null,
+                "extraction_confidence": 1.0,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "clinical_findings": [],
+          "vitals": [],
+          "prescription_date": null,
+          "follow_up_date": null,
+          "follow_up_instructions": null,
+          "general_instructions": [],
+          "additional_notes": [
+            "Rest",
+            "Hot fomentation",
+            "Avoid squatting",
+            "Knee support",
+            "Knee pain x 5 days\nSwelling (+)\nPain ↑ on walking"
+          ]
+        },
+        "lab_report": null,
+        "discharge_summary": null,
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 1.0,
+          "needs_review": false,
+          "review_reasons": [],
+          "note": "Automated vision extraction only. No field in this document constitutes independent clinical verification."
+        },
+        "evidence": [],
+        "completeness_audit": {
+          "sections_detected_in_source": [
+            "patient_info",
+            "physician_info",
+            "date",
+            "complaints",
+            "history",
+            "diagnosis",
+            "medications",
+            "advice"
+          ],
+          "sections_represented_in_output": [
+            "patient_info",
+            "physician_info",
+            "date",
+            "complaints",
+            "history",
+            "diagnosis",
+            "medications",
+            "advice"
           ],
           "sections_detected_but_not_represented": [],
           "unmapped_content": []

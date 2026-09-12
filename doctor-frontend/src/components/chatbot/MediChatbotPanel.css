@@ -55,8 +55,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
 }
 
 .medi-chat-title {
@@ -66,38 +65,23 @@
   line-height: 1.2;
 }
 
-.medi-chat-subtitle {
-  display: block;
-  font-size: 0.74rem;
-  color: #d7ede8;
-  font-weight: 500;
-  margin-top: 0.15rem;
+.medi-chat-model-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  background: rgba(255, 255, 255, 0.22);
+  color: #e6f6f0;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-top: 0.2rem;
 }
 
 .medi-chat-header-actions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.medi-chat-text-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
-  color: #fff;
-  border-radius: 6px;
-  padding: 0 0.65rem;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 0.78rem;
-  font-weight: 600;
-  transition: background 0.15s ease;
-}
-
-.medi-chat-text-btn:hover {
-  background: rgba(255, 255, 255, 0.28);
 }
 
 .medi-chat-icon-btn {
@@ -111,13 +95,37 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.1rem;
-  line-height: 1;
+  font-size: 0.9rem;
   transition: background 0.15s ease;
 }
 
 .medi-chat-icon-btn:hover {
   background: rgba(255, 255, 255, 0.28);
+}
+
+/* API Key Configuration Dropdown Bar */
+.medi-chat-api-config {
+  padding: 0.75rem 1rem;
+  background: #f1f7f5;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+}
+
+.medi-chat-api-input-wrap {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.medi-chat-api-input {
+  flex: 1;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: ui-monospace, SF Mono, Menlo, monospace;
 }
 
 /* Context Badge Bar */
@@ -188,7 +196,7 @@
   padding: 0.75rem 1rem;
   border-radius: 12px;
   font-size: 0.88rem;
-  line-height: 1.55;
+  line-height: 1.48;
   word-break: break-word;
 }
 
@@ -207,30 +215,19 @@
 }
 
 .medi-msg-assistant .medi-msg-bubble h3 {
-  margin: 0.6rem 0 0.4rem;
+  margin: 0 0 0.4rem;
   font-size: 0.95rem;
-  font-weight: 700;
   color: #0f6e5c;
 }
 
 .medi-msg-assistant .medi-msg-bubble ul,
 .medi-msg-assistant .medi-msg-bubble ol {
-  margin: 0.5rem 0;
+  margin: 0.4rem 0;
   padding-left: 1.25rem;
 }
 
 .medi-msg-assistant .medi-msg-bubble li {
-  margin-bottom: 0.35rem;
-  line-height: 1.55;
-}
-
-.medi-msg-assistant .medi-msg-bubble p {
-  line-height: 1.6;
-}
-
-.medi-msg-assistant .medi-msg-bubble strong {
-  color: #0f172a;
-  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .medi-msg-time {
@@ -349,21 +346,20 @@
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 0 1.1rem;
+  width: 42px;
   height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 1.1rem;
   flex-shrink: 0;
   transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .medi-chat-send-btn:hover:not(:disabled) {
   background: #0b5346;
-  transform: scale(1.02);
+  transform: scale(1.04);
 }
 
 .medi-chat-send-btn:disabled {
@@ -378,3 +374,4 @@
   margin: 0;
   line-height: 1.3;
 }
+

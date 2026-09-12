@@ -61,7 +61,20 @@ export const patientApi = {
       const res = await fetch(`${DOCUMENT_BASE_URL}/documents?session_id=${patientId}`);
       if (res.ok) {
         const data = await res.json();
-        return { data: data.documents || [] };
+        if (data.documents && data.documents.length > 0) {
+          const mapped = data.documents.map((d, i) => ({
+            id: d.document_id || `rep_${i}`,
+            title: d.filename || `${d.document_type || 'Medical'} Report`,
+            date: d.created_at ? d.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
+            uploadedAt: d.created_at || new Date().toISOString(),
+            type: d.document_type || 'DOCUMENT',
+            status: d.status === 'COMPLETED' ? 'Digitized' : (d.status === 'NEEDS_REVIEW' ? 'Needs Review' : (d.status || 'Processed')),
+            fileType: (d.content_type && d.content_type.startsWith('image')) || (d.filename && /\.(png|jpg|jpeg|webp)$/i.test(d.filename)) ? 'image' : 'pdf',
+            fileUrl: d.fileUrl || '',
+            extraction: d.extraction,
+          }));
+          return { data: mapped };
+        }
       }
     } catch (e) {
       console.warn('Reports endpoint offline notice:', e);

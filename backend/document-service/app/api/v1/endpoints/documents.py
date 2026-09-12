@@ -1,7 +1,7 @@
 import logging
 from uuid import uuid4
 
-from fastapi import APIRouter, File, Form, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from app.schemas.document import DocumentStatus, DocumentType
 from app.services.document_pipeline import (
@@ -11,9 +11,12 @@ from app.services.document_pipeline import (
 import sys
 import os
 try:
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../..")))
+    backend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../.."))
+    if backend_dir not in sys.path:
+        sys.path.insert(0, backend_dir)
     from shared_db.json_db_manager import json_db_manager
-except Exception:
+except Exception as e:
+    logger.warning("Failed to import json_db_manager: %s", e)
     json_db_manager = None
 
 logger = logging.getLogger(__name__)
@@ -78,16 +81,27 @@ async def upload_documents(
             if result.extraction.verification.needs_review:
                 status = DocumentStatus.NEEDS_REVIEW
 
+            extraction_dict = (
+                result.extraction.model_dump()
+                if hasattr(result.extraction, "model_dump")
+                else (
+                    result.extraction.dict()
+                    if hasattr(result.extraction, "dict")
+                    else result.extraction
+                )
+            )
+
             doc_entry = {
                 "document_id": result.document_id,
                 "session_id": result.session_id,
                 "filename": result.filename,
                 "content_type": result.content_type,
-                "file_type": str(result.file_type),
+                "file_type": str(result.file_type.value if hasattr(result.file_type, "value") else result.file_type),
                 "file_size": result.file_size,
-                "document_type": str(result.document_type),
-                "status": str(status),
+                "document_type": str(result.document_type.value if hasattr(result.document_type, "value") else result.document_type),
+                "status": str(status.value if hasattr(status, "value") else status),
                 "ocr_confidence": result.ocr_confidence,
+                "extraction": extraction_dict,
                 "error": None,
             }
             results.append(
@@ -182,3 +196,48 @@ async def upload_documents(
         "failed": failed,
         "documents": results,
     }
+
+
+@router.get("")
+async def get_documents(session_id: str | None = None):
+    """
+    Retrieve documents, optionally filtered by session_id.
+    Used by Doctor Frontend and Patient review.
+    """
+    if not json_db_manager:
+        return {
+            "session_id": session_id,
+            "total_documents": 0,
+            "documents": [],
+        }
+
+    if session_id:
+        docs = json_db_manager.get_documents_by_session(session_id)
+    else:
+        from shared_db.json_db_manager import load_shared_db
+        db_data = load_shared_db()
+        docs = db_data.get("documents", [])
+
+    return {
+        "session_id": session_id,
+        "total_documents": len(docs),
+        "documents": docs,
+    }
+
+
+@router.get("/{document_id}")
+async def get_document_by_id(document_id: str):
+    """
+    Retrieve a single document by its document_id.
+    """
+    if not json_db_manager:
+        raise HTTPException(status_code=404, detail="Database unavailable")
+
+    from shared_db.json_db_manager import load_shared_db
+    db_data = load_shared_db()
+    docs = db_data.get("documents", [])
+    for d in docs:
+        if d.get("document_id") == document_id:
+            return d
+
+    raise HTTPException(status_code=404, detail="Document not found")

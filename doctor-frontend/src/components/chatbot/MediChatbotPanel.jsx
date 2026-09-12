@@ -4,16 +4,17 @@ import { mediChatbotService } from '../../services/mediChatbotService';
 import { DUMMY_CHECKED_IN_HISTORY } from '../../data/dummyPatients';
 import './MediChatbotPanel.css';
 
-// const DEFAULT_SUGGESTIONS = [
-//   'Drug interactions with Metformin',
-//   'Differential diagnosis for acute chest pain',
-//   'First-line antibiotics for Strep Pharyngitis',
-//   'Blood pressure targets in Diabetic Nephropathy',
-// ];
+const DEFAULT_SUGGESTIONS = [
+  'Drug interactions with Metformin',
+  'Differential diagnosis for acute chest pain',
+  'First-line antibiotics for Strep Pharyngitis',
+  'Blood pressure targets in Diabetic Nephropathy',
+];
 
 export default function MediChatbotPanel({ isOpen, onClose }) {
   const location = useLocation();
 
+  // Detect if doctor is currently reviewing a specific patient chart
   const patientMatch = location.pathname.match(/\/patient\/([^/]+)/);
   const currentPatientId = patientMatch ? patientMatch[1] : null;
 
@@ -28,28 +29,40 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
     {
       id: 'm_welcome',
       sender: 'assistant',
-      text: `Hello, Doctor.\n\nI'm your clinical assistant. You can ask me about:\n- **Pharmacology:** Drug interactions, contraindications, dosages\n- **Symptoms:** Differential diagnosis and red flags\n- **Patient Records:** Lab reports, clinical findings, and triage guidance`,
+      text: `Hello Doctor! 🩺 I am your clinical co-pilot powered by **Gemini Flash**.\n\nYou can ask me about:\n- **Pharmacology:** Drug interactions, contraindications, dosages\n- **Symptoms:** Differential diagnosis and red flags\n- **Patient Records:** Lab reports, clinical findings, and triage guidance`,
       timestamp: new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' }),
     },
   ]);
 
   const [inputText, setInputText] = useState('');
   const [isThinking, setIsThinking] = useState(false);
+  const [showConfig, setShowConfig] = useState(false);
+  const [apiKeyInput, setApiKeyInput] = useState(mediChatbotService.getApiKey());
+  const [hasApiKey, setHasApiKey] = useState(Boolean(mediChatbotService.getApiKey()));
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Auto-scroll to bottom of conversation
   useEffect(() => {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isThinking, isOpen]);
 
+  // Focus input when panel slides in
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
   }, [isOpen]);
+
+  const handleSaveApiKey = (e) => {
+    e.preventDefault();
+    mediChatbotService.setApiKey(apiKeyInput);
+    setHasApiKey(Boolean(apiKeyInput.trim()));
+    setShowConfig(false);
+  };
 
   const handleSendMessage = async (textToSend = inputText) => {
     const query = (textToSend || '').trim();
@@ -97,7 +110,7 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
         {
           id: `ai_err_${Date.now()}`,
           sender: 'assistant',
-          text: `Unable to generate a response right now (${err.message}). Please check your network connection and try again.`,
+          text: `⚠️ Error generating clinical response: ${err.message}. Please verify your network or Gemini API key.`,
           timestamp: new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' }),
         },
       ]);
@@ -118,12 +131,13 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
       {
         id: `m_welcome_${Date.now()}`,
         sender: 'assistant',
-        text: `Conversation cleared. Ready for your clinical queries or patient record questions.`,
+        text: `Conversation cleared. Ready for your clinical queries or patient record questions!`,
         timestamp: new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' }),
       },
     ]);
   };
 
+  // Helper to render simple markdown formatting (headers, bold, lists) safely
   const renderFormattedText = (rawText) => {
     const lines = rawText.split('\n');
     return lines.map((line, idx) => {
@@ -165,37 +179,52 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
 
   return (
     <>
+      {/* Backdrop */}
       <div
         className="medi-chatbot-backdrop"
         onClick={onClose}
         aria-hidden="true"
       />
 
+      {/* Slide-in Vertical Panel from Right */}
       <aside
         className={`medi-chatbot-panel ${isOpen ? 'open' : ''}`}
         role="dialog"
-        aria-label="Medi Clinical Assistant"
+        aria-label="Medi AI Assistant"
       >
+        {/* Header */}
         <header className="medi-chat-header">
           <div className="medi-chat-header-info">
             <div className="medi-chat-avatar" aria-hidden="true">
-              M
+              🩺
             </div>
             <div>
-              <h2 className="medi-chat-title">Medi Clinical Assistant</h2>
-              <span className="medi-chat-subtitle">Decision-support co-pilot</span>
+              <h2 className="medi-chat-title">Medi AI Assistant</h2>
+              <span className="medi-chat-model-tag" title="Powered by Google Gemini Flash">
+                <span>⚡</span>
+                <span>Gemini Flash {hasApiKey ? '(Active)' : '(Demo Mode)'}</span>
+              </span>
             </div>
           </div>
 
           <div className="medi-chat-header-actions">
             <button
               type="button"
-              className="medi-chat-text-btn"
+              className="medi-chat-icon-btn"
+              onClick={() => setShowConfig((prev) => !prev)}
+              title="Configure Gemini API Key"
+              aria-label="Configure Gemini API Key"
+            >
+              🔑
+            </button>
+            <button
+              type="button"
+              className="medi-chat-icon-btn"
               onClick={handleClearChat}
               title="Clear conversation"
               aria-label="Clear chat"
             >
-              Clear
+              🗑️
             </button>
             <button
               type="button"
@@ -204,22 +233,48 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
               title="Close assistant"
               aria-label="Close assistant"
             >
-              &times;
+              ✕
             </button>
           </div>
         </header>
 
+        {/* API Key Configuration Dropdown */}
+        {showConfig && (
+          <form className="medi-chat-api-config" onSubmit={handleSaveApiKey}>
+            <div style={{ fontWeight: 600, color: '#0f6e5c' }}>
+              Google Gemini API Key
+            </div>
+            <p style={{ margin: 0, color: '#475569', fontSize: '0.75rem' }}>
+              Add your API key below to route queries directly to live Gemini Flash. Keys are preserved locally.
+            </p>
+            <div className="medi-chat-api-input-wrap">
+              <input
+                type="password"
+                className="medi-chat-api-input"
+                placeholder="AIzaSy..."
+                value={apiKeyInput}
+                onChange={(e) => setApiKeyInput(e.target.value)}
+              />
+              <button type="submit" className="btn-primary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}>
+                Save
+              </button>
+            </div>
+          </form>
+        )}
+
+        {/* Current Context Bar */}
         <div className="medi-chat-context-bar">
           <span>Context:</span>
           {currentPatient ? (
             <span className="medi-chat-context-chip" title={`Patient: ${currentPatient.name}`}>
-              {currentPatient.name} ({currentPatient.reason})
+              👤 {currentPatient.name} ({currentPatient.reason})
             </span>
           ) : (
-            <span>General Clinical &amp; Pharmacology</span>
+            <span>🌐 General Clinical & Pharmacology</span>
           )}
         </div>
 
+        {/* Messages Stream */}
         <div className="medi-chat-messages">
           {messages.map((msg) => (
             <div
@@ -235,14 +290,15 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
             </div>
           ))}
 
+          {/* Typing Indicator */}
           {isThinking && (
             <div className="medi-msg medi-msg-assistant">
-              <div className="medi-typing-indicator" aria-label="Assistant is preparing a response">
+              <div className="medi-typing-indicator" aria-label="Gemini Flash is analyzing">
                 <span className="medi-typing-dot" />
                 <span className="medi-typing-dot" />
                 <span className="medi-typing-dot" />
                 <span style={{ fontSize: '0.75rem', color: '#0f6e5c', marginLeft: '0.35rem', fontWeight: 500 }}>
-                  Preparing response...
+                  Gemini Flash analyzing...
                 </span>
               </div>
             </div>
@@ -251,6 +307,7 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Suggested Prompts (when only welcome message is present or patient chart is active) */}
         {messages.length <= 2 && !isThinking && (
           <div style={{ padding: '0 1.15rem 0.5rem', background: '#fafbfc' }}>
             <div style={{ fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '0.3rem' }}>
@@ -263,10 +320,10 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
                   className="medi-prompt-pill"
                   onClick={() => handleSendMessage(`Summarize clinical findings and suggest next steps for ${currentPatient.name}`)}
                 >
-                  Summarize {currentPatient.name}'s chart
+                  📋 Summarize {currentPatient.name}'s chart
                 </button>
               )}
-              {/* {DEFAULT_SUGGESTIONS.map((sug, i) => (
+              {DEFAULT_SUGGESTIONS.map((sug, i) => (
                 <button
                   key={i}
                   type="button"
@@ -275,21 +332,22 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
                 >
                   {sug}
                 </button>
-              ))} */}
+              ))}
             </div>
           </div>
         )}
 
+        {/* Input Bar */}
         <footer className="medi-chat-footer">
           <div className="medi-chat-input-row">
             <textarea
               ref={inputRef}
               className="medi-chat-input"
-              rows={2}
+              rows={1}
               placeholder={
                 currentPatient
                   ? `Ask about ${currentPatient.name}'s case, drugs, or symptoms...`
-                  : 'Ask about medicine, symptom, dosage, or report...'
+                  : 'Ask about any medicine, symptom, dosage, or report...'
               }
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
@@ -301,10 +359,10 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
               className="medi-chat-send-btn"
               onClick={() => handleSendMessage()}
               disabled={!inputText.trim() || isThinking}
-              title="Send message"
+              title="Send to Medi AI"
               aria-label="Send message"
             >
-              Send
+              ➤
             </button>
           </div>
           <p className="medi-chat-disclaimer">
@@ -315,3 +373,4 @@ export default function MediChatbotPanel({ isOpen, onClose }) {
     </>
   );
 }
+

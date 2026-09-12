@@ -369,3 +369,39 @@ def test_canonical_vision_entities_map_with_primitive_values_unchanged():
     # no Vision-only wrapper or adapter is required.
     assert lab_report.metadata.patient.name is None
     assert lab_report.lab_report.diagnoses == []
+
+
+@pytest.mark.asyncio
+async def test_ocr_processing_error_falls_back_to_vision(pipeline, monkeypatch):
+    """When OCR fails (e.g. Tesseract missing on Windows), pipeline escalates directly to vision."""
+    from app.services.ocr_service import OCRProcessingError
+
+    def _failing_ocr(**kwargs):
+        raise OCRProcessingError("Tesseract OCR is not installed or available.")
+
+    monkeypatch.setattr(pipeline.ocr_service, "process", _failing_ocr)
+
+    vision_agent_mock = AsyncMock()
+    vision_agent_mock.analyze.return_value = VisionAgentResult(
+        is_medical_document=True,
+        document_type=DocumentType.PRESCRIPTION.value,
+        data={
+            "patient": {"name": "Test Patient"},
+            "medications": [{"name": "Amoxicillin", "dose": "500mg"}],
+            "diagnoses": [], "symptoms": [], "allergies": [], "vitals": [],
+            "clinical_findings": [], "imaging_findings": [],
+            "extraction_summary": {"needs_review": False, "review_reasons": []},
+        },
+        extraction_confidence=0.88,
+        needs_review=False,
+        review_reasons=[],
+        attempts=1,
+    )
+    monkeypatch.setattr(pipeline, "_get_vision_agent", lambda: vision_agent_mock)
+
+    result = await pipeline.process(filename="prescription.png", file_data=_valid_png_bytes())
+
+    assert result.document_type == DocumentType.PRESCRIPTION
+    assert result.ocr_confidence is None
+    assert result.extraction.prescription.medications[0].name == "Amoxicillin"
+    vision_agent_mock.analyze.assert_called_once()

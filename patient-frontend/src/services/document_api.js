@@ -1,6 +1,6 @@
 import { API_BASE_URLS } from '../config/api_config';
 
-const FETCH_TIMEOUT_MS = 20000; // Document upload can be slower
+const FETCH_TIMEOUT_MS = 60000; // Document vision/OCR upload can take 15-30s
 
 /**
  * Helper: fetch with configurable timeout

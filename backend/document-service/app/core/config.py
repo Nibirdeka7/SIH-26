@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
     AI_PROVIDER: str = "gemini"
     GEMINI_API_KEY: str | None = None
-    GEMINI_MODEL: str = "gemini-2.5-flash"
+    GEMINI_MODEL: str = "gemini-3.6-flash"
     # MEDGEMMA_MODEL: str = "google/medgemma-1.5-4b-it"
     # MEDGEMMA_MAX_NEW_TOKENS: int = 4096
     # MEDGEMMA_TEMPERATURE: float = 0.0
@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     # best text-extraction model and the best vision-capable model are
     # not guaranteed to be the same, and pinning them independently lets
     # either be upgraded without touching the other path.
-    GEMINI_VISION_MODEL: str = "gemini-2.5-flash"
+    GEMINI_VISION_MODEL: str = "gemini-3.5-flash-lite"
 
     # Below this DOCUMENT-level engineering confidence score (see
     # VisionExtractionValidator._score), the agent marks the whole

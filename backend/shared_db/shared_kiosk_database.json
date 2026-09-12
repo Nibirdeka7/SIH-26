@@ -33,7 +33,11 @@
         "onset": "Sudden onset 1 day ago while climbing stairs",
         "character": "Heavy crushing & sharp tightness",
         "radiation": "Radiating to left shoulder and jaw",
-        "associations": ["Mild diaphoresis", "Shortness of breath", "Nausea"],
+        "associations": [
+          "Mild diaphoresis",
+          "Shortness of breath",
+          "Nausea"
+        ],
         "time_course": "Intermittent episodes lasting 15-20 minutes each",
         "exacerbating_relieving": "Aggravated by exertion; partially relieved by rest",
         "severity": 8
@@ -48,7 +52,9 @@
         "triage_level": "CRITICAL_EMERGENCY",
         "priority_score": 9,
         "is_critical": true,
-        "red_flags": ["Acute Coronary Syndrome Suspected"],
+        "red_flags": [
+          "Acute Coronary Syndrome Suspected"
+        ],
         "emergency_instructions": "Perform STAT 12-lead ECG and notify Cardiology Registrar."
       },
       "turns": [
@@ -79,7 +85,11 @@
         "onset": "3 days ago",
         "character": "Throbbing headache & dull aching joint pain",
         "radiation": "None",
-        "associations": ["High fever", "Chills", "Loss of appetite"],
+        "associations": [
+          "High fever",
+          "Chills",
+          "Loss of appetite"
+        ],
         "severity": 6
       },
       "ayush": {
@@ -114,7 +124,11 @@
         "onset": "Sudden onset 1 day ago while climbing stairs",
         "character": "Heavy crushing & sharp tightness",
         "radiation": "Radiating to left shoulder and jaw",
-        "associations": ["Mild diaphoresis", "Shortness of breath", "Nausea"],
+        "associations": [
+          "Mild diaphoresis",
+          "Shortness of breath",
+          "Nausea"
+        ],
         "time_course": "Intermittent episodes lasting 15-20 minutes each",
         "exacerbating_relieving": "Aggravated by exertion; partially relieved by rest",
         "severity": 8
@@ -129,23 +143,648 @@
         "triage_level": "CRITICAL_EMERGENCY",
         "priority_score": 9,
         "is_critical": true,
-        "red_flags": ["Acute Coronary Syndrome Suspected"],
+        "red_flags": [
+          "Acute Coronary Syndrome Suspected"
+        ],
         "emergency_instructions": "Perform STAT 12-lead ECG and notify Cardiology Registrar."
       },
       "digitized_documents_summary": {
         "total_prescriptions": 1,
-        "extracted_medications": ["Tab. Sorbitrate 5mg (Sublingual)", "Tab. Aspirin 75mg QD"],
+        "extracted_medications": [
+          "Tab. Sorbitrate 5mg (Sublingual)",
+          "Tab. Aspirin 75mg QD"
+        ],
         "doctor_instructions": "Discontinue heavy physical activity. Follow up in 3 days."
       },
       "suggested_specialty": "Cardiology / Emergency OPD",
-      "unverified_medications": ["Self-medicated Paracetamol 500mg"],
+      "unverified_medications": [
+        "Self-medicated Paracetamol 500mg"
+      ],
       "bilingual_recap_native": "मरीज को पिछले 1 दिन से सीने में तेज दर्द, बाएं कंधे में खिंचाव और सांस फूलने की समस्या है।",
       "is_confirmed_by_doctor": false,
       "created_at": "2026-09-10T10:20:00Z",
       "updated_at": "2026-09-10T10:20:00Z"
     }
   },
-  "documents": [],
+  "documents": [
+    {
+      "document_id": "5014a266-4755-423b-94ad-73ed7761480f",
+      "session_id": "test_e2e_session_999",
+      "filename": "rx_test.png",
+      "content_type": "image/png",
+      "file_type": "PNG",
+      "file_size": 572724,
+      "document_type": "PRESCRIPTION",
+      "status": "NEEDS_REVIEW",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "5014a266-4755-423b-94ad-73ed7761480f",
+        "session_id": "test_e2e_session_999",
+        "document_type": "PRESCRIPTION",
+        "metadata": {
+          "document_title": null,
+          "document_date": "14/08/2024",
+          "patient": {
+            "name": "Rajesh Kumar",
+            "age": null,
+            "sex": "M",
+            "date_of_birth": null,
+            "patient_id": null,
+            "hospital_id": null,
+            "address": null,
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": "Dr. A. K. Sen",
+            "physician_registration_number": null,
+            "facility_name": null,
+            "facility_address": null,
+            "department": null,
+            "specialty": null
+          }
+        },
+        "prescription": {
+          "medications": [
+            {
+              "name": "Tablet Augmentin",
+              "generic_name": null,
+              "strength": "625mg",
+              "dosage_form": "Tablet",
+              "dose": "1",
+              "route": null,
+              "frequency": "1-0-1",
+              "duration": "5 days",
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tablet Augmentin 625mg (1-0-1) - 5 days",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Tablet Augmentin 625mg (1-0-1) - 5 days",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Pan-D",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Cap",
+              "dose": "1",
+              "route": null,
+              "frequency": "OD",
+              "duration": null,
+              "quantity": null,
+              "instructions": "Before food",
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Cap. Pan-D (OD) - Before food",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Cap. Pan-D (OD) - Before food",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Alex Cough Syrup",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Syrup",
+              "dose": "2 tsp",
+              "route": null,
+              "frequency": "TDS",
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Syrup Alex Cough Syrup (2 tsp TDS)",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Syrup Alex Cough Syrup (2 tsp TDS)",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Paracetamol",
+              "generic_name": null,
+              "strength": "500mg",
+              "dosage_form": "Tab",
+              "dose": null,
+              "route": null,
+              "frequency": "SOS",
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tab. Paracetamol 500mg (SOS)",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Tab. Paracetamol 500mg (SOS)",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "diagnoses": [],
+          "symptoms": [],
+          "allergies": [],
+          "clinical_findings": [],
+          "vitals": [],
+          "prescription_date": null,
+          "follow_up_date": "21/08/2023",
+          "follow_up_instructions": null,
+          "general_instructions": [],
+          "additional_notes": []
+        },
+        "lab_report": null,
+        "discharge_summary": null,
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 0.9,
+          "needs_review": true,
+          "review_reasons": [
+            "Handwritten prescription requires careful verification of drug names and dosages."
+          ],
+          "note": "Automated vision extraction only. No field in this document constitutes independent clinical verification."
+        },
+        "evidence": [],
+        "completeness_audit": {
+          "sections_detected_in_source": [
+            "patient_info",
+            "provider_info",
+            "document_date",
+            "medications",
+            "follow_up"
+          ],
+          "sections_represented_in_output": [
+            "patient",
+            "provider",
+            "document_date",
+            "medications",
+            "follow_up"
+          ],
+          "sections_detected_but_not_represented": [],
+          "unmapped_content": []
+        },
+        "raw_text": null
+      },
+      "error": null
+    },
+    {
+      "document_id": "e7367086-1925-4928-b535-023cc64e959e",
+      "session_id": "mock_test_session",
+      "filename": "rx.png",
+      "content_type": "image/png",
+      "file_type": "PNG",
+      "file_size": 101,
+      "document_type": "PRESCRIPTION",
+      "status": "COMPLETED",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "e7367086-1925-4928-b535-023cc64e959e",
+        "session_id": "mock_test_session",
+        "document_type": "PRESCRIPTION",
+        "metadata": {
+          "document_title": null,
+          "document_date": null,
+          "patient": {
+            "name": "Aman Verma",
+            "age": null,
+            "sex": null,
+            "date_of_birth": null,
+            "patient_id": null,
+            "hospital_id": null,
+            "address": null,
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": null,
+            "physician_registration_number": null,
+            "facility_name": null,
+            "facility_address": null,
+            "department": null,
+            "specialty": null
+          }
+        },
+        "prescription": {
+          "medications": [
+            {
+              "name": "Azithromycin",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": null,
+              "dose": "500mg",
+              "route": null,
+              "frequency": null,
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": null,
+              "confidence": null
+            }
+          ],
+          "diagnoses": [],
+          "symptoms": [],
+          "allergies": [],
+          "clinical_findings": [],
+          "vitals": [],
+          "prescription_date": null,
+          "follow_up_date": null,
+          "follow_up_instructions": null,
+          "general_instructions": [],
+          "additional_notes": []
+        },
+        "lab_report": null,
+        "discharge_summary": null,
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 0.0,
+          "needs_review": false,
+          "review_reasons": [],
+          "note": null
+        },
+        "evidence": [],
+        "completeness_audit": null,
+        "raw_text": null
+      },
+      "error": null
+    },
+    {
+      "document_id": "a6386215-3b43-4788-9a97-22179576e86e",
+      "session_id": "mock_test_session",
+      "filename": "rx.png",
+      "content_type": "image/png",
+      "file_type": "PNG",
+      "file_size": 101,
+      "document_type": "PRESCRIPTION",
+      "status": "COMPLETED",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "a6386215-3b43-4788-9a97-22179576e86e",
+        "session_id": "mock_test_session",
+        "document_type": "PRESCRIPTION",
+        "metadata": {
+          "document_title": null,
+          "document_date": null,
+          "patient": {
+            "name": "Aman Verma",
+            "age": null,
+            "sex": null,
+            "date_of_birth": null,
+            "patient_id": null,
+            "hospital_id": null,
+            "address": null,
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": null,
+            "physician_registration_number": null,
+            "facility_name": null,
+            "facility_address": null,
+            "department": null,
+            "specialty": null
+          }
+        },
+        "prescription": {
+          "medications": [
+            {
+              "name": "Azithromycin",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": null,
+              "dose": "500mg",
+              "route": null,
+              "frequency": null,
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": null,
+              "confidence": null
+            }
+          ],
+          "diagnoses": [],
+          "symptoms": [],
+          "allergies": [],
+          "clinical_findings": [],
+          "vitals": [],
+          "prescription_date": null,
+          "follow_up_date": null,
+          "follow_up_instructions": null,
+          "general_instructions": [],
+          "additional_notes": []
+        },
+        "lab_report": null,
+        "discharge_summary": null,
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 0.0,
+          "needs_review": false,
+          "review_reasons": [],
+          "note": null
+        },
+        "evidence": [],
+        "completeness_audit": null,
+        "raw_text": null
+      },
+      "error": null
+    },
+    {
+      "document_id": "38c9c725-1fd0-4f23-83fd-c48b852628b1",
+      "session_id": "mock_test_session",
+      "filename": "rx.png",
+      "content_type": "image/png",
+      "file_type": "PNG",
+      "file_size": 101,
+      "document_type": "PRESCRIPTION",
+      "status": "COMPLETED",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "38c9c725-1fd0-4f23-83fd-c48b852628b1",
+        "session_id": "mock_test_session",
+        "document_type": "PRESCRIPTION",
+        "metadata": {
+          "document_title": null,
+          "document_date": null,
+          "patient": {
+            "name": "Aman Verma",
+            "age": null,
+            "sex": null,
+            "date_of_birth": null,
+            "patient_id": null,
+            "hospital_id": null,
+            "address": null,
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": null,
+            "physician_registration_number": null,
+            "facility_name": null,
+            "facility_address": null,
+            "department": null,
+            "specialty": null
+          }
+        },
+        "prescription": {
+          "medications": [
+            {
+              "name": "Azithromycin",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": null,
+              "dose": "500mg",
+              "route": null,
+              "frequency": null,
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": null,
+              "confidence": null
+            }
+          ],
+          "diagnoses": [],
+          "symptoms": [],
+          "allergies": [],
+          "clinical_findings": [],
+          "vitals": [],
+          "prescription_date": null,
+          "follow_up_date": null,
+          "follow_up_instructions": null,
+          "general_instructions": [],
+          "additional_notes": []
+        },
+        "lab_report": null,
+        "discharge_summary": null,
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 0.0,
+          "needs_review": false,
+          "review_reasons": [],
+          "note": null
+        },
+        "evidence": [],
+        "completeness_audit": null,
+        "raw_text": null
+      },
+      "error": null
+    },
+    {
+      "document_id": "bf760c2e-3f25-4211-ab21-e2f0e57ba95b",
+      "session_id": "live_test_session_101",
+      "filename": "screen.png",
+      "content_type": "image/png",
+      "file_type": "PNG",
+      "file_size": 572724,
+      "document_type": "PRESCRIPTION",
+      "status": "COMPLETED",
+      "ocr_confidence": null,
+      "extraction": {
+        "document_id": "bf760c2e-3f25-4211-ab21-e2f0e57ba95b",
+        "session_id": "live_test_session_101",
+        "document_type": "PRESCRIPTION",
+        "metadata": {
+          "document_title": null,
+          "document_date": "14/08/2024",
+          "patient": {
+            "name": "Rajesh Kumar",
+            "age": null,
+            "sex": "M",
+            "date_of_birth": null,
+            "patient_id": null,
+            "hospital_id": null,
+            "address": null,
+            "phone": null,
+            "blood_group": null
+          },
+          "provider": {
+            "physician_name": "Dr. A. K. Sen",
+            "physician_registration_number": null,
+            "facility_name": null,
+            "facility_address": null,
+            "department": null,
+            "specialty": "Cardiology & Internal Medicine"
+          }
+        },
+        "prescription": {
+          "medications": [
+            {
+              "name": "Tablet Augmentin",
+              "generic_name": null,
+              "strength": "625mg",
+              "dosage_form": "Tablet",
+              "dose": null,
+              "route": null,
+              "frequency": "1-0-1",
+              "duration": "5 days",
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tab. Tablet Augmentin 625mg (1-0-1) - 5 days",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Tab. Tablet Augmentin 625mg (1-0-1) - 5 days",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Pan-D",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Cap.",
+              "dose": null,
+              "route": null,
+              "frequency": "OD",
+              "duration": null,
+              "quantity": null,
+              "instructions": "Before food",
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Cap. Pan-D (OD) - Before food",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Cap. Pan-D (OD) - Before food",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Alex Cough Syrup",
+              "generic_name": null,
+              "strength": null,
+              "dosage_form": "Syrup",
+              "dose": "2 tsp",
+              "route": null,
+              "frequency": "TDS",
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Sypp. Alex Cough Syrup (2 tsp TDS)",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Sypp. Alex Cough Syrup (2 tsp TDS)",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            },
+            {
+              "name": "Paracetamol",
+              "generic_name": null,
+              "strength": "500mg",
+              "dosage_form": "Tab.",
+              "dose": null,
+              "route": null,
+              "frequency": "SOS",
+              "duration": null,
+              "quantity": null,
+              "instructions": null,
+              "start_date": null,
+              "end_date": null,
+              "prescribed_by": null,
+              "evidence": "Tab. Paracetamol 500mg (SOS)",
+              "confidence": {
+                "score": 0.9,
+                "status": "UNVERIFIED",
+                "source_text": "Tab. Paracetamol 500mg (SOS)",
+                "reason": null,
+                "extraction_confidence": 0.9,
+                "evidence_support": "explicit",
+                "verification_status": "not_independently_verified"
+              }
+            }
+          ],
+          "diagnoses": [],
+          "symptoms": [],
+          "allergies": [],
+          "clinical_findings": [],
+          "vitals": [],
+          "prescription_date": null,
+          "follow_up_date": "21/08/2023",
+          "follow_up_instructions": null,
+          "general_instructions": [],
+          "additional_notes": []
+        },
+        "lab_report": null,
+        "discharge_summary": null,
+        "radiology_report": null,
+        "verification": {
+          "overall_confidence": 0.9,
+          "needs_review": false,
+          "review_reasons": [],
+          "note": "Automated vision extraction only. No field in this document constitutes independent clinical verification."
+        },
+        "evidence": [],
+        "completeness_audit": {
+          "sections_detected_in_source": [
+            "patient information",
+            "provider",
+            "date",
+            "medications",
+            "follow_up"
+          ],
+          "sections_represented_in_output": [
+            "patient information",
+            "provider",
+            "date",
+            "medications",
+            "follow_up"
+          ],
+          "sections_detected_but_not_represented": [],
+          "unmapped_content": []
+        },
+        "raw_text": null
+      },
+      "error": null
+    }
+  ],
   "completed_visits": [
     {
       "id": "P-101",

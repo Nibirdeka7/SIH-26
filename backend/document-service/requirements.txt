@@ -12,6 +12,7 @@ PyMuPDF
 google-genai
 groq
 python-multipart
+pytest-asyncio
 # transformers
 # accelerate
 # torch

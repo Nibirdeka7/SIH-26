@@ -1,10 +1,14 @@
+import shutil
 from io import BytesIO
 
+import pytest
 import pymupdf
 from PIL import Image, ImageDraw
 
 from app.schemas.document import SupportedFileType
 from app.services.ocr_service import OCRService
+
+TESSERACT_AVAILABLE = shutil.which("tesseract") is not None
 
 
 def create_test_image() -> bytes:
@@ -100,6 +104,7 @@ def create_multi_page_pdf() -> bytes:
     return buffer
 
 
+@pytest.mark.skipif(not TESSERACT_AVAILABLE, reason="Tesseract OCR binary not installed on host")
 def test_ocr_png():
     service = OCRService()
 
@@ -129,6 +134,7 @@ def test_ocr_text_pdf():
     assert "John Doe" in result.text
 
 
+@pytest.mark.skipif(not TESSERACT_AVAILABLE, reason="Tesseract OCR binary not installed on host")
 def test_ocr_scanned_pdf():
     service = OCRService()
 

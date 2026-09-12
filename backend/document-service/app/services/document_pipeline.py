@@ -145,53 +145,43 @@ class DocumentPipeline:
         # 3. OCR / TEXT EXTRACTION
         # ==============================================================
 
+        ocr_result = None
+        raw_text = ""
+        use_vision = False
+
         try:
             ocr_result = self.ocr_service.process(
                 file_data=file_data,
                 file_type=file_type,
             )
+            raw_text = (ocr_result.text or "").strip()
+
+            routing_decision = self.confidence_router.route(ocr_result)
+            handwriting_override = should_escalate_for_handwriting(ocr_result)
+
+            use_vision = (
+                routing_decision
+                in (OCRRoutingDecision.USE_VISION, OCRRoutingDecision.NO_TEXT)
+                or handwriting_override
+            )
 
         except OCRProcessingError as exc:
             logger.warning(
-                "OCR failed: document_id=%s error=%s",
+                "OCR failed or unavailable: document_id=%s error=%s. "
+                "Escalating directly to vision extraction path.",
                 document_id,
                 exc,
             )
-
-            raise DocumentPipelineError(
-                "Document text extraction failed."
-            ) from exc
-
-        raw_text = (ocr_result.text or "").strip()
+            use_vision = True
 
         # ==============================================================
         # 3b. ROUTE: reliable OCR text vs vision escalation
         # ==============================================================
-        #
-        # This has to happen BEFORE the raw_text/verification gate below:
-        # the original motivating failure was a document whose garbled
-        # OCR text failed keyword-based verification even though the
-        # document itself was a legitimate, readable prescription - the
-        # vision path exists specifically to get a fair shot at exactly
-        # that case, rather than never being reached because the text
-        # path already rejected the document.
-
-        routing_decision = self.confidence_router.route(ocr_result)
-        handwriting_override = should_escalate_for_handwriting(ocr_result)
-
-        use_vision = (
-            routing_decision
-            in (OCRRoutingDecision.USE_VISION, OCRRoutingDecision.NO_TEXT)
-            or handwriting_override
-        )
 
         if use_vision:
             logger.info(
-                "Routing to vision extraction path: document_id=%s "
-                "ocr_routing=%s handwriting_heuristic=%s",
+                "Routing to vision extraction path: document_id=%s",
                 document_id,
-                routing_decision.value,
-                handwriting_override,
             )
 
             return await self._process_with_vision(
@@ -209,8 +199,18 @@ class DocumentPipeline:
         # ==============================================================
 
         if not raw_text:
-            raise DocumentPipelineError(
-                "No readable text could be extracted from the document."
+            logger.info(
+                "No readable text extracted; escalating to vision extraction: document_id=%s",
+                document_id,
+            )
+            return await self._process_with_vision(
+                document_id=document_id,
+                session_id=session_id,
+                validated=validated,
+                file_type=file_type,
+                file_data=file_data,
+                raw_text="",
+                requested_document_type=requested_document_type,
             )
 
         # ==============================================================
@@ -222,11 +222,27 @@ class DocumentPipeline:
         )
 
         if not verification.is_medical_document:
-            raise DocumentPipelineError(
-                verification.reason
-                or "Document could not be identified as a supported "
-                   "medical document."
+            logger.info(
+                "Text verification could not confirm medical document: document_id=%s. "
+                "Escalating to vision extraction path.",
+                document_id,
             )
+            try:
+                return await self._process_with_vision(
+                    document_id=document_id,
+                    session_id=session_id,
+                    validated=validated,
+                    file_type=file_type,
+                    file_data=file_data,
+                    raw_text=raw_text,
+                    requested_document_type=requested_document_type,
+                )
+            except DocumentPipelineError:
+                raise DocumentPipelineError(
+                    verification.reason
+                    or "Document could not be identified as a supported "
+                       "medical document."
+                )
 
         detected_document_type = verification.document_type
 
@@ -253,13 +269,24 @@ class DocumentPipeline:
 
         except Exception as exc:
             logger.exception(
-                "AI extraction failed: document_id=%s",
+                "AI extraction failed: document_id=%s. Attempting vision extraction fallback.",
                 document_id,
             )
 
-            raise DocumentPipelineError(
-                "Medical information extraction failed."
-            ) from exc
+            try:
+                return await self._process_with_vision(
+                    document_id=document_id,
+                    session_id=session_id,
+                    validated=validated,
+                    file_type=file_type,
+                    file_data=file_data,
+                    raw_text=raw_text,
+                    requested_document_type=requested_document_type,
+                )
+            except Exception:
+                raise DocumentPipelineError(
+                    "Medical information extraction failed."
+                ) from exc
 
         # ==============================================================
         # 7. PARSE AI JSON
@@ -351,12 +378,18 @@ class DocumentPipeline:
         if requested_document_type == DocumentType.UNKNOWN:
             return detected_document_type
 
+        # If detected is UNKNOWN, trust client-supplied type.
+        if detected_document_type == DocumentType.UNKNOWN:
+            return requested_document_type
+
         # Client and classifier disagree.
         if requested_document_type != detected_document_type:
-            raise DocumentPipelineError(
-                "The supplied document type does not match the "
-                "detected document type."
+            logger.warning(
+                "Document type mismatch: requested=%s detected=%s. Using detected type.",
+                requested_document_type,
+                detected_document_type,
             )
+            return detected_document_type
 
         return requested_document_type
 

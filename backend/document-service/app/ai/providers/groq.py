@@ -49,36 +49,70 @@ class GroqProvider(AIProvider):
         )
 
         try:
-            response = await self.client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": (
-                            "You are a medical document information "
-                            "extraction system. Follow the user's "
-                            "instructions exactly and return only "
-                            "structured JSON."
-                        ),
+            try:
+                response = await self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": (
+                                "You are a medical document information "
+                                "extraction system. Follow the user's "
+                                "instructions exactly and return only "
+                                "structured JSON."
+                            ),
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt,
+                        },
+                    ],
+                    response_format={
+                        "type": "json_object",
                     },
-                    {
-                        "role": "user",
-                        "content": prompt,
+                    reasoning_effort="medium",
+                    max_completion_tokens=16000,
+                )
+            except Exception as inner_e:
+                logger.info("Retrying Groq completion without reasoning_effort: %s", inner_e)
+                response = await self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": (
+                                "You are a medical document information "
+                                "extraction system. Follow the user's "
+                                "instructions exactly and return only "
+                                "structured JSON."
+                            ),
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt,
+                        },
+                    ],
+                    response_format={
+                        "type": "json_object",
                     },
-                ],
-                response_format={
-                    "type": "json_object",
-                },
-                reasoning_effort="medium",
-                max_completion_tokens=16000,
-            )
+                    max_completion_tokens=16000,
+                )
 
-            print("Finish reason:", response.choices[0].finish_reason)
-
-        except Exception:
-            logger.exception(
-                "Groq document extraction failed."
+        except Exception as exc:
+            logger.warning(
+                "Groq document extraction failed: %s. Attempting Gemini fallback if available.",
+                exc,
             )
+            if settings.GEMINI_API_KEY:
+                try:
+                    gemini_provider = GeminiProvider()
+                    return await gemini_provider.analyze_document(
+                        text=text,
+                        image_data=image_data,
+                        document_type=document_type,
+                    )
+                except Exception as gemini_exc:
+                    logger.exception("Gemini fallback also failed: %s", gemini_exc)
             raise
 
         response_text = (
